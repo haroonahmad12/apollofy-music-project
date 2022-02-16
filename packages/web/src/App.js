@@ -21,6 +21,7 @@ import TracksByGenre from "./pages/TracksByGenre";
 import Users from "./pages/Users";
 import Profile from "./pages/Profile";
 import Statistics from "./pages/Statistics";
+import Create from "./pages/Create";
 
 import { onAuthStateChanged } from "./services/auth";
 import { authSelector, syncSignIn, signOut } from "./store/auth";
@@ -31,7 +32,6 @@ import { lightTheme, darkTheme } from "./styles/Themes";
 import TrackCreateForm from "./components/organisms/forms/TrackForm/TrackCreateForm";
 import TrackUpdateForm from "./components/organisms/forms/TrackForm/TrackUpdateForm";
 import Toggle from "./components/atoms/toggles/Switch";
-import Create from "./pages/Create";
 
 const PrivateWrapper = ({ auth: { isAuthenticated } }) => {
   return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;

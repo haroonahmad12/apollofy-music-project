@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-no-bind */
 import { Button } from "@mui/material";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
@@ -19,6 +18,7 @@ const MainDiv = styled.div`
   margin: auto;
   margin-top: 2rem;
 `;
+
 const InputDiv = styled.div`
   padding-right: 5px;
   padding-left: 5px;
@@ -61,7 +61,7 @@ const ImageThumb = styled.img`
 
 const EditProfile = () => {
   const { currentUser } = useSelector((state) => state?.entities.auth);
-  const profilePicture = currentUser.thumbnails.url_default;
+  const profilePicture = currentUser?.thumbnails.url_default;
 
   async function deleteMyProfile() {
     const userToken = await getCurrentUserToken();
@@ -104,7 +104,6 @@ const EditProfile = () => {
             onClick={() => {
               setOpenProfileModal(true);
               setProfilePicModal(true);
-
               setEmailModal(false);
               setPasswordModal(false);
               setUsernameModal(false);
@@ -128,7 +127,6 @@ const EditProfile = () => {
             onClick={() => {
               setEmailModal(true);
               setOpenProfileModal(true);
-
               setPasswordModal(false);
               setUsernameModal(false);
               setBirthdayModal(false);
@@ -150,7 +148,6 @@ const EditProfile = () => {
             onClick={() => {
               setUsernameModal(true);
               setOpenProfileModal(true);
-
               setPasswordModal(false);
               setEmailModal(false);
               setBirthdayModal(false);
@@ -172,7 +169,6 @@ const EditProfile = () => {
             onClick={() => {
               setBirthdayModal(true);
               setOpenProfileModal(true);
-
               setUsernameModal(false);
               setPasswordModal(false);
               setEmailModal(false);
@@ -194,7 +190,6 @@ const EditProfile = () => {
             onClick={() => {
               setPasswordModal(true);
               setOpenProfileModal(true);
-
               setUsernameModal(false);
               setEmailModal(false);
               setBirthdayModal(false);
@@ -210,7 +205,11 @@ const EditProfile = () => {
         Delete Profile
       </Button>
 
-      <ConfirmationModal open={open} handleClose={handleClose} deleteMyProfile={deleteMyProfile} />
+      <ConfirmationModal
+        open={open}
+        handleClose={() => handleClose}
+        deleteMyProfile={() => deleteMyProfile}
+      />
 
       <UpdateProfileModal
         openProfileModal={openProfileModal}
