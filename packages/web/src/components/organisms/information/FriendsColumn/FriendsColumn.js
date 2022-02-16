@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { LinearProgress } from "@mui/material";
 
@@ -9,7 +9,6 @@ import FlexColumn from "../../../atoms/layout/FlexColumn";
 import HomeSmallText from "../../../atoms/body/HomeSmallText";
 import RightSideBar from "../../../atoms/layout/RightSideBar";
 import AddFriendsModal from "../../modals/AddFriendsModal";
-import { useEffect } from "react";
 
 const FriendsColumnLayout = styled(RightSideBar)`
   flex-direction: column;
@@ -30,7 +29,7 @@ const ColumnFlexStart = styled(FlexColumn)`
   margin-bottom: 1rem;
 `;
 
-export default function FriendsColumn() {
+function FriendsColumn() {
   const [isOpen, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const followedUsers = true;
@@ -77,3 +76,5 @@ export default function FriendsColumn() {
     </FriendsColumnLayout>
   );
 }
+
+export default FriendsColumn;

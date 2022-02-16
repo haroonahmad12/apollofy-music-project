@@ -9,11 +9,9 @@ import AccountSchema from "../../../../schemas/AccountSchema";
 import FlexColumn from "../../../atoms/layout/FlexColumn";
 import MiddleTitle from "../../../atoms/headings/MiddleTitle";
 import RegisterInput from "../../../atoms/input-controls/RegisterInput";
-import Button from "../../../atoms/buttons/Button";
-import { Input } from "@mui/material";
 import PrimaryButton from "../../../atoms/buttons/PrimaryButton";
 
-export default function AccountForm() {
+function AccountForm() {
   const dispatch = useDispatch();
   const { currentModal } = useSelector(modalSelector);
   const { currentUser } = useSelector(authSelector);
@@ -70,3 +68,5 @@ export default function AccountForm() {
     </Formik>
   );
 }
+
+export default AccountForm;

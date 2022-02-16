@@ -26,13 +26,6 @@ const StyledSpan = styled.span`
   }
 `;
 
-const StyledIcon = styled(StarOutlineIcon)`
-  @media only screen and (max-width: ${({ theme }) => theme.media.mobile}) {
-    margin-left: 11px;
-    border-radius: 100%;
-  }
-`;
-
 const ButtonFollowPlaylist = ({ id }) => {
   const { mutate } = useFollowPlaylist();
   const { data: user } = useFetchCurrentUser(true);

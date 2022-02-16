@@ -1,4 +1,3 @@
-import { Typography } from "@mui/material";
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
@@ -19,15 +18,6 @@ const PlaylistPic = styled.img`
   &:hover {
     opacity: 0.7;
   }
-`;
-
-const StyledTypography = styled(Typography)`
-  position: absolute;
-  top: 10%;
-  left: 35%;
-  font-weight: bold;
-  visibility: hidden;
-  opacity: 1;
 `;
 
 const PlaylistImage = ({ imageUrl, alt }) => {

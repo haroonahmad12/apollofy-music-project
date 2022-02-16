@@ -4,13 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import { authSelector, signUpWithEmailRequest } from "../../../../store/auth";
 import FlexColumn from "../../../atoms/layout/FlexColumn";
 import MiddleTitle from "../../../atoms/headings/MiddleTitle";
 import SmallText from "../../../atoms/body/SmallText";
-import PrimaryButton from "../../../atoms/buttons/PrimaryButton";
-
-import { authSelector, signUpWithEmailRequest } from "../../../../store/auth";
-import ButtonLoginModal from "../../../atoms/buttons/ButtonLoginModal/ButtonLoginModal";
+import ButtonLoginModal from "../../../atoms/buttons/ButtonLoginModal";
 
 const DescriptionArea = styled.textarea`
   width: 22rem;
