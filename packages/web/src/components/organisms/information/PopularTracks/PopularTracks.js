@@ -6,14 +6,13 @@ import TrackDetail from "../../../molecules/TrackDetail";
 import SmallText from "../../../atoms/body/SmallText";
 
 export const SectionLayout = styled.div`
-  margin-top: 2rem;
+  margin-top: 1.45rem;
   display: flex;
   flex-direction: column;
 `;
 
 export const TracksList = styled(SectionLayout)`
   margin-top: 0;
-  margin-bottom: 1rem;
   background-color: ${({ theme }) => theme.colors.background.secondary};
   border-radius: 1.25rem;
   padding: 1rem;

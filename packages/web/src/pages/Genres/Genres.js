@@ -6,6 +6,7 @@ import Tracks from "../../components/organisms/information/Tracks";
 import PlaylistImage from "../../components/atoms/images/PlaylistImage/PlaylistImage";
 
 import { useFetchGenre } from "../../hooks/useGenres";
+import SearchBar from "../../components/molecules/SearchBar";
 import {
   DescriptionDiv,
   MainText,
@@ -19,6 +20,7 @@ function GenresPage() {
   const { data: genre } = useFetchGenre(genreId);
   return (
     <>
+      <SearchBar />
       <PageLayout>
         <PictureDiv>
           <PlaylistImage src={genre?.thumbnails?.url_default} />

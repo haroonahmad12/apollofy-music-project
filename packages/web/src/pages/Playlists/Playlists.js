@@ -11,6 +11,7 @@ import PlaylistImage from "../../components/atoms/images/PlaylistImage";
 import SmallText from "../../components/atoms/body/SmallText";
 import ProfileOneStadistics from "../../components/atoms/body/ProfileOneStadistics/ProfileOneStadistics";
 import ProfilePlaylistTitle from "../../components/atoms/body/ProfilePlaylistTitle/ProfilePlaylistTitle";
+import SearchBar from "../../components/molecules/SearchBar";
 
 export const PageLayout = styled.div`
   display: flex;
@@ -56,6 +57,7 @@ function PlaylistsPage() {
 
   return (
     <>
+      <SearchBar />
       <PageLayout>
         <PictureDiv>
           <PlaylistImage picture={playlist?.thumbnails?.url_default} title={playlist?.title} />

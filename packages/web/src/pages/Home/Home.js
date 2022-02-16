@@ -9,9 +9,8 @@ import PopularGenres from "../../components/organisms/information/PopularGenres"
 
 const TracksLayout = styled.div`
   display: flex;
-  gap: 1.45rem;
   @media only screen and (max-width: ${({ theme }) => theme.media.desktop}) {
-    flex-direction: column;
+    flex-direction: column-reverse;
   }
 `;
 

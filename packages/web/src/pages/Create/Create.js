@@ -20,17 +20,23 @@ const NavBar = styled.nav`
 `;
 
 const FormContainer = styled.div`
-  margin: 1rem 0 0;
   border: 1px solid ${({ theme }) => theme.colors.background.secondary};
   padding: 1rem 0;
   border-radius: 1.25rem;
+`;
+
+const MainContainer = styled(Container)`
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  gap: 1.45rem;
 `;
 
 function CreatePage() {
   const [form, setForm] = useState("newTrack");
 
   return (
-    <Container as="main" style={{ padding: "0" }}>
+    <MainContainer as="main">
       <NavBar>
         <Button
           style={{ backgroundColor: 'transparent', padding: 0 }}
@@ -68,7 +74,7 @@ function CreatePage() {
         {form === "newAlbum" && <AlbumCreateForm />}
         {form === "newPlaylist" && <CreatePlaylistForm />}
       </FormContainer>
-    </Container>
+    </MainContainer>
   );
 }
 
