@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import PropTypes from "prop-types";
 import styled from "styled-components";
 import SVG from "react-inlinesvg";
 
@@ -44,7 +43,7 @@ const SelectedNavSVG = styled(SVG)`
   }
 `;
 
-export default function ControlBar({ theme, themeToggler }) {
+export default function ControlBar() {
   const { pathname } = useLocation();
 
   return (
@@ -58,17 +57,8 @@ export default function ControlBar({ theme, themeToggler }) {
       <Link to="/stats">
         {pathname === "/stats" ? <SelectedNavSVG src={StatsSVG} /> : <NavSVG src={StatsSVG} />}
       </Link>
-      <Toggle theme={theme} toggleTheme={themeToggler} />
+      <Toggle />
     </Bar>
   );
 }
 
-ControlBar.propTypes = {
-  theme: PropTypes.string,
-  themeToggler: PropTypes.func,
-};
-
-ControlBar.defaultProps = {
-  theme: "light",
-  themeToggler: null,
-};

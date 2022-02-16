@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import styled, { ThemeProvider } from "styled-components";
+import styled from "styled-components";
 import { toast } from "react-toastify";
 import CookieConsent from "react-cookie-consent";
 
@@ -25,9 +25,6 @@ import DescriptionForm from "../../components/organisms/forms/DescriptionForm";
 import SigninForm from "../../components/organisms/forms/SigninForm";
 import Button from "../../components/atoms/buttons/Button";
 import FlexColumn from "../../components/atoms/layout/FlexColumn";
-import { lightTheme, darkTheme } from "../../styles/Themes";
-import { GlobalStyles } from "../../styles/GlobalStyles";
-import { useDarkMode } from "../../hooks/useDarkMode";
 
 const MainFlex = styled.div`
   height: 100vh;
@@ -77,9 +74,6 @@ export default function Login() {
   const [resetPassModalIsOpen, setResetPassModalOpen] = useState(false);
   const [signinIsOpen, setSigninIsOpen] = useState(false);
 
-  const [theme, themeToggler] = useDarkMode();
-  const themeMode = theme === "light" ? lightTheme : darkTheme;
-
   useEffect(() => {
     dispatch(resetAuthState());
   }, [dispatch]);
@@ -118,8 +112,7 @@ export default function Login() {
   }
 
   return (
-    <ThemeProvider theme={themeMode}>
-      <GlobalStyles />
+    <>
       <MainFlex>
         <LoginBoard />
         <FlexColumn>
@@ -184,6 +177,6 @@ export default function Login() {
       >
         Our webpage uses technical cookies for the basic functionality of the site
       </CookieBar>
-    </ThemeProvider>
+    </>
   );
 }

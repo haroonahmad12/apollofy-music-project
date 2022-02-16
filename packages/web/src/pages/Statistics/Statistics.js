@@ -41,7 +41,7 @@ const NameSpan = styled.span`
 `;
 
 const ChartBody = styled.div`
-  margin-top: 1rem;
+  margin-top: 1.45rem;
   width: 100%;
   border-radius: 50px;
   background-color: ${({ theme }) => theme.colors.background.secondary};
