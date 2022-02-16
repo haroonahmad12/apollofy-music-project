@@ -24,15 +24,11 @@ import withLayout from "../../components/hoc/withLayout";
 import FlexColumn from "../../components/atoms/layout/FlexColumn";
 
 const NavBar = styled.nav`
-  margin-top: 2rem;
   width: 100%;
   display: flex;
   justify-content: space-evenly;
   background-color: ${({ theme }) => theme.colors.background.secondary};
   border-radius: 9999px;
-  @media only screen and (max-width: ${({ theme }) => theme.media.tablet}) {
-    margin-top: 5rem;
-  }
 `;
 
 const NameSpan = styled.span`
