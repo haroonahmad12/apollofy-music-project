@@ -123,7 +123,7 @@ const Button = ({
 
 Button.propTypes = {
   btnColor: PropTypes.string,
-  children: PropTypes.string,
+  children: PropTypes.array,
   disabled: PropTypes.bool,
   labelColor: PropTypes.string,
   onClick: PropTypes.func,

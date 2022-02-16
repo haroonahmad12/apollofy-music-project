@@ -17,41 +17,39 @@ const GenreTitle = styled(SmallText)`
   @media only screen and (max-width: ${({ theme }) => theme.media.mobile}) {
     font-size: 2rem;
   }
- 
 `;
 
 const GenreLink = styled(Link)`
   text-decoration: none;
 `;
 
-const GenreDetail = ({ genre }) => {
-  const GenreLayout = styled.div`
-    font-weight: 600;
-    cursor: pointer;
-    height: 6rem;
-    border-radius: 1.25rem;
-    padding: 0.3rem;
-    display: flex;
-    justify-content: center;
-    border: 1px solid ${({ theme }) => theme.colors.border};
-    text-align: center;
-    overflow: hidden;
-    background-size: cover;
-    background-image: url(${genre.thumbnails.url_default});
-
-     &:hover{
+const GenreLayout = styled.div`
+  font-weight: 600;
+  cursor: pointer;
+  height: 6rem;
+  border-radius: 1.25rem;
+  padding: 0.3rem;
+  display: flex;
+  justify-content: center;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  text-align: center;
+  overflow: hidden;
+  background-size: cover;
+  &:hover{
     opacity:0.8;
   }
 
-    @media only screen and (max-width: ${({ theme }) => theme.media.mobile}) {
-      height: 3.5rem;
-    }
-  `;
+  @media only screen and (max-width: ${({ theme }) => theme.media.mobile}) {
+    height: 3.5rem;
+  }
+`;
+
+const GenreDetail = ({ genre }) => {
 
   return (
-    <GenreLink to={`/genres/${genre.id}`}>
-      <GenreLayout>
-        <GenreTitle>{genre.name}</GenreTitle>
+    <GenreLink to={`/genres/${genre?.id}`}>
+      <GenreLayout style={{ backgroundImage: `url(${genre?.thumbnails.url_default})` }}>
+        <GenreTitle>{genre?.name}</GenreTitle>
       </GenreLayout>
     </GenreLink>
   );
@@ -66,6 +64,8 @@ GenreDetail.propTypes = {
       url_medium: PropTypes.string,
       url_large: PropTypes.string,
     }),
+    created_at: PropTypes.string,
+    updated_at: PropTypes.string,
   }),
 };
 
@@ -78,6 +78,8 @@ GenreDetail.defaultProps = {
       url_medium: null,
       url_large: null,
     },
+    created_at: null,
+    updated_at: null,
   },
 };
 

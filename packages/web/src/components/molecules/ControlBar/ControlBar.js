@@ -1,12 +1,11 @@
-import React   from "react";
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
-
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import SVG from "react-inlinesvg";
 
 import ScoreSVG from "../../../assets/score.svg";
 import HomeSVG from "../../../assets/home.svg";
-import SearchSVG from "../../../assets/search.svg";
 import StatsSVG from "../../../assets/bar_chart.svg";
 import Toggle from "../../atoms/toggles/Switch/Switch";
 
@@ -45,7 +44,6 @@ const SelectedNavSVG = styled(SVG)`
   }
 `;
 
-// eslint-disable-next-line react/prop-types
 export default function ControlBar({ theme, themeToggler }) {
   const { pathname } = useLocation();
 
@@ -57,9 +55,6 @@ export default function ControlBar({ theme, themeToggler }) {
       <Link to="/create">
         {pathname === "/create" ? <SelectedNavSVG src={ScoreSVG} /> : <NavSVG src={ScoreSVG} />}
       </Link>
-      <Link to="/search">
-        {pathname === "/search" ? <SelectedNavSVG src={SearchSVG} /> : <NavSVG src={SearchSVG} />}
-      </Link>
       <Link to="/stats">
         {pathname === "/stats" ? <SelectedNavSVG src={StatsSVG} /> : <NavSVG src={StatsSVG} />}
       </Link>
@@ -67,3 +62,13 @@ export default function ControlBar({ theme, themeToggler }) {
     </Bar>
   );
 }
+
+ControlBar.propTypes = {
+  theme: PropTypes.string,
+  themeToggler: PropTypes.func,
+};
+
+ControlBar.defaultProps = {
+  theme: "light",
+  themeToggler: null,
+};
