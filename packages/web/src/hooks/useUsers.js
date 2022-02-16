@@ -75,6 +75,27 @@ export function useUpdateUser() {
   return mutation;
 }
 
+export function useDeleteUser() {
+  const queryClient = useQueryClient();
+  const mutation = useMutation(
+    async (user) => {
+      const authToken = await authService.getCurrentUserToken();
+
+      if (authToken) return usersApi.deleteUser(authToken);
+
+      return Promise.reject(new Error("User authentication required"));
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("current-user");
+        queryClient.invalidateQueries("followed-users");
+      },
+    },
+  );
+
+  return mutation;
+}
+
 export function useFollowUser() {
   const queryClient = useQueryClient();
   const mutation = useMutation(

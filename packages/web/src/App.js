@@ -69,7 +69,7 @@ function App() {
       <>
         <Routes>
           <Route path={ROUTES.ALBUMS} element={<Albums />} />
-          <Route path={`${ROUTES.PLAYLISTS}/:playlistId`}  element={<Playlists />} />
+          <Route path={`${ROUTES.PLAYLISTS}/:playlistId`} element={<Playlists />} />
           <Route path={`${ROUTES.USERS}/:profileId`} element={<Profile />} />
           <Route path={`${ROUTES.GENRES}/:genreId`} element={<Genres />} />
           <Route path={ROUTES.PLAYLISTS} element={<Playlists />} />
@@ -82,10 +82,12 @@ function App() {
           <Route path={ROUTES.RESET_PASSWORD} element={<ResetPassword />} />
           <Route path={`${ROUTES.TRACK}/add`} element={<TrackCreateForm />} />
           <Route path={`${ROUTES.TRACK}/update/:id`} element={<TrackUpdateForm />} />
-          {isAuthenticated && (
+          {isAuthenticated ? (
             <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>
               <Route path={ROUTES.HOME} exact element={<Home />} />
             </Route>
+          ) : (
+            <Route path={ROUTES.HOME} exact element={<Login />} />
           )}
           {isAuthenticated && (
             <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>

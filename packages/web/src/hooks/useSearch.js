@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import searchApi from "../api/api-search";
-import { queryKeys } from "../queries/constants";
+import queryKeys from "../queries/constants";
 
 export function useSearch(input = null, currentPage = 1) {
   const fallback = [];
