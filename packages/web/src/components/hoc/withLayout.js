@@ -11,6 +11,7 @@ import ControlBar from "../molecules/ControlBar";
 import FlexColumn from "../atoms/layout/FlexColumn";
 import { lightTheme, darkTheme } from "../../styles/Themes";
 import { GlobalStyles } from "../../styles/GlobalStyles";
+import SearchBar from "../molecules/SearchBar/SearchBar";
 
 const MainLayout = styled.main`
   display: flex;
@@ -44,43 +45,37 @@ const RightFlex = styled(FlexColumn)`
 
 function withLayout(WrappedComponent) {
   function WrapperComponent({ ...props }) {
-    const [theme, themeToggler] = useDarkMode();
-
-    const themeMode = theme === "light" ? lightTheme : darkTheme;
-
     return (
-      <ThemeProvider theme={themeMode}>
-        <GlobalStyles />
-        <>
-          {isBrowser && (
-            <>
-              <MainLayout>
-                <ControlBar theme={theme} themeToggler={themeToggler} />
-                <PageContent>
-                  <WrappedComponent {...props} />
-                </PageContent>
-                <RightFlex>
-                  <MenuBar />
-                  <FriendsColumn />
-                  <Footer />
-                </RightFlex>
-              </MainLayout>
-              <AudioPlayer />
-            </>
-          )}
-          {isMobile && (
-            <>
-              <MainLayout>
-                <PageContent>
-                  <WrappedComponent {...props} />
-                </PageContent>
-              </MainLayout>
-              <AudioPlayer />
-              <ControlBar theme={theme} themeToggler={themeToggler} />
-            </>
-          )}
-        </>
-      </ThemeProvider>
+      <>
+        {isBrowser && (
+          <>
+            <MainLayout>
+              <ControlBar />
+              <PageContent>
+                {/* <SearchBar /> */}
+                <WrappedComponent {...props} />
+              </PageContent>
+              <RightFlex>
+                <MenuBar />
+                <FriendsColumn />
+                <Footer />
+              </RightFlex>
+            </MainLayout>
+            <AudioPlayer />
+          </>
+        )}
+        {isMobile && (
+          <>
+            <MainLayout>
+              <PageContent>
+                <WrappedComponent {...props} />
+              </PageContent>
+            </MainLayout>
+            <AudioPlayer />
+            <ControlBar />
+          </>
+        )}
+      </>
     );
   }
   return WrapperComponent;

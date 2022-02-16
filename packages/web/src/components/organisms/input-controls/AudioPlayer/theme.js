@@ -4,7 +4,7 @@ import { deepmerge } from "@mui/utils";
 export default function getTheme(mode) {
   // define light palette for light mode
   const lightPalette = {
-    primary: { main: "#007FFF" },
+    primary: { main: "rgb(176, 74, 255)" },
     secondary: { main: "#9c27b0" },
     divider: "#E5E8EC",
     action: {
@@ -24,10 +24,10 @@ export default function getTheme(mode) {
 
   // define light palette for dark mode
   const darkPalette = {
-    primary: { main: "#5090D3" },
+    primary: { main: "rgb(176, 74, 255)" },
     secondary: { main: "#ce93d8" },
     background: {
-      paper: "#0A1929",
+      paper: "#0E0E0E",
     },
     action: {
       active: "#fff",
@@ -54,91 +54,10 @@ export default function getTheme(mode) {
   });
 
   // create component overrieds for dark mode
-  const darkComponents = {
-    MuiSlider: {
-      styleOverrides: {
-        // some csss
-        root: {
-          color: "white",
-        },
-        thumb: {
-          color: "white",
-          width: 8,
-          height: 8,
-          transition: "0.3s cubic-bezier(.47,1.64,.41,.8)",
-        },
-      },
-    },
-  };
-
-  // create components overrides for light mode
-  const lightComponents = {
-    MuiIconButton: {
-      defaultProps: {
-        color: "primary",
-      },
-    },
-
-    MuiSlider: {
-      styleOverrides: {
-        root: {
-          color: "black",
-        },
-        thumb: {
-          color: "gray",
-        },
-      },
-    },
-  };
-
   // create common components overrides for both modes
-  const commonStyleOverrides = {
-    MuiPaper: {
-      styleOverrides: {
-        root: {
-          borderRadius: "10px 10px 0 0",
-          // make background transparent by reapplying theme background paper
-          // alpha is a convinience function for generating css color string with alpha channel
-          backgroundColor: alpha(theme.palette.background.paper, 0.8),
-          backdropFilter: "blur(40px)",
-        },
-      },
-    },
-    MuiToggleButton: {
-      defaultProps: {
-        color: "primary",
-      },
-    },
-
-    MuiSlider: {
-      styleOverrides: {
-        thumb: {
-          width: 8,
-          height: 8,
-          transition: "0.3s cubic-bezier(.47,1.64,.41,.8)",
-          "&:before": {
-            boxShadow: "0 2px 1px 0 rgba(0,0,0,0.4)",
-          },
-          ":hover, &.Mui-focusVisible": {
-            height: 15,
-            width: 15,
-            boxShadow: "0px 0px 0px 8px rgb(0 0 0 / 16%)",
-          },
-          "&.Mui-active": {
-            width: 20,
-            height: 20,
-          },
-        },
-      },
-    },
-  };
 
   // deepmerge common styles overrides with light or dark components overrides depending on mode
-  const mergedComponentStyles =
-    mode === "light"
-      ? deepmerge({ components: commonStyleOverrides }, { components: lightComponents })
-      : deepmerge({ components: commonStyleOverrides }, { components: darkComponents });
 
   // create
-  return createTheme(theme, mergedComponentStyles);
+  return createTheme(theme);
 }
