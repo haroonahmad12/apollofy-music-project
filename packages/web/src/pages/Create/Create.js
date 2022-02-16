@@ -10,6 +10,10 @@ import TrackCreateForm from "../../components/organisms/forms/TrackForm/TrackCre
 import AlbumCreateForm from "../../components/organisms/forms/AlbumForm/AlbumCreateForm";
 import CreatePlaylistForm from "../../components/organisms/forms/CreatePlaylistForm/CreatePlaylistForm";
 import Button from "../../components/atoms/buttons/Button";
+import { useSelector } from "react-redux";
+import { themeSelector } from "../../store/theme";
+import makeTheme from "../../styles/audioPlayerTheme";
+import ThemeProvider from "@mui/material/styles/ThemeProvider";
 
 const NavBar = styled.nav`
   display: flex;
@@ -35,46 +39,61 @@ const MainContainer = styled(Container)`
 function CreatePage() {
   const [form, setForm] = useState("newTrack");
 
+  const { theme } = useSelector(themeSelector);
+
+  const mode = makeTheme(theme);
+
   return (
-    <MainContainer as="main">
-      <NavBar>
-        <Button
-          style={{ backgroundColor: 'transparent', padding: 0 }}
-          labelColor={({ theme }) => theme.color.text}
-          onClick={() => {
-            setForm("newTrack");
-          }}
-        >
-          <MusicNote />
-          Add track
-        </Button>
-        <Button
-          style={{ backgroundColor: 'transparent', padding: 0 }}
-          labelColor={({ theme }) => theme.color.text}
-          onClick={() => {
-            setForm("newAlbum");
-          }}
-        >
-          <Album />
-          Add album
-        </Button>
-        <Button
-          style={{ backgroundColor: 'transparent', padding: 0 }}
-          labelColor={({ theme }) => theme.color.text}
-          onClick={() => {
-            setForm("newPlaylist");
-          }}
-        >
-          <PlaylistAddIcon />
-          Add playlist
-        </Button>
-      </NavBar>
-      <FormContainer>
-        {form === "newTrack" && <TrackCreateForm />}
-        {form === "newAlbum" && <AlbumCreateForm />}
-        {form === "newPlaylist" && <CreatePlaylistForm />}
-      </FormContainer>
-    </MainContainer>
+    <ThemeProvider theme={mode}>
+      <MainContainer as="main">
+        <NavBar>
+          <Button
+            style={{
+              backgroundColor: "transparent",
+              padding: 0,
+              color: theme === "light" ? "black" : "white",
+            }}
+            onClick={() => {
+              setForm("newTrack");
+            }}
+          >
+            <MusicNote />
+            Add track
+          </Button>
+          <Button
+            style={{
+              backgroundColor: "transparent",
+              padding: 0,
+              color: theme === "light" ? "black" : "white",
+            }}
+            onClick={() => {
+              setForm("newAlbum");
+            }}
+          >
+            <Album />
+            Add album
+          </Button>
+          <Button
+            style={{
+              backgroundColor: "transparent",
+              padding: 0,
+              color: theme === "light" ? "black" : "white",
+            }}
+            onClick={() => {
+              setForm("newPlaylist");
+            }}
+          >
+            <PlaylistAddIcon />
+            Add playlist
+          </Button>
+        </NavBar>
+        <FormContainer>
+          {form === "newTrack" && <TrackCreateForm />}
+          {form === "newAlbum" && <AlbumCreateForm />}
+          {form === "newPlaylist" && <CreatePlaylistForm />}
+        </FormContainer>
+      </MainContainer>
+    </ThemeProvider>
   );
 }
 

@@ -21,6 +21,7 @@ import {
 import { LoadingButton } from "@mui/lab";
 import { uploadResource } from "../../../../api/api-cloudinary";
 import { useFetchUserTracks } from "../../../../hooks/useTracks";
+import FormHeading from "../../../atoms/headings/FormHeading";
 
 const allowedImageExt = ["jpg", "jpeg", "png"];
 
@@ -94,7 +95,7 @@ function AlbumCreateForm() {
 
   return (
     <Container as="div">
-      <Typography sx={{ fontSize: "2rem", fontWeight: "light", mb: 2 }}>Add album</Typography>
+      <FormHeading>Add album</FormHeading>
       {setAlbumIsSuccess && (
         <Alert sx={{ mb: 2 }} severity={setAlbumResponse.data.success ? "success" : "error"}>
           {setAlbumResponse.data.message}

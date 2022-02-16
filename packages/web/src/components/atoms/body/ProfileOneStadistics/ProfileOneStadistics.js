@@ -16,7 +16,7 @@ const SpanText = styled.div`
   display: inline;
   color: ${({ theme }) => theme.colors.text};
   @media only screen and (max-width: ${({ theme }) => theme.media.tablet}) {
-    display: none;
+    display: inline;
   }
 `;
 
