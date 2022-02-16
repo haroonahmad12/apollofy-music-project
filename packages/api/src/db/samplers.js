@@ -1,5 +1,5 @@
 const faker = require("faker");
-const { getRandomItems, getRandomIndex, getRandomSequence } = require("../utils");
+const { getRandomItems, getRandomIndex, getRandomSequence } = require("../controllers/utils");
 
 function createSampleUser() {
   return {

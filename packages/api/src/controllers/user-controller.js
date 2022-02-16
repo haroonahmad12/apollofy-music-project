@@ -53,7 +53,7 @@ async function signIn(req, res, next) {
   }
 }
 
-async function signOut(req, res) {
+async function signOut(req, res, next) {
   try {
     const { email } = req.user;
 
@@ -219,7 +219,7 @@ async function updateUser(req, res, next) {
     }
 
     return res.status(200).send({
-      data: null,
+      data: dbRes,
       success: true,
       message: "User updated successfully",
     });
