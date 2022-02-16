@@ -68,20 +68,20 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <>
         <Routes>
-          <Route path="albums" element={<Albums />} />
-          <Route path="playlists/:playlistId" element={<Playlists />} />
-          <Route path="users/:profileId" element={<Profile />} />
-          <Route path="genres/:genreId" element={<Genres />} />
-          <Route path="playlists" element={<Playlists />} />
-          <Route path="create" element={<Create />} />
-          <Route path="users" element={<Users />} />
-          <Route path="stats" element={<Statistics />} />
-          <Route path="tracks/:genre" element={<TracksByGenre />} />
+          <Route path={ROUTES.ALBUMS} element={<Albums />} />
+          <Route path={`${ROUTES.PLAYLISTS}/:playlistId`}  element={<Playlists />} />
+          <Route path={`${ROUTES.USERS}/:profileId`} element={<Profile />} />
+          <Route path={`${ROUTES.GENRES}/:genreId`} element={<Genres />} />
+          <Route path={ROUTES.PLAYLISTS} element={<Playlists />} />
+          <Route path={ROUTES.CREATE_PLAYLIST} element={<Create />} />
+          <Route path={ROUTES.USERS} element={<Users />} />
+          <Route path={ROUTES.STATS} element={<Statistics />} />
+          <Route path={`${ROUTES.TRACKS}/:genre`} element={<TracksByGenre />} />
           <Route path={ROUTES.SIGN_UP} element={<SignUp />} />
           <Route path={ROUTES.LOGIN} element={<Login />} />
           <Route path={ROUTES.RESET_PASSWORD} element={<ResetPassword />} />
-          <Route path="track/add" element={<TrackCreateForm />} />
-          <Route path="track/update/:id" element={<TrackUpdateForm />} />
+          <Route path={`${ROUTES.TRACK}/add`} element={<TrackCreateForm />} />
+          <Route path={`${ROUTES.TRACK}/update/:id`} element={<TrackUpdateForm />} />
           {isAuthenticated && (
             <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>
               <Route path={ROUTES.HOME} exact element={<Home />} />
