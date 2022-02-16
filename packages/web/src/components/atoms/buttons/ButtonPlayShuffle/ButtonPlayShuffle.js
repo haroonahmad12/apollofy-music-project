@@ -18,17 +18,19 @@ const ColorButton = styled(Button)({
 
 const ButtonPlaySuffle = ({ tracks }) => {
   const playRandom = () => {
-    const random = tracks[Math.floor(Math.random() * tracks.length)];
+    if (tracks.length > 0) {
+      const random = tracks[Math.floor(Math.random() * tracks.length)];
 
-    PlayerInterface.play([
-      new Track(
-        random.id,
-        random?.thumbnails?.url_default,
-        random?.title,
-        random?.user?.username,
-        random.url,
-      ),
-    ]);
+      PlayerInterface.play([
+        new Track(
+          random.id,
+          random?.thumbnails?.url_default,
+          random?.title,
+          random?.user?.username,
+          random.url,
+        ),
+      ]);
+    }
   };
   return (
     <Stack spacing={2} direction="row">
