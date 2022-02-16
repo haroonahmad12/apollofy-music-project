@@ -1,7 +1,8 @@
-import ThemeProvider from "@mui/material/styles/ThemeProvider";
 import React from "react";
-import Player from "react-material-music-player";
 import { useSelector } from "react-redux";
+import Player from "react-material-music-player";
+
+import ThemeProvider from "@mui/material/styles/ThemeProvider";
 import { themeSelector } from "../../../../store/theme";
 import makeTheme from "./theme";
 
