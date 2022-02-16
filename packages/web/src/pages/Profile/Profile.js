@@ -11,11 +11,10 @@ import withLayout from "../../components/hoc/withLayout";
 import ProfileMain from "../../components/organisms/information/ProfileMain";
 import ProfileUserCards from "../../components/organisms/information/ProfileUserCards";
 import ProfileUserTracks from "../../components/organisms/information/ProfileUserTracks";
-import ProfileGroupButtons from "../../components/molecules/ProfileGroupButtons";
 import AlbumModal from "../../components/organisms/modals/AlbumModal/AlbumModal";
 import PlaylistModal from "../../components/organisms/modals/PlaylistModal";
-import ButtonPlaySuffle from "../../components/molecules/ButtonPlayShuffle";
 import SearchBar from "../../components/molecules/SearchBar";
+import ButtonPlaySuffle  from "../../components/molecules/ButtonPlayShuffle";
 
 const StyledProfile = styled.div`
   overflow: hidden;

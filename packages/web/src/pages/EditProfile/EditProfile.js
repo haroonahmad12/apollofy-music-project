@@ -75,8 +75,6 @@ const EditProfile = () => {
 
   const [open, setOpen] = useState(false);
   const [openProfileModal, setOpenProfileModal] = useState(false);
-  const [email, setEmailModal] = useState(false);
-  const [password, setPasswordModal] = useState(false);
   const [username, setUsernameModal] = useState(false);
   const [birthDate, setBirthdayModal] = useState(false);
   const [profilePic, setProfilePicModal] = useState(false);
@@ -104,33 +102,8 @@ const EditProfile = () => {
             onClick={() => {
               setOpenProfileModal(true);
               setProfilePicModal(true);
-              setEmailModal(false);
-              setPasswordModal(false);
               setUsernameModal(false);
               setBirthdayModal(false);
-            }}
-          >
-            <EditIcon />
-          </Button>
-        </InsideDiv>
-      </InputDiv>
-
-      <InputDiv>
-        <InsideDiv>
-          <InputLabel htmlFor="email-Input">Email</InputLabel>
-        </InsideDiv>
-        <InsideDiv>
-          <InputField>{currentUser.email}</InputField>
-          <Button
-            type="button"
-            size="small"
-            onClick={() => {
-              setEmailModal(true);
-              setOpenProfileModal(true);
-              setPasswordModal(false);
-              setUsernameModal(false);
-              setBirthdayModal(false);
-              setProfilePicModal(false);
             }}
           >
             <EditIcon />
@@ -141,15 +114,13 @@ const EditProfile = () => {
       <InputDiv>
         <InputLabel htmlFor="username">Username</InputLabel>
         <InsideDiv>
-          <InputField>{currentUser.username}</InputField>
+          <InputField>{currentUser?.username}</InputField>
           <Button
             type="button"
             size="small"
             onClick={() => {
               setUsernameModal(true);
               setOpenProfileModal(true);
-              setPasswordModal(false);
-              setEmailModal(false);
               setBirthdayModal(false);
               setProfilePicModal(false);
             }}
@@ -162,7 +133,7 @@ const EditProfile = () => {
       <InputDiv>
         <InputLabel htmlFor="birth_date">Birthday</InputLabel>
         <InsideDiv>
-          <InputField>{currentUser.birth_date}</InputField>
+          <InputField>{currentUser?.birth_date}</InputField>
           <Button
             type="button"
             size="small"
@@ -170,8 +141,6 @@ const EditProfile = () => {
               setBirthdayModal(true);
               setOpenProfileModal(true);
               setUsernameModal(false);
-              setPasswordModal(false);
-              setEmailModal(false);
               setProfilePicModal(false);
             }}
           >
@@ -180,10 +149,10 @@ const EditProfile = () => {
         </InsideDiv>
       </InputDiv>
 
-      <InputDiv>
+      {/* <InputDiv>
         <InputLabel htmlFor="username">Description</InputLabel>
         <InsideDiv>
-          <InputField>{currentUser.description}</InputField>
+          <InputField>{currentUser?.description}</InputField>
           <Button
             type="button"
             size="small"
@@ -191,8 +160,6 @@ const EditProfile = () => {
               setUsernameModal(true);
               setOpenProfileModal(true);
               setUsernameModal(false);
-              setPasswordModal(false);
-              setEmailModal(false);
               setBirthdayModal(false);
               setProfilePicModal(false);
             }}
@@ -200,7 +167,7 @@ const EditProfile = () => {
             <EditIcon />
           </Button>
         </InsideDiv>
-      </InputDiv>
+      </InputDiv> */}
 
       <Button variant="outlined" onClick={handleClickOpen}>
         Delete Profile
@@ -214,8 +181,6 @@ const EditProfile = () => {
 
       <UpdateProfileModal
         openProfileModal={openProfileModal}
-        email={email}
-        password={password}
         username={username}
         birthDay={birthDate}
         profilePic={profilePic}
