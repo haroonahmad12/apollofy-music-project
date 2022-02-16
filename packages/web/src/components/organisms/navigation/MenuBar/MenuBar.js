@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,7 +10,7 @@ import Paper from "@mui/material/Paper";
 import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+
 import defaultAvatar from "../../../../images/defaultAvatar.png";
 
 import * as ROUTES from "../../../../routes";
@@ -63,19 +64,6 @@ const MenuLogo = styled(KeyboardArrowDownIcon)`
   color: ${({ theme }) => theme.colors.text};
 `;
 
-const BackArrow = styled(ArrowBackIosIcon)`
-  display: none;
-  cursor: pointer;
-  @media only screen and (max-width: ${({ theme }) => theme.media.tablet}) {
-    margin-top: 1rem;
-    display: block;
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
-    border-radius: 100%;
-  }
-`;
-
 const CustomMenu = styled(MenuList)`
   display: flex;
   flex-direction: column;
@@ -121,10 +109,6 @@ function MenuBar() {
     navigate(`${ROUTES.USER_PROFILE}/${currentUser.id}`);
   };
 
-  const goHome = async () => {
-    navigate("/");
-  };
-
   function handleListKeyDown(event) {
     if (event.key === "Tab") {
       event.preventDefault();
@@ -146,11 +130,6 @@ function MenuBar() {
 
   return (
     <>
-      <BackArrow
-        onClick={() => {
-          goHome();
-        }}
-      />
       <MenuLayout>
         <ProfilePicture
           alt="Profile Picture"

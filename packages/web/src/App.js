@@ -42,10 +42,7 @@ const queryClient = new QueryClient();
 function App() {
   const dispatch = useDispatch();
   const [hasMounted, setHasMounted] = useState(false);
-  const [theme, themeToggler, mountedComponent] = useDarkMode();
   const { isAuthenticated } = useSelector(authSelector);
-
-  const themeMode = theme === "light" ? lightTheme : darkTheme;
 
   useEffect(() => {
     let unsubscribeFromAuth = null;
@@ -69,55 +66,45 @@ function App() {
     };
   }, [dispatch, hasMounted]);
 
-  if (!mountedComponent) return <div />;
+  // if (!mountedComponent) return <div />;
 
   return (
-    <ThemeProvider theme={themeMode}>
-      <QueryClientProvider client={queryClient}>
-        <>
-          <Toggle theme={theme} toggleTheme={themeToggler} />
-          <GlobalStyles />
-          <Routes>
-            <Route path="albums" element={<Albums />} />
-            <Route path="playlists/:playlistId" element={<Playlists />} />
-            <Route path="users/:profileId" element={<Profile />} />
-            <Route path="genres/:genreId" element={<Genres />} />
-            <Route path="playlists" element={<Playlists />} />
-            <Route path="create" element={<Create />} />
-            <Route path="users" element={<Users />} />
-            <Route path="stats" element={<Statistics />} />
-            <Route path="tracks/:genre" element={<TracksByGenre />} />
-            <Route path={ROUTES.SIGN_UP} element={<SignUp />} />
-            <Route path={ROUTES.LOGIN} element={<Login />} />
-            <Route path={ROUTES.RESET_PASSWORD} element={<ResetPassword />} />
-            <Route path="track/add" element={<TrackCreateForm />} />
-            <Route path="track/update/:id" element={<TrackUpdateForm />} />
-            {
-              isAuthenticated && (
-                <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>
-                  <Route path={ROUTES.HOME} exact element={<Home />} />
-                </Route>
-              )
-            }
-            {
-              isAuthenticated && (
-                <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>
-                  <Route path={ROUTES.EDIT_PROFILE} element={<EditProfile />} />
-                </Route>
-              )
-            }
-            {
-              isAuthenticated && (
-                <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>
-                  <Route path="*" element={<NotFound />} />
-                </Route>
-              )
-            }
-          </Routes >
-        </>
-        <ReactQueryDevtools />
-      </QueryClientProvider >
-    </ThemeProvider >
+    <QueryClientProvider client={queryClient}>
+      <>
+        <Routes>
+          <Route path="albums" element={<Albums />} />
+          <Route path="playlists/:playlistId" element={<Playlists />} />
+          <Route path="users/:profileId" element={<Profile />} />
+          <Route path="genres/:genreId" element={<Genres />} />
+          <Route path="playlists" element={<Playlists />} />
+          <Route path="create" element={<Create />} />
+          <Route path="users" element={<Users />} />
+          <Route path="stats" element={<Statistics />} />
+          <Route path="tracks/:genre" element={<TracksByGenre />} />
+          <Route path={ROUTES.SIGN_UP} element={<SignUp />} />
+          <Route path={ROUTES.LOGIN} element={<Login />} />
+          <Route path={ROUTES.RESET_PASSWORD} element={<ResetPassword />} />
+          <Route path="track/add" element={<TrackCreateForm />} />
+          <Route path="track/update/:id" element={<TrackUpdateForm />} />
+          {isAuthenticated && (
+            <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>
+              <Route path={ROUTES.HOME} exact element={<Home />} />
+            </Route>
+          )}
+          {isAuthenticated && (
+            <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>
+              <Route path={ROUTES.EDIT_PROFILE} element={<EditProfile />} />
+            </Route>
+          )}
+          {isAuthenticated && (
+            <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>
+              <Route path="*" element={<NotFound />} />
+            </Route>
+          )}
+        </Routes>
+      </>
+      <ReactQueryDevtools />
+    </QueryClientProvider>
   );
 }
 

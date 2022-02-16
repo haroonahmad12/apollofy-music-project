@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React   from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import styled from "styled-components";
@@ -8,6 +8,7 @@ import ScoreSVG from "../../../assets/score.svg";
 import HomeSVG from "../../../assets/home.svg";
 import SearchSVG from "../../../assets/search.svg";
 import StatsSVG from "../../../assets/bar_chart.svg";
+import Toggle from "../../atoms/toggles/Switch/Switch";
 
 const Bar = styled.nav`
   display: flex;
@@ -23,7 +24,7 @@ const Bar = styled.nav`
     justify-content: space-between;
     padding: 1rem 3rem;
     margin: 0;
-    background-color: ${({ theme }) => theme.colors.background.primary && "White"};
+    background-color: ${({ theme }) => theme.colors.background.primary};
     z-index: 1;
   }
 `;
@@ -44,7 +45,8 @@ const SelectedNavSVG = styled(SVG)`
   }
 `;
 
-export default function ControlBar() {
+// eslint-disable-next-line react/prop-types
+export default function ControlBar({ theme, themeToggler }) {
   const { pathname } = useLocation();
 
   return (
@@ -55,13 +57,13 @@ export default function ControlBar() {
       <Link to="/create">
         {pathname === "/create" ? <SelectedNavSVG src={ScoreSVG} /> : <NavSVG src={ScoreSVG} />}
       </Link>
-
       <Link to="/search">
         {pathname === "/search" ? <SelectedNavSVG src={SearchSVG} /> : <NavSVG src={SearchSVG} />}
       </Link>
       <Link to="/stats">
         {pathname === "/stats" ? <SelectedNavSVG src={StatsSVG} /> : <NavSVG src={StatsSVG} />}
       </Link>
+      <Toggle theme={theme} toggleTheme={themeToggler} />
     </Bar>
   );
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import AddBoxIcon from "@mui/icons-material/AddBox";
@@ -90,11 +90,9 @@ const Profile = () => {
       </StyledTitle>
       <ProfileUserCards data={playlists?.data?.data} />
       {isOpen && modal === "albums" && <AlbumModal isOpen={isOpen} handleModal={handleModal} />}
-      {
-        isOpen && modal === "playlists" && (
-          <PlaylistModal isOpen={isOpen} handleModal={handleModal} />
-        )
-      }
+      {isOpen && modal === "playlists" && (
+        <PlaylistModal isOpen={isOpen} handleModal={handleModal} />
+      )}
     </StyledProfile>
   );
 };
