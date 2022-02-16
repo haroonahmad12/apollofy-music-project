@@ -2,10 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 
 import HomeSmallText from "../../../atoms/body/HomeSmallText";
-import SmallText from "../../../atoms/body/SmallText";
 import FlexColumn from "../../../atoms/layout/FlexColumn";
 
 const CardLink = styled(Link)`
@@ -21,57 +19,47 @@ const CardLayout = styled(FlexColumn)`
   min-height: 90%;
 `;
 
-const HoverIcon = styled(PlayCircleIcon)`
-  position: absolute;
-  color: purple;
-  visibility: hidden;
-  transition: 1ms all;
-  width: 3rem;
-
-  ${CardLayout}:hover {
-    transition: 1ms all;
-    visibility: visible;
-  }
-`;
-
 const StyledPlaylistTitle = styled.p`
-  font: Readex Pro;
   color: white;
   font-size: 1.2rem;
   margin-bottom: 1rem;
   mix-blend-mode: difference;
-  letter-spacing:5px;
+  letter-spacing: 5px;
+  @media only screen and (max-width: ${({ theme }) => theme.media.mobile}) {
+    font-size: 1rem;
+  }
 `;
 
-export default function PlaylistCard(props) {
-  const { playlist } = props;
+const Card = styled.div`
+  font-weight: 600;
+  margin: 0.5rem;
+  padding: 1rem;
+  border-radius: 1.25rem;
+  height: 15rem;
+  max-width: 15rem;
+  transition: 1s;
+  background-size: cover;
+  background-position: center;
+  background-image: url(${(props) => props?.thumbnails?.url_default});
+`;
 
-  const Card = styled.div`
-    font-weight: 600;
-    margin: 0.5rem;
-    padding: 1rem;
-    border-radius: 1.25rem;
-    height: 15rem;
-    max-width: 15rem;
-    transition: 1s;
-    background-size: cover;
-    background-position: center;
-    background-image: url(${playlist.thumbnails.url_default});
-  `;
+function PlaylistCard(props) {
+  const { playlist } = props;
 
   return (
     <CardLink to={`/playlists/${playlist.id}`}>
-      <Card playlist={playlist}>
+      <Card thumbnails={playlist.thumbnails}>
         <HomeSmallText>{playlist.num_tracks} Tracks</HomeSmallText>
         <CardLayout>
           <StyledPlaylistTitle>{playlist.title}</StyledPlaylistTitle>
-          <HoverIcon />
           <HomeSmallText>{playlist.num_followers} listeners</HomeSmallText>
         </CardLayout>
       </Card>
     </CardLink>
   );
 }
+
+export default PlaylistCard;
 
 PlaylistCard.propTypes = {
   playlist: PropTypes.exact({

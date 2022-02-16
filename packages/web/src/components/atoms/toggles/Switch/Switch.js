@@ -1,17 +1,14 @@
 import React, { useState } from "react";
-import { func, string } from "prop-types";
 
 import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
-import { useDarkMode } from "../../../../hooks/useDarkMode";
 import { useDispatch, useSelector } from "react-redux";
 import { setDarkMode, setLightMode, themeSelector } from "../../../../store/theme";
 
 const Toggle = () => {
-  // const [theme, themeToggler] = useDarkMode();
   const dispatch = useDispatch();
 
   const { theme } = useSelector(themeSelector);
@@ -28,8 +25,6 @@ const Toggle = () => {
       dispatch(setLightMode());
     }
   };
-
-  console.log(mode);
 
   return (
     <Box

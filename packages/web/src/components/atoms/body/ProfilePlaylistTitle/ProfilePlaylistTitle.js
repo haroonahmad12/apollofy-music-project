@@ -28,8 +28,13 @@ const ProfilePlaylistTitle = ({ title, id }) => {
 };
 
 ProfilePlaylistTitle.propTypes = {
-  title: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  id: PropTypes.string,
+};
+
+ProfilePlaylistTitle.defaultProps = {
+  title: "",
+  id: "",
 };
 
 export default ProfilePlaylistTitle;
