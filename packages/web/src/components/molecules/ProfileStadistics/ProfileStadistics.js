@@ -8,7 +8,8 @@ const StadisticsDiv = styled.div`
   margin-bottom: 1rem;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
+  width: 100%;
 `;
 
 const ProfileStadistics = ({ tracks, followers, albums }) => {

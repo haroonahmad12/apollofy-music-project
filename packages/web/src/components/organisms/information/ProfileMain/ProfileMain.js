@@ -13,7 +13,6 @@ const ProfileContent = styled.div`
   border-radius: 1.25rem;
   background: ${({ theme }) => theme.colors.background.secondary};
   color: ${({ theme }) => theme.colors.text};
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   justify-content: center;
   @media only screen and (max-width: ${({ theme }) => theme.media.tablet}) {
     display: flex;

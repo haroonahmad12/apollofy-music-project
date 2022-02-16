@@ -22,11 +22,11 @@ const MenuLayout = styled(RightSideBar)`
   background-color: ${({ theme }) => theme.colors.background.secondary};
   z-index: 1;
   @media only screen and (max-width: ${({ theme }) => theme.media.tablet}) {
-    max-width: 4.5rem;
+    max-width: 3rem;
     position: absolute;
     top: 1rem;
     right: 1rem;
-    border-radius: 9999px;
+    border-radius: 1.25rem;
   }
 `;
 
@@ -38,7 +38,7 @@ const Button = styled.button`
   border-radius: 50%;
   cursor: pointer;
   @media only screen and (max-width: ${({ theme }) => theme.media.tablet}) {
-    display: block;
+    visibility: hidden;
   }
 `;
 
@@ -147,6 +147,7 @@ function MenuBar() {
           <MenuLogo />
         </Button>
         <Popper
+          // style={{ marginTop: "1.25rem", marginRight: "1.25rem" }}
           open={open}
           anchorEl={anchorRef.current}
           role={undefined}

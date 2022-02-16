@@ -6,12 +6,12 @@ const StyledNumber = styled.div`
   font-family: ${({ theme }) => theme.fonts.primary};
   color: grey;
   font-weight: 400;
-  font-size: 2rem;
+  font-size: 1.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 10%;
-  @media only screen and (max-width: ${({ theme }) => theme.media.tablet}) {
+  padding-right: 1rem;
+  @media only screen and (max-width: ${({ theme }) => theme.media.mobile}) {
     display: none;
   }
 `;

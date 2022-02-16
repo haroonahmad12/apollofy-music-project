@@ -7,7 +7,7 @@ import Button from "../../../atoms/buttons/Button";
 import FlexColumn from "../../../atoms/layout/FlexColumn";
 import HomeSmallText from "../../../atoms/body/HomeSmallText";
 import RightSideBar from "../../../atoms/layout/RightSideBar";
-import FriendInfo from "../../../molecules/FriendInfo";
+import FriendDetail from "../../../molecules/FriendDetail";
 import AddFriendsModal from "../../modals/AddFriendsModal";
 import { useEffect } from "react";
 
@@ -22,7 +22,7 @@ const FriendsColumnLayout = styled(RightSideBar)`
 
 const ColumnFlexStart = styled(FlexColumn)`
   align-items: start;
-  gap: 0.2rem;
+  gap: 0;
   height: auto;
   min-height: 5rem;
   max-height: 25rem;
@@ -57,7 +57,7 @@ export default function FriendsColumn() {
         {!isLoading &&
           isSuccess &&
           friendsList?.map((friend) => (
-            <FriendInfo
+            <FriendDetail
               key={friend.id}
               id={friend.id}
               profilePicture={friend.thumbnails?.url_default}

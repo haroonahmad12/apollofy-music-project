@@ -12,9 +12,10 @@ import ProfileMain from "../../components/organisms/information/ProfileMain";
 import ProfileUserCards from "../../components/organisms/information/ProfileUserCards";
 import ProfileUserTracks from "../../components/organisms/information/ProfileUserTracks";
 import ProfileGroupButtons from "../../components/molecules/ProfileGroupButtons";
-import ButtonPlaySuffle from "../../components/atoms/buttons/ButtonPlayShuffle";
 import AlbumModal from "../../components/organisms/modals/AlbumModal/AlbumModal";
 import PlaylistModal from "../../components/organisms/modals/PlaylistModal";
+import ButtonPlaySuffle from "../../components/molecules/ButtonPlayShuffle";
+import SearchBar from "../../components/molecules/SearchBar";
 
 const StyledProfile = styled.div`
   overflow: hidden;
@@ -56,7 +57,8 @@ const Profile = () => {
 
   return (
     <StyledProfile>
-      <ProfileGroupButtons />
+      {/* <ProfileGroupButtons /> */}
+      <SearchBar />
       <ProfileMain
         user={user?.data?.data}
         albums={albums?.data?.count}

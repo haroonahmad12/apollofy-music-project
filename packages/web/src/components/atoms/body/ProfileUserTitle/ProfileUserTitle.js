@@ -1,35 +1,34 @@
 import React from "react";
-import styled from "styled-components";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Typography } from "@mui/material";
+import { Box } from "@mui/system";
 
 import { authSelector } from "../../../../store/auth";
 import ButtonFollowUser from "../../buttons/ButtonFollowUser";
-
-const StyledTitleUser = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: 1rem;
-  color: ${({ theme }) => theme.colors.text};
-`;
 
 const ProfileUserTitle = ({ title, id }) => {
   const { currentUser } = useSelector(authSelector);
   const { profileId } = useParams();
 
   return (
-    <StyledTitleUser>
-      <div>
-        <Typography variant="h5">{title}</Typography>
-      </div>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        width: "100%",
+        pb: 2
+      }}
+    >
+      <Typography variant="h5">{title}</Typography>
       {currentUser.id !== profileId && (
         <div>
           <ButtonFollowUser id={id} />
         </div>
       )}
-    </StyledTitleUser>
+    </Box>
   );
 };
 

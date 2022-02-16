@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import { toast } from "react-toastify";
 import CookieConsent from "react-cookie-consent";
 
@@ -25,6 +25,9 @@ import DescriptionForm from "../../components/organisms/forms/DescriptionForm";
 import SigninForm from "../../components/organisms/forms/SigninForm";
 import Button from "../../components/atoms/buttons/Button";
 import FlexColumn from "../../components/atoms/layout/FlexColumn";
+import { lightTheme, darkTheme } from "../../styles/Themes";
+import { GlobalStyles } from "../../styles/GlobalStyles";
+import { useDarkMode } from "../../hooks/useDarkMode";
 
 const MainFlex = styled.div`
   height: 100vh;
@@ -74,6 +77,9 @@ export default function Login() {
   const [resetPassModalIsOpen, setResetPassModalOpen] = useState(false);
   const [signinIsOpen, setSigninIsOpen] = useState(false);
 
+  const [theme, themeToggler] = useDarkMode();
+  const themeMode = theme === "light" ? lightTheme : darkTheme;
+
   useEffect(() => {
     dispatch(resetAuthState());
   }, [dispatch]);
@@ -113,70 +119,73 @@ export default function Login() {
 
   return (
     <>
-      <MainFlex>
-        <LoginBoard />
-        <FlexColumn>
-          <Title>What&apos;s rocking right now</Title>
-          <Subtitle>Join today</Subtitle>
-          <Button btnColor="black" type="outline" onClick={(e) => handleLoginWithGoogle(e)}>
-            Sign up with Google
-          </Button>
-          <Button btnColor="black" type="outline" onClick={(e) => handleLoginWithFacebook(e)}>
-            Sign up with Facebook
-          </Button>
-          <Button btnColor="black" type="outline" onClick={handleModal} disabled={isSigningUp}>
-            Sign up with email
-          </Button>
-          <RegisterModal isOpen={isOpen} handleModal={handleModal}>
-            <>
-              {currentModal === 1 ? <AccountForm /> : null}
-              {currentModal === 2 ? <BirthDayForm /> : null}
-              {currentModal === 3 ? <ProfilePictureForm /> : null}
-              {currentModal === 4 ? <DescriptionForm /> : null}
-            </>
-          </RegisterModal>
-          <Subtitle>Already have an account?</Subtitle>
-          <Button btnColor="black" type="outline" onClick={handleSignIn} disabled={isSigningUp}>
-            Sign in
-          </Button>
-          <SignInModal signinIsOpen={signinIsOpen} handleModal={handleSignIn}>
-            <SigninForm />
-          </SignInModal>
-          {signUpError && <Section>{signUpError}</Section>}
-          <Section>
-            <hr />
-            <ResetButton onClick={handleResetPassModal}>Reset password</ResetButton>
-            <ResetPassModal
-              resetPassModalIsOpen={resetPassModalIsOpen}
-              handleResetPassModal={handleResetPassModal}
-            />
-          </Section>
-        </FlexColumn>
-      </MainFlex>
-      <CookieBar
-        location="bottom"
-        buttonText="Ok!"
-        cookieName="Stringifiers"
-        style={{ padding: "1rem 3rem" }}
-        buttonStyle={{
-          backgroundColor: "#B04AFF",
-          color: "#FFF",
-          fontSize: "0.9rem",
-          padding: "0.4rem 1.2rem",
-          borderRadius: "0.3rem",
-        }}
-        declineButtonStyle={{
-          backgroundColor: "#3A3A3A",
-          borderRadius: "0.3rem",
-          color: "#FFF",
-          fontSize: "0.9rem",
-          padding: "0.4rem",
-        }}
-        enableDeclineButton
-        flipButtons
-      >
-        Our webpage uses technical cookies for the basic functionality of the site
-      </CookieBar>
+      <ThemeProvider theme={themeMode}>
+        <GlobalStyles />
+        <MainFlex>
+          <LoginBoard />
+          <FlexColumn>
+            <Title>What&apos;s rocking right now</Title>
+            <Subtitle>Join today</Subtitle>
+            <Button btnColor="black" type="outline" onClick={(e) => handleLoginWithGoogle(e)}>
+              Sign up with Google
+            </Button>
+            <Button btnColor="black" type="outline" onClick={(e) => handleLoginWithFacebook(e)}>
+              Sign up with Facebook
+            </Button>
+            <Button btnColor="black" type="outline" onClick={handleModal} disabled={isSigningUp}>
+              Sign up with email
+            </Button>
+            <RegisterModal isOpen={isOpen} handleModal={handleModal}>
+              <>
+                {currentModal === 1 ? <AccountForm /> : null}
+                {currentModal === 2 ? <BirthDayForm /> : null}
+                {currentModal === 3 ? <ProfilePictureForm /> : null}
+                {currentModal === 4 ? <DescriptionForm /> : null}
+              </>
+            </RegisterModal>
+            <Subtitle>Already have an account?</Subtitle>
+            <Button btnColor="black" type="outline" onClick={handleSignIn} disabled={isSigningUp}>
+              Sign in
+            </Button>
+            <SignInModal signinIsOpen={signinIsOpen} handleModal={handleSignIn}>
+              <SigninForm />
+            </SignInModal>
+            {signUpError && <Section>{signUpError}</Section>}
+            <Section>
+              <hr />
+              <ResetButton onClick={handleResetPassModal}>Reset password</ResetButton>
+              <ResetPassModal
+                resetPassModalIsOpen={resetPassModalIsOpen}
+                handleResetPassModal={handleResetPassModal}
+              />
+            </Section>
+          </FlexColumn>
+        </MainFlex>
+        <CookieBar
+          location="bottom"
+          buttonText="Ok!"
+          cookieName="Stringifiers"
+          style={{ padding: "1rem 3rem" }}
+          buttonStyle={{
+            backgroundColor: "#B04AFF",
+            color: "#FFF",
+            fontSize: "0.9rem",
+            padding: "0.4rem 1.2rem",
+            borderRadius: "0.3rem",
+          }}
+          declineButtonStyle={{
+            backgroundColor: "#3A3A3A",
+            borderRadius: "0.3rem",
+            color: "#FFF",
+            fontSize: "0.9rem",
+            padding: "0.4rem",
+          }}
+          enableDeclineButton
+          flipButtons
+        >
+          Our webpage uses technical cookies for the basic functionality of the site
+        </CookieBar>
+      </ThemeProvider>
     </>
   );
 }

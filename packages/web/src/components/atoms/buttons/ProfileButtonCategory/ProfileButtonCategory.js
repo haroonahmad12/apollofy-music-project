@@ -7,18 +7,14 @@ import AlbumIcon from "@mui/icons-material/Album";
 
 const ButtonCategory = styled.div`
   display: flex;
-  padding: 1rem 1.5rem;
-  margin: 0 0.5rem;
+  padding: 0.75rem 1rem;
+  margin: 0 1rem 0 0;
   border-radius: 2rem 2rem 2rem 2rem;
   background: ${({ theme }) => theme.colors.background.secondary};
   color: ${({ theme }) => theme.colors.text};
-  border: 1px #eeeee4 solid;
-  width: 150px;
-  margin-top: 2px;
   cursor: pointer;
   &:hover {
     background-color: ${({ theme }) => theme.colors.label};
-    border: 1px solid #b04aff;
     color: white;
   }
   @media only screen and (max-width: ${({ theme }) => theme.media.tablet}) {

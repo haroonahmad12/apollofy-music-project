@@ -26,9 +26,9 @@ const StyledPlayTrack = styled.div`
 const CustomButton = styled(Button)`
   border: none;
   background-color: transparent;
-  min-width: auto;
+  min-width: auto !important;
   &:hover {
-    background-color: transparent;
+    background-color: transparent !important;
   }
 `;
 

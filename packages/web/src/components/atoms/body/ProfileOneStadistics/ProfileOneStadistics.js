@@ -1,15 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import PersonIcon from "@mui/icons-material/Person";
-import AlbumIcon from "@mui/icons-material/Album";
-import MusicNoteIcon from "@mui/icons-material/MusicNote";
 
 const StadisticsDiv = styled.div`
   display: flex;
   justify-content: center;
   align-item: center;
   min-width: 50px;
+  padding-right: 1rem;
 `;
 
 const SpanText = styled.div`
@@ -19,32 +17,6 @@ const SpanText = styled.div`
   color: ${({ theme }) => theme.colors.text};
   @media only screen and (max-width: ${({ theme }) => theme.media.tablet}) {
     display: none;
-  }
-`;
-
-const StyledTracks = styled(MusicNoteIcon)`
-  margin-left: 5px;
-  display: none;
-  color: ${({ theme }) => theme.colors.text};
-  @media only screen and (max-width: ${({ theme }) => theme.media.tablet}) {
-    display: block;
-  }
-`;
-
-const StyledFollowers = styled(PersonIcon)`
-  margin-left: 5px;
-  color: ${({ theme }) => theme.colors.text};
-  display: none;
-  @media only screen and (max-width: ${({ theme }) => theme.media.tablet}) {
-    display: block;
-  }
-`;
-
-const StyledAlbums = styled(AlbumIcon)`
-  margin-left: 5px;
-  display: none;
-  @media only screen and (max-width: ${({ theme }) => theme.media.tablet}) {
-    display: block;
   }
 `;
 
@@ -63,7 +35,6 @@ const ProfileOneStadistics = ({ count, text }) => {
       return (
         <StadisticsDiv>
           <StyledCount>{count}</StyledCount>
-          <StyledTracks />
           <SpanText>{text}</SpanText>
         </StadisticsDiv>
       );
@@ -72,7 +43,6 @@ const ProfileOneStadistics = ({ count, text }) => {
       return (
         <StadisticsDiv>
           <StyledCount>{count}</StyledCount>
-          <StyledFollowers />
           <SpanText>{text}</SpanText>
         </StadisticsDiv>
       );
@@ -81,7 +51,6 @@ const ProfileOneStadistics = ({ count, text }) => {
       return (
         <StadisticsDiv>
           <StyledCount>{count}</StyledCount>
-          <StyledAlbums />
           <SpanText>{text}</SpanText>
         </StadisticsDiv>
       );

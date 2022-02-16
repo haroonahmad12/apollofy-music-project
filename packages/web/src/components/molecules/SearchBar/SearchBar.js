@@ -36,7 +36,7 @@ const SearchInput = styled.input`
   }
 `;
 
-const Layout = styled.form`
+const Form = styled.form`
   width: 100%;
   height: 3rem;
   padding: 0.5rem;
@@ -45,6 +45,9 @@ const Layout = styled.form`
   justify-content: space-between;
   border-radius: 1.25rem;
   background-color: ${({ theme }) => theme.colors.background.secondary};
+  @media only screen and (max-width: ${({ theme }) => theme.media.tablet}) {
+    width: calc(100% - 3.75rem);
+  }
 `;
 
 const SearchIconStyled = styled(SearchIcon)`
@@ -72,7 +75,7 @@ export default function SearchBar() {
 
   return (
     <>
-      <Layout
+      <Form
         onSubmit={(e) => {
           e.preventDefault();
           handleSubmit();
@@ -91,7 +94,7 @@ export default function SearchBar() {
           placeholder="Search for some music"
           onChange={(e) => handleType(e.target.value)}
         />
-      </Layout>
+      </Form>
       {SearchRequest && (
         <>
           <MiddleTitle>Includes &quot;{query}&quot;</MiddleTitle>
