@@ -79,6 +79,8 @@ const EditProfile = () => {
   const [password, setPasswordModal] = useState(false);
   const [username, setUsernameModal] = useState(false);
   const [birthDate, setBirthdayModal] = useState(false);
+  const [description, setDescriptionModal] = useState(false);
+
   const [profilePic, setProfilePicModal] = useState(false);
 
   const handleClickOpen = () => {
@@ -108,6 +110,7 @@ const EditProfile = () => {
               setPasswordModal(false);
               setUsernameModal(false);
               setBirthdayModal(false);
+              setDescriptionModal(false);
             }}
           >
             <EditIcon />
@@ -131,6 +134,7 @@ const EditProfile = () => {
               setUsernameModal(false);
               setBirthdayModal(false);
               setProfilePicModal(false);
+              setDescriptionModal(false);
             }}
           >
             <EditIcon />
@@ -152,6 +156,29 @@ const EditProfile = () => {
               setEmailModal(false);
               setBirthdayModal(false);
               setProfilePicModal(false);
+              setDescriptionModal(false);
+            }}
+          >
+            <EditIcon />
+          </Button>
+        </InsideDiv>
+      </InputDiv>
+
+      <InputDiv>
+        <InputLabel htmlFor="birth_date">Description</InputLabel>
+        <InsideDiv>
+          <InputField>{currentUser.description}</InputField>
+          <Button
+            type="button"
+            size="small"
+            onClick={() => {
+              setBirthdayModal(false);
+              setOpenProfileModal(true);
+              setUsernameModal(false);
+              setPasswordModal(false);
+              setEmailModal(false);
+              setProfilePicModal(false);
+              setDescriptionModal(true);
             }}
           >
             <EditIcon />
@@ -173,6 +200,7 @@ const EditProfile = () => {
               setPasswordModal(false);
               setEmailModal(false);
               setProfilePicModal(false);
+              setDescriptionModal(false);
             }}
           >
             <EditIcon />
@@ -194,6 +222,7 @@ const EditProfile = () => {
               setEmailModal(false);
               setBirthdayModal(false);
               setProfilePicModal(false);
+              setDescriptionModal(false);
             }}
           >
             <EditIcon />
@@ -214,6 +243,7 @@ const EditProfile = () => {
       <UpdateProfileModal
         openProfileModal={openProfileModal}
         email={email}
+        description={description}
         password={password}
         username={username}
         birthDay={birthDate}

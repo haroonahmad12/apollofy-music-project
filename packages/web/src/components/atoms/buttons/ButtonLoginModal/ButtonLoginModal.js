@@ -28,13 +28,13 @@ const StyledButton = styled.button`
   }
 `;
 
-const Button = ({
+const ButtonLoginModal = ({
   children,
   onClick,
-  btnColor = "black",
+  btnColor = "#B04AFF",
   labelColor,
   disabled,
-  type,
+  variant,
   style,
   ...props
 }) => {
@@ -45,17 +45,6 @@ const Button = ({
 
   const commonStyles = {
     backgroundColor: btnColor,
-    color: labelColor || "white",
-  };
-
-  const outlineStyles = {
-    border: `1px solid ${btnColor}`,
-    color: btnColor,
-    backgroundColor: "white",
-  };
-
-  const outlineHoverStyle = {
-    border: `1px solid ${labelColor || "white"}`,
     color: labelColor || "white",
   };
 
@@ -72,12 +61,6 @@ const Button = ({
     width: "50%",
   };
 
-  const roundedStyle = {
-    backgroundColor: btnColor,
-    color: labelColor || "white",
-    borderRadius: "25px",
-  };
-
   const disabledStyle = {
     cursor: "default",
     backgroundColor: btnColor,
@@ -85,33 +68,14 @@ const Button = ({
     opacity: 0.4,
   };
 
-  const blockStyles = {
-    width: "100%",
-    margin: "0 auto",
-  };
-
   let btnStyle;
 
-  switch (type) {
-    case "rounded":
-      btnStyle = roundedStyle;
-      break;
-    case "submit":
-    case "block":
-      btnStyle = blockStyles;
-      break;
+  switch (variant) {
     case "login":
       if (hover) {
         btnStyle = loginHoverStyle;
       } else {
         btnStyle = loginStyle;
-      }
-      break;
-    case "outline":
-      if (hover) {
-        btnStyle = outlineHoverStyle;
-      } else {
-        btnStyle = outlineStyles;
       }
       break;
     default:
@@ -133,7 +97,7 @@ const Button = ({
       onMouseEnter={toggleHover}
       onMouseLeave={toggleHover}
       {...props}
-      type="button"
+      type="submit"
       onClick={!disabled ? onClick : () => {}}
     >
       {children || "button"}
@@ -141,24 +105,24 @@ const Button = ({
   );
 };
 
-Button.propTypes = {
+ButtonLoginModal.propTypes = {
   btnColor: PropTypes.string,
   children: PropTypes.string,
   disabled: PropTypes.bool,
   labelColor: PropTypes.string,
   onClick: PropTypes.func,
   style: PropTypes.object,
-  type: PropTypes.string,
+  variant: PropTypes.string,
 };
 
-Button.defaultProps = {
+ButtonLoginModal.defaultProps = {
   btnColor: null,
   children: null,
   disabled: false,
   labelColor: null,
   onClick: null,
   style: {},
-  type: null,
+  variant: null,
 };
 
-export default Button;
+export default ButtonLoginModal;

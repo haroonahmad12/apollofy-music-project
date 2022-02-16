@@ -12,6 +12,7 @@ import styled from "styled-components";
 
 import { auth, getCurrentUserToken } from "../../../services/auth";
 import usersApi from "../../../api/api-users";
+import { currentUserAdded } from "../../../store/auth";
 
 // eslint-disable-next-line react/prop-types
 const TextField = styled.input`
@@ -33,6 +34,7 @@ export default function UpdateProfileModal({
   password,
   username,
   birthDay,
+  description,
   profilePic,
 }) {
   const dispatch = useDispatch();
@@ -51,6 +53,9 @@ export default function UpdateProfileModal({
     }
     if (birthDay) {
       setUpdate({ birth_date: target.value });
+    }
+    if (description) {
+      setUpdate({ description: target.value });
     }
   };
 
@@ -103,13 +108,15 @@ export default function UpdateProfileModal({
             (password && "Please Enter Your new Password") ||
             (username && "Please Enter Your new Username") ||
             (birthDay && "Please Enter Your new Birthday") ||
-            (profilePic && "Select your new profile picture")}
+            (profilePic && "Select your new profile picture") ||
+            (description && "Please enter your new description")}
         </DialogTitle>
         <TextField
           type={
             (email && "email") ||
             (password && "password") ||
             (username && "text") ||
+            (description && "text") ||
             (birthDay && "date") ||
             (profilePic && "file")
           }
@@ -117,7 +124,8 @@ export default function UpdateProfileModal({
             (email && "email@mail.com") ||
             (password && "Click on Agree to send a password reset link") ||
             (username && "new username") ||
-            (birthDay && "change your birthday")
+            (birthDay && "change your birthday") ||
+            (description && "Something funny about you?")
           }
           onChange={(e) => (profilePic ? uploadImage(e.target.files) : setTargetValue(e.target))}
           disabled={password && true}

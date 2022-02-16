@@ -118,13 +118,13 @@ export default function Login() {
         <FlexColumn>
           <Title>What&apos;s rocking right now</Title>
           <Subtitle>Join today</Subtitle>
-          <Button btnColor="black" type="outline" onClick={(e) => handleLoginWithGoogle(e)}>
+          <Button btnColor="black" type="login" onClick={(e) => handleLoginWithGoogle(e)}>
             Sign up with Google
           </Button>
-          <Button btnColor="black" type="outline" onClick={(e) => handleLoginWithFacebook(e)}>
+          <Button btnColor="black" type="login" onClick={(e) => handleLoginWithFacebook(e)}>
             Sign up with Facebook
           </Button>
-          <Button btnColor="black" type="outline" onClick={handleModal} disabled={isSigningUp}>
+          <Button btnColor="black" type="login" onClick={handleModal} disabled={isSigningUp}>
             Sign up with email
           </Button>
           <RegisterModal isOpen={isOpen} handleModal={handleModal}>
@@ -136,7 +136,7 @@ export default function Login() {
             </>
           </RegisterModal>
           <Subtitle>Already have an account?</Subtitle>
-          <Button btnColor="black" type="outline" onClick={handleSignIn} disabled={isSigningUp}>
+          <Button btnColor="black" type="login" onClick={handleSignIn} disabled={isSigningUp}>
             Sign in
           </Button>
           <SignInModal signinIsOpen={signinIsOpen} handleModal={handleSignIn}>
