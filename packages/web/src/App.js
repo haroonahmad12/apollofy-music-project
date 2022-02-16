@@ -92,32 +92,26 @@ function App() {
             <Route path={ROUTES.RESET_PASSWORD} element={<ResetPassword />} />
             <Route path="track/add" element={<TrackCreateForm />} />
             <Route path="track/update/:id" element={<TrackUpdateForm />} />
-            {
-              isAuthenticated && (
-                <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>
-                  <Route path={ROUTES.HOME} exact element={<Home />} />
-                </Route>
-              )
-            }
-            {
-              isAuthenticated && (
-                <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>
-                  <Route path={ROUTES.EDIT_PROFILE} element={<EditProfile />} />
-                </Route>
-              )
-            }
-            {
-              isAuthenticated && (
-                <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>
-                  <Route path="*" element={<NotFound />} />
-                </Route>
-              )
-            }
-          </Routes >
+            {isAuthenticated && (
+              <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>
+                <Route path={ROUTES.HOME} exact element={<Home />} />
+              </Route>
+            )}
+            {isAuthenticated && (
+              <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>
+                <Route path={ROUTES.EDIT_PROFILE} element={<EditProfile />} />
+              </Route>
+            )}
+            {isAuthenticated && (
+              <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>
+                <Route path="*" element={<NotFound />} />
+              </Route>
+            )}
+          </Routes>
         </>
         <ReactQueryDevtools />
-      </QueryClientProvider >
-    </ThemeProvider >
+      </QueryClientProvider>
+    </ThemeProvider>
   );
 }
 

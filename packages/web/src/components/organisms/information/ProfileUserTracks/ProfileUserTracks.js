@@ -23,10 +23,8 @@ const StyledNotListenedTracks = styled.p`
 const ProfileUserTracks = ({ tracks }) => {
   return (
     <StyledUserTracks>
-      {tracks?.data?.data?.length > 0 ? (
-        tracks?.data?.data?.map((track, index) => (
-          <ProfileUserTrack key={track.id} data={track} index={index} />
-        ))
+      {tracks.length > 0 ? (
+        tracks.map((track, index) => <ProfileUserTrack key={track.id} data={track} index={index} />)
       ) : (
         <StyledNotListenedTracks>You havent heard any song yet :(</StyledNotListenedTracks>
       )}
