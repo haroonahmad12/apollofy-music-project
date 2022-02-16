@@ -67,7 +67,7 @@ export default function UpdateProfileModal({
       const res = await usersApi.updateUser(userToken, update);
 
       if (res) {
-        await dispatch(currentUserAdded(res.data.data));
+        dispatch(currentUserAdded(res.data.data));
         handleClose();
       }
     }
