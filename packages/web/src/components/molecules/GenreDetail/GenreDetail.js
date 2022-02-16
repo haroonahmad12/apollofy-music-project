@@ -7,7 +7,16 @@ import SmallText from "../../atoms/body/SmallText";
 
 const GenreTitle = styled(SmallText)`
   margin-top: auto;
-  font-size: 1rem;
+  font-size: 1.5rem;
+  width: 100%;
+  line-height: 3rem;
+  color: white;
+  letter-spacing: 5px;
+  text-shadow: 2px 2px black;
+
+  @media only screen and (max-width: ${({ theme }) => theme.media.mobile}) {
+    font-size: 2rem;
+  }
 `;
 
 const GenreLink = styled(Link)`
@@ -16,6 +25,7 @@ const GenreLink = styled(Link)`
 
 const GenreDetail = ({ genre }) => {
   const GenreLayout = styled.div`
+    font-weight: 600;
     cursor: pointer;
     height: 6rem;
     border-radius: 1.25rem;
@@ -25,17 +35,11 @@ const GenreDetail = ({ genre }) => {
     border: 1px solid ${({ theme }) => theme.colors.border};
     text-align: center;
     overflow: hidden;
-    background-image: linear-gradient(
-        ${({ theme }) => theme.colors.body},
-        ${({ theme }) => theme.colors.background}
-      ),
-      url(${genre.thumbnails.url_default});
     background-size: cover;
+    background-image: url(${genre.thumbnails.url_default});
 
     &:hover {
-      color: ${({ theme }) => theme.colors.body};
-      background-image: url(${genre.thumbnails.url_default});
-      background-blend-mode: overlay;
+      opacity: 0.8;
     }
 
     @media only screen and (max-width: ${({ theme }) => theme.media.mobile}) {
@@ -61,8 +65,6 @@ GenreDetail.propTypes = {
       url_medium: PropTypes.string,
       url_large: PropTypes.string,
     }),
-    created_at: PropTypes.string.isRequired,
-    updated_at: PropTypes.string.isRequired,
   }),
 };
 
@@ -75,8 +77,6 @@ GenreDetail.defaultProps = {
       url_medium: null,
       url_large: null,
     },
-    created_at: null,
-    updated_at: null,
   },
 };
 

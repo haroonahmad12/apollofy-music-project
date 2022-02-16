@@ -34,22 +34,22 @@ const HoverIcon = styled(PlayCircleIcon)`
   }
 `;
 
-const Card = styled.div`
-  margin: 0.5rem;
-  padding: 1rem;
-  border-radius: 1.25rem;
-  height: 15rem;
-  max-width: 15rem;
-  background-size: cover;
-  transition: 1s;
-  background: linear-gradient(
-    ${({ theme }) => theme.colors.background.gradient},
-    ${(props) => props.playlist.color}
-  );
-`;
-
 export default function PlaylistHomeCard(props) {
   const { playlist } = props;
+  
+  const Card = styled.div`
+    margin: 0.5rem;
+    padding: 1rem;
+    border-radius: 1.25rem;
+    height: 15rem;
+    max-width: 15rem;
+    background-size: cover;
+    transition: 1s;
+    background-image: url(${playlist.thumbnails.url_default});
+  `;
+
+ 
+  console.log(playlist);
 
   return (
     <CardLink to={`/playlists/${playlist.id}`}>
