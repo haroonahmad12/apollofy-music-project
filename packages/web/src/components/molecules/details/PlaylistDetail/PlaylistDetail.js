@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
 import LibraryMusic from "@mui/icons-material/LibraryMusic";
 
-import HomeSmallText from "../../atoms/body/HomeSmallText";
-import DetailText from "../../atoms/body/DetailText";
+import HomeSmallText from "../../../atoms/body/HomeSmallText";
+import DetailText from "../../../atoms/body/DetailText";
 
 const PlaylistLayout = styled.div`
   display: flex;

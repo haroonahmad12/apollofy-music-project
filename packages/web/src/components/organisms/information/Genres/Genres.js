@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useFetchGenres } from "../../../../hooks/useGenres";
 
-import GenreDetail from "../../../molecules/GenreDetail";
+import GenreDetail from "../../../molecules/details/GenreDetail";
 
 export default function Genres() {
   const { data: genres } = useFetchGenres();

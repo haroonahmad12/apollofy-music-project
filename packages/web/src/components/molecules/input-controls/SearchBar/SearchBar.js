@@ -3,17 +3,17 @@ import styled from "styled-components";
 import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
 
-import { useSearch } from "../../../hooks/useSearch";
-import MiddleTitle from "../../atoms/headings/MiddleTitle";
+import { useSearch } from "../../../../hooks/useSearch";
+import MiddleTitle from "../../../atoms/headings/MiddleTitle";
 import {
   SectionLayout,
   TracksList,
   TracksText,
-} from "../../organisms/information/PopularTracks/PopularTracks";
-import TrackDetail from "../TrackDetail";
-import UserDetail from "../UserDetail";
-import AlbumDetail from "../AlbumDetail";
-import PlaylistDetail from "../PlaylistDetail";
+} from "../../../organisms/information/PopularTracks/PopularTracks";
+import TrackDetail from "../../details/TrackDetail";
+import UserDetail from "../../details/UserDetail";
+import AlbumDetail from "../../details/AlbumDetail";
+import PlaylistDetail from "../../details/PlaylistDetail";
 
 const SearchButton = styled(IconButton)`
   height: 2rem;

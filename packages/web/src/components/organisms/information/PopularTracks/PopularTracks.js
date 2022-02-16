@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import { useFetchTracks } from "../../../../hooks/useTracks";
-import TrackDetail from "../../../molecules/TrackDetail";
+import TrackDetail from "../../../molecules/details/TrackDetail";
 import SmallText from "../../../atoms/body/SmallText";
 
 export const SectionLayout = styled.div`

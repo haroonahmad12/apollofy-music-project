@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 
 import { useFetchAlbums } from "../../../../hooks/useAlbums";
-
-import AlbumDetail from "../../../molecules/AlbumDetail";
+import AlbumDetail from "../../../molecules/details/AlbumDetail";
 
 export default function Albums() {
   const albums = useFetchAlbums();

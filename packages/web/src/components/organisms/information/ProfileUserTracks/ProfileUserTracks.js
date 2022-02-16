@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-import ProfileUserTrack from "../../../molecules/ProfileUserTrack";
+import ProfileUserTrack from "../../../molecules/details/ProfileUserTrack";
 
 const StyledUserTracks = styled.div`
   font-family: ${({ theme }) => theme.fonts.primary};

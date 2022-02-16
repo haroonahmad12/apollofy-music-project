@@ -1,4 +1,5 @@
 import { useQuery } from "react-query";
+
 import searchApi from "../api/api-search";
 import { queryKeys } from "../queries/constants";
 

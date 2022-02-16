@@ -6,7 +6,8 @@ import Tracks from "../../components/organisms/information/Tracks";
 import PlaylistImage from "../../components/atoms/images/PlaylistImage/PlaylistImage";
 
 import { useFetchGenre } from "../../hooks/useGenres";
-import SearchBar from "../../components/molecules/SearchBar";
+import { useInfiniteTracks } from "../../hooks/useTracks";
+import SearchBar from "../../components/molecules/input-controls/SearchBar";
 import {
   DescriptionDiv,
   MainText,
@@ -14,7 +15,6 @@ import {
   PictureDiv,
 } from "../Playlists/Playlists";
 import ProfileUserTitle from "../../components/atoms/body/ProfileUserTitle";
-import { useInfiniteTracks } from "../../hooks/useTracks";
 
 function GenresPage() {
   const { genreId } = useParams();

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { useFetchGenres } from "../../../../hooks/useGenres";
-import GenreDetail from "../../../molecules/GenreDetail";
+import GenreDetail from "../../../molecules/details/GenreDetail";
 import SmallText from "../../../atoms/body/SmallText";
 import { SectionLayout } from "../PopularTracks/PopularTracks";
 

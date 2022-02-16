@@ -13,8 +13,8 @@ import ProfileUserCards from "../../components/organisms/information/ProfileUser
 import ProfileUserTracks from "../../components/organisms/information/ProfileUserTracks";
 import AlbumModal from "../../components/organisms/modals/AlbumModal/AlbumModal";
 import PlaylistModal from "../../components/organisms/modals/PlaylistModal";
-import SearchBar from "../../components/molecules/SearchBar";
-import ButtonPlaySuffle  from "../../components/molecules/ButtonPlayShuffle";
+import SearchBar from "../../components/molecules/input-controls/SearchBar";
+import ButtonPlaySuffle from "../../components/molecules/buttons/ButtonPlayShuffle";
 
 const StyledProfile = styled.div`
   overflow: hidden;

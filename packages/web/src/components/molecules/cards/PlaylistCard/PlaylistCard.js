@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 
-import HomeSmallText from "../../atoms/body/HomeSmallText";
-import SmallText from "../../atoms/body/SmallText";
-import FlexColumn from "../../atoms/layout/FlexColumn";
+import HomeSmallText from "../../../atoms/body/HomeSmallText";
+import SmallText from "../../../atoms/body/SmallText";
+import FlexColumn from "../../../atoms/layout/FlexColumn";
 
 const CardLink = styled(Link)`
   text-decoration: none;
@@ -43,7 +43,7 @@ const StyledPlaylistTitle = styled.p`
   letter-spacing:5px;
 `;
 
-export default function PlaylistHomeCard(props) {
+export default function PlaylistCard(props) {
   const { playlist } = props;
 
   const Card = styled.div`
@@ -73,7 +73,7 @@ export default function PlaylistHomeCard(props) {
   );
 }
 
-PlaylistHomeCard.propTypes = {
+PlaylistCard.propTypes = {
   playlist: PropTypes.exact({
     id: PropTypes.string.isRequired,
     user: PropTypes.object.isRequired,
@@ -94,7 +94,7 @@ PlaylistHomeCard.propTypes = {
   }),
 };
 
-PlaylistHomeCard.defaultProps = {
+PlaylistCard.defaultProps = {
   playlist: {
     id: null,
     user: {},

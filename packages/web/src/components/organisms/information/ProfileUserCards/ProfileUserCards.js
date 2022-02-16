@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import Slider from "react-slick";
 
-import ProfileCard from "../../../molecules/ProfileCard";
+import ProfileCard from "../../../molecules/cards/ProfileCard";
 
 const Layout = styled.div`
   margin: auto;

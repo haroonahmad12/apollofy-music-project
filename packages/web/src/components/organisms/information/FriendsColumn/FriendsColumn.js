@@ -3,11 +3,11 @@ import styled from "styled-components";
 import { LinearProgress } from "@mui/material";
 
 import { useFollowedUsers } from "../../../../hooks/useUsers";
+import FriendDetail from "../../../molecules/details/FriendDetail";
 import Button from "../../../atoms/buttons/Button";
 import FlexColumn from "../../../atoms/layout/FlexColumn";
 import HomeSmallText from "../../../atoms/body/HomeSmallText";
 import RightSideBar from "../../../atoms/layout/RightSideBar";
-import FriendDetail from "../../../molecules/FriendDetail";
 import AddFriendsModal from "../../modals/AddFriendsModal";
 import { useEffect } from "react";
 

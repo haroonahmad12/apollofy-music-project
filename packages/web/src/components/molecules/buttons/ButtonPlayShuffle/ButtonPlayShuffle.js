@@ -4,7 +4,7 @@ import { PlayerInterface, Track } from "react-material-music-player";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import Box from '@mui/material/Box';
 
-import Button from "../../atoms/buttons/Button";
+import Button from "../../../atoms/buttons/Button";
 
 const ButtonPlaySuffle = ({ tracks }) => {
   const playRandom = () => {

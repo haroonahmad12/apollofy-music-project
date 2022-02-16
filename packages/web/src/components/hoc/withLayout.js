@@ -1,17 +1,13 @@
 import React from "react";
 import { isBrowser, isMobile } from "react-device-detect";
-import styled, { ThemeProvider } from "styled-components";
-import { useDarkMode } from "../../hooks/useDarkMode";
+import styled from "styled-components";
 
 import Footer from "../organisms/information/Footer";
 import FriendsColumn from "../organisms/information/FriendsColumn";
 import AudioPlayer from "../organisms/input-controls/AudioPlayer";
 import MenuBar from "../organisms/navigation/MenuBar";
-import ControlBar from "../molecules/ControlBar";
+import ControlBar from "../molecules/navigation/ControlBar";
 import FlexColumn from "../atoms/layout/FlexColumn";
-import { lightTheme, darkTheme } from "../../styles/Themes";
-import { GlobalStyles } from "../../styles/GlobalStyles";
-import SearchBar from "../molecules/SearchBar/SearchBar";
 
 const MainLayout = styled.main`
   display: flex;

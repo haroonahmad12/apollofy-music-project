@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import HeadphonesIcon from "@mui/icons-material/Headphones";
 
-import HomeSmallText from "../../atoms/body/HomeSmallText";
-import DetailText from "../../atoms/body/DetailText";
+import HomeSmallText from "../../../atoms/body/HomeSmallText";
+import DetailText from "../../../atoms/body/DetailText";
 
 const AlbumLayout = styled.div`
   display: flex;

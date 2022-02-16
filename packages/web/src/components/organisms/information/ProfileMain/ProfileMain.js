@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import ProfileImage from "../../../atoms/images/ProfileImage";
 import ProfileUserDescription from "../../../atoms/body/ProfileUserDescription";
-import ProfileStadistics from "../../../molecules/ProfileStadistics";
+import ProfileStadistics from "../../../molecules/buttons/ProfileStadistics";
 import ProfileUserTitle from "../../../atoms/body/ProfileUserTitle";
 
 const ProfileContent = styled.div`

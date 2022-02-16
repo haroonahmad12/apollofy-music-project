@@ -5,10 +5,10 @@ import { Link } from "react-router-dom";
 import HeadphonesIcon from "@mui/icons-material/Headphones";
 import Box from '@mui/material/Box';
 
-import HomeSmallText from "../../atoms/body/HomeSmallText";
-import DetailText from "../../atoms/body/DetailText";
-import ProfilePlayTrack from "../../atoms/toggles/ProfilePlayTrack";
-import { formatNumReprod } from "../../../utils/utils";
+import HomeSmallText from "../../../atoms/body/HomeSmallText";
+import DetailText from "../../../atoms/body/DetailText";
+import ProfilePlayTrack from "../../../atoms/toggles/ProfilePlayTrack";
+import { formatNumReprod } from "../../../../utils/utils";
 
 const TrackLayout = styled.div`
   display: flex;

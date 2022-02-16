@@ -3,10 +3,10 @@ import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import SVG from "react-inlinesvg";
 
-import ScoreSVG from "../../../assets/score.svg";
-import HomeSVG from "../../../assets/home.svg";
-import StatsSVG from "../../../assets/bar_chart.svg";
-import Toggle from "../../atoms/toggles/Switch/Switch";
+import ScoreSVG from "../../../../assets/score.svg";
+import HomeSVG from "../../../../assets/home.svg";
+import StatsSVG from "../../../../assets/bar_chart.svg";
+import Toggle from "../../../atoms/toggles/Switch";
 
 const Bar = styled.nav`
   display: flex;

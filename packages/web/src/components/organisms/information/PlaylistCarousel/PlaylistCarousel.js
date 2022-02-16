@@ -2,7 +2,7 @@ import React from "react";
 import Slider from "react-slick";
 import styled from "styled-components";
 
-import PlaylistHomeCard from "../../../molecules/PlaylistHomeCard";
+import PlaylistCard from "../../../molecules/cards/PlaylistCard";
 import { useFetchPlaylists } from "../../../../hooks/usePlaylists";
 
 import "./PlaylistCarousel.css";
@@ -43,7 +43,7 @@ export default function PlaylistCarousel() {
     <Layout>
       <Slider {...settings}>
         {playlistsList?.map((playlist) => (
-          <PlaylistHomeCard key={playlist.id} playlist={playlist} />
+          <PlaylistCard key={playlist.id} playlist={playlist} />
         ))}
       </Slider>
     </Layout>

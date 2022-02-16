@@ -4,8 +4,7 @@ import styled from "styled-components";
 import InfiniteScroll from "react-infinite-scroller";
 
 import { useInfiniteTracks } from "../../../../hooks/useTracks";
-
-import TrackDetail from "../../../molecules/TrackDetail";
+import TrackDetail from "../../../molecules/details/TrackDetail";
 import { TracksList } from "../PopularTracks/PopularTracks";
 
 const ExtendedTrackList = styled(TracksList)`

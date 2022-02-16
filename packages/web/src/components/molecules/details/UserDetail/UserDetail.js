@@ -6,9 +6,9 @@ import GroupIcon from "@mui/icons-material/Group";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 
-import defaultAvatar from "../../../images/defaultAvatar.png";
-import HomeSmallText from "../../atoms/body/HomeSmallText";
-import { useFollowUser } from "../../../hooks/useUsers";
+import defaultAvatar from "../../../../images/defaultAvatar.png";
+import HomeSmallText from "../../../atoms/body/HomeSmallText";
+import { useFollowUser } from "../../../../hooks/useUsers";
 
 const UserLayout = styled.div`
   display: flex;

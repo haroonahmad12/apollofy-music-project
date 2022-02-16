@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import withLayout from "../../components/hoc/withLayout";
-import SearchBar from "../../components/molecules/SearchBar";
+import SearchBar from "../../components/molecules/input-controls/SearchBar";
 import PlaylistCarousel from "../../components/organisms/information/PlaylistCarousel";
 import PopularTracks from "../../components/organisms/information/PopularTracks";
 import PopularGenres from "../../components/organisms/information/PopularGenres";

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { useFetchPlaylists } from "../../../../hooks/usePlaylists";
 
-import PlaylistDetail from "../../../molecules/PlaylistDetail";
+import PlaylistDetail from "../../../molecules/details/PlaylistDetail";
 
 export default function Playlists() {
   const { data: playlists } = useFetchPlaylists();

@@ -5,13 +5,13 @@ import { useParams } from "react-router-dom";
 import { useFetchPlaylist } from "../../hooks/usePlaylists";
 import withLayout from "../../components/hoc/withLayout";
 import TracksList from "../../components/organisms/information/PopularTracks";
-import TrackDetail from "../../components/molecules/TrackDetail";
+import TrackDetail from "../../components/molecules/details/TrackDetail";
+import SearchBar from "../../components/molecules/input-controls/SearchBar";
 import ProfileUserDescription from "../../components/atoms/body/ProfileUserDescription";
 import PlaylistImage from "../../components/atoms/images/PlaylistImage";
 import SmallText from "../../components/atoms/body/SmallText";
 import ProfileOneStadistics from "../../components/atoms/body/ProfileOneStadistics/ProfileOneStadistics";
 import ProfilePlaylistTitle from "../../components/atoms/body/ProfilePlaylistTitle/ProfilePlaylistTitle";
-import SearchBar from "../../components/molecules/SearchBar";
 
 export const PageLayout = styled.div`
   display: flex;

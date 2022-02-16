@@ -3,9 +3,9 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-import FlexColumn from "../../atoms/layout/FlexColumn";
-import HomeSmallText from "../../atoms/body/HomeSmallText";
-import defaultAvatar from "../../../images/defaultAvatar.png";
+import FlexColumn from "../../../atoms/layout/FlexColumn";
+import HomeSmallText from "../../../atoms/body/HomeSmallText";
+import defaultAvatar from "../../../../images/defaultAvatar.png";
 
 const UserLink = styled(Link)`
   text-decoration: none;
