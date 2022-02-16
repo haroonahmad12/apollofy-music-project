@@ -63,7 +63,6 @@ const StyledNumber = styled.div`
 `;
 
 const PlaylistDetail = ({ playlist }) => {
-  console.log(playlist);
   return (
     <PlaylistLayout>
       <PlaylistPicture alt="Playlist's Thumbnail" src={playlist?.thumbnails?.url_default} />

@@ -23,15 +23,11 @@ const ProfileContent = styled.div`
 
 const AvatarDiv = styled.div`
   display: flex;
-  min-width: 215px;
   width: 100%;
   @media only screen and (max-width: ${({ theme }) => theme.media.tablet}) {
     align-items: center;
     justify-content: center;
-    max-width: 5rem;
     border-radius: 100%;
-    margin-top: 3rem;
-    padding: 1rem;
   }
 `;
 

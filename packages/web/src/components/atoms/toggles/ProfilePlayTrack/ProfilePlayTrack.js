@@ -11,7 +11,7 @@ import { Button } from "@mui/material";
 
 import { addTrack, playTrack } from "../../../../store/tracks";
 import { authSelector } from "../../../../store/auth";
-import { useLikeTrack } from "../../../../hooks/useTracks";
+import { useLikeTrack, usePlayTrack } from "../../../../hooks/useTracks";
 
 const StyledPlayTrack = styled.div`
   font-family: ${({ theme }) => theme.fonts.primary};
@@ -41,6 +41,7 @@ const StyledFavoriteBorderIcon = styled(FavoriteBorderIcon)`
 `;
 
 const ProfilePlayTrack = ({ track, handlePlayButton }) => {
+  const { mutate } = usePlayTrack();
   const dispatch = useDispatch();
   const auth = useSelector(authSelector);
 
@@ -66,6 +67,7 @@ const ProfilePlayTrack = ({ track, handlePlayButton }) => {
 
   const handlePlay = () => {
     dispatch(playTrack(track));
+    mutate(track.id);
 
     PlayerInterface.play([
       new Track(

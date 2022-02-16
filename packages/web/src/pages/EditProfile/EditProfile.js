@@ -181,16 +181,17 @@ const EditProfile = () => {
       </InputDiv>
 
       <InputDiv>
-        <InputLabel htmlFor="password">Password</InputLabel>
+        <InputLabel htmlFor="username">Description</InputLabel>
         <InsideDiv>
-          <InputField> *********</InputField>
+          <InputField>{currentUser.description}</InputField>
           <Button
             type="button"
             size="small"
             onClick={() => {
-              setPasswordModal(true);
+              setUsernameModal(true);
               setOpenProfileModal(true);
               setUsernameModal(false);
+              setPasswordModal(false);
               setEmailModal(false);
               setBirthdayModal(false);
               setProfilePicModal(false);

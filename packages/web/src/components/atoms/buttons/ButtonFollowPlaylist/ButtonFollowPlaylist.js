@@ -41,8 +41,6 @@ const ButtonFollowPlaylist = ({ id }) => {
     mutate(playlistId);
   };
 
-  console.log(user?.data?.data.followed_playlists);
-
   return (
     <Stack spacing={2} direction="row" onClick={() => handleFollow(id)}>
       {user?.data?.data.followed_playlists &&

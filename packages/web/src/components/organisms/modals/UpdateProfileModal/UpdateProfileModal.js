@@ -68,8 +68,6 @@ export default function UpdateProfileModal({
       if (res) {
         dispatch(currentUserAdded(res.data.data));
         handleClose();
-
-        console.log(res.data);
       }
     }
   };
