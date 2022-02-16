@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, Outlet, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { ThemeProvider } from "styled-components";
+
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import PropTypes from "prop-types";
@@ -25,12 +25,9 @@ import Statistics from "./pages/Statistics";
 import { onAuthStateChanged } from "./services/auth";
 import { authSelector, syncSignIn, signOut } from "./store/auth";
 
-import { useDarkMode } from "./hooks/useDarkMode";
-import { GlobalStyles } from "./styles/GlobalStyles";
-import { lightTheme, darkTheme } from "./styles/Themes";
 import TrackCreateForm from "./components/organisms/forms/TrackForm/TrackCreateForm";
 import TrackUpdateForm from "./components/organisms/forms/TrackForm/TrackUpdateForm";
-import Toggle from "./components/atoms/toggles/Switch";
+
 import Create from "./pages/Create";
 
 const PrivateWrapper = ({ auth: { isAuthenticated } }) => {

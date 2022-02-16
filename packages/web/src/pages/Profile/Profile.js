@@ -62,9 +62,9 @@ const Profile = () => {
         albums={albums?.data?.count}
         tracks={tracks?.data?.count}
       />
-      <ButtonPlaySuffle />
+      <ButtonPlaySuffle tracks={tracks?.data?.data} />
       <StyledTitle>Most Listened</StyledTitle>
-      <ProfileUserTracks data={tracks?.data?.data} />
+      <ProfileUserTracks tracks={tracks?.data?.data} />
       <StyledTitle>
         Albums
         <AddBoxIcon

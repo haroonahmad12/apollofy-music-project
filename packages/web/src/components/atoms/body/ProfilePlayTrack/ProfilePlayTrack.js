@@ -1,5 +1,5 @@
 /* eslint-disable no-new */
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import styled from "styled-components";
@@ -8,12 +8,12 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorderSharp";
 import PlayCircleFilledSharpIcon from "@mui/icons-material/PlayCircleFilledSharp";
 
 // import { addToTrackList } from "../../../redux/tracks";
-import { addTrack, playTrack } from "../../../redux/tracks";
+import { addTrack, playTrack } from "../../../../store/tracks";
 import PlaylistAdd from "@mui/icons-material/PlaylistAdd";
 import { Button } from "@mui/material";
 import { PlayerInterface, Track } from "react-material-music-player";
-import { useLikeTrack } from "../../../hooks/useTracks";
-import { authSelector } from "../../../redux/auth";
+import { useLikeTrack } from "../../../../hooks/useTracks";
+import { authSelector } from "../../../../store/auth";
 
 const StyledPlayTrack = styled.div`
   font-family: ${({ theme }) => theme.fonts.primary};
@@ -89,9 +89,7 @@ const ProfilePlayTrack = ({ track, handlePlayButton }) => {
 
   return (
     <StyledPlayTrack>
-      {track?.liked_by.findIndex((user) => (
-        user.id === auth.currentUser.id
-      )) === -1 ? (
+      {track?.liked_by.findIndex((user) => user.id === auth.currentUser.id) === -1 ? (
         <StyledFavoriteBorderIcon
           sx={{ color: "purple" }}
           onClick={() => handleFavoriteTrack(track)}
@@ -109,7 +107,7 @@ const ProfilePlayTrack = ({ track, handlePlayButton }) => {
       </PlayButton>
     </StyledPlayTrack>
   );
-}
+};
 
 ProfilePlayTrack.propTypes = {
   handlePlayButton: PropTypes.func,
