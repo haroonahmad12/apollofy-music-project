@@ -14,10 +14,16 @@ import { auth, getCurrentUserToken } from "../../../../services/auth";
 import usersApi from "../../../../api/api-users";
 import { currentUserAdded } from "../../../../store/auth";
 
-const CustomModalTitle = styled(DialogTitle)`
+const TextField = styled.input`
+  display: block;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
   color: ${({ theme }) => theme.colors.text};
   background-color: ${({ theme }) => theme.colors.background.secondary};
+  background-clip: paddIng-box;
   border: 1px solid ${({ theme }) => theme.colors.border};
+  transition: border-color 0.15s ease-In-out, box-shadow 0.15s ease-In-out;
 `;
 
 export default function UpdateProfileModal({
@@ -99,7 +105,7 @@ export default function UpdateProfileModal({
             (birthDay && "Please Enter Your new Birthday") ||
             (profilePic && "Select your new profile picture")}
         </DialogTitle>
-        <CustomModalTitle
+        <TextField
           type={
             (email && "email") ||
             (password && "password") ||
