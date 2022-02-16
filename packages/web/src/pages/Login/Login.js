@@ -36,6 +36,10 @@ const Title = styled.h1`
   font-size: 4rem;
   text-align: center;
   color: ${({ theme }) => theme.colors.text};
+
+  @media only screen and (max-width: ${({ theme }) => theme.media.tablet}) {
+    font-size: 2rem;
+  }
 `;
 
 const ResetButton = styled.button`
@@ -63,6 +67,10 @@ const CookieBar = styled(CookieConsent)`
   background-color: ${({ theme }) => theme.colors.background.secondary};
   border: 1px solid ${({ theme }) => theme.colors.border};
   padding: 1rem;
+`;
+
+const LoginLayout = styled(FlexColumn)`
+  margin-top: 3rem;
 `;
 
 export default function Login() {
@@ -115,7 +123,7 @@ export default function Login() {
     <>
       <MainFlex>
         <LoginBoard />
-        <FlexColumn>
+        <LoginLayout>
           <Title>What&apos;s rocking right now</Title>
           <Subtitle>Join today</Subtitle>
           <Button btnColor="black" type="login" onClick={(e) => handleLoginWithGoogle(e)}>
@@ -151,7 +159,7 @@ export default function Login() {
               handleResetPassModal={handleResetPassModal}
             />
           </Section>
-        </FlexColumn>
+        </LoginLayout>
       </MainFlex>
       <CookieBar
         location="bottom"

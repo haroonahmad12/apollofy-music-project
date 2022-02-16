@@ -6,9 +6,6 @@ const FlexColumn = styled.div`
   gap: 1.45rem;
   align-items: center;
   flex-grow: 1;
-  @media only screen and (max-width: ${({ theme }) => theme.media.tablet}) {
-    display: none;
-  }
 `;
 
 export default FlexColumn;

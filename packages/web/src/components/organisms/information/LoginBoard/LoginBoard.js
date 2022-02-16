@@ -20,6 +20,10 @@ const GradientBG = styled.div`
   z-index: -2;
   overflow: hidden;
   border-right: 4px solid black;
+
+  @media only screen and (max-width: ${({ theme }) => theme.media.mobile}) {
+    display: none;
+  }
 `;
 
 const RotatingSymbols = styled.div`
@@ -47,6 +51,15 @@ const Logo = styled.img`
   margin: auto;
   width: 35%;
   height: 60%;
+
+  @media only screen and (max-width: ${({ theme }) => theme.media.desktop}) {
+    left: 3rem;
+    width: 30%;
+  }
+  @media only screen and (max-width: ${({ theme }) => theme.media.tablet}) {
+    left: 2rem;
+    width: 25%;
+  }
 `;
 
 function LoginBoard() {
