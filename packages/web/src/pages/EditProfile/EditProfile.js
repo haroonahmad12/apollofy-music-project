@@ -61,7 +61,7 @@ const ImageThumb = styled.img`
 
 const EditProfile = () => {
   const { currentUser } = useSelector((state) => state?.entities.auth);
-  const profilePicture = currentUser.thumbnails.url_default;
+  const profilePicture = currentUser?.thumbnails?.url_default;
 
   async function deleteMyProfile() {
     const userToken = await getCurrentUserToken();

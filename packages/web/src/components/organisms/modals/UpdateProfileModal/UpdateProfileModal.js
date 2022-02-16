@@ -27,12 +27,6 @@ const TextField = styled.input`
   transition: border-color 0.15s ease-In-out, box-shadow 0.15s ease-In-out;
 `;
 
-const CustomModalTitle = styled(DialogTitle)`
-  color: ${({ theme }) => theme.colors.text};
-  background-color: ${({ theme }) => theme.colors.background.secondary};
-  border: 1px solid ${({ theme }) => theme.colors.border};
-`;
-
 export default function UpdateProfileModal({
   openProfileModal,
   handleClose,
@@ -112,7 +106,7 @@ export default function UpdateProfileModal({
             (birthDay && "Please Enter Your new Birthday") ||
             (profilePic && "Select your new profile picture")}
         </DialogTitle>
-        <CustomModalTitle
+        <TextField
           type={
             (email && "email") ||
             (password && "password") ||
