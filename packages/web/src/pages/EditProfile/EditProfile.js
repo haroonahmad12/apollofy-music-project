@@ -75,8 +75,11 @@ const EditProfile = () => {
 
   const [open, setOpen] = useState(false);
   const [openProfileModal, setOpenProfileModal] = useState(false);
+  const [email, setEmailModal] = useState(false);
+  const [password, setPasswordModal] = useState(false);
   const [username, setUsernameModal] = useState(false);
   const [birthDate, setBirthdayModal] = useState(false);
+  const [description, setDescriptionModal] = useState(false);
   const [profilePic, setProfilePicModal] = useState(false);
 
   const handleClickOpen = () => {
@@ -104,6 +107,31 @@ const EditProfile = () => {
               setProfilePicModal(true);
               setUsernameModal(false);
               setBirthdayModal(false);
+              setDescriptionModal(false);
+            }}
+          >
+            <EditIcon />
+          </Button>
+        </InsideDiv>
+      </InputDiv>
+
+      <InputDiv>
+        <InsideDiv>
+          <InputLabel htmlFor="email-Input">Email</InputLabel>
+        </InsideDiv>
+        <InsideDiv>
+          <InputField>{currentUser.email}</InputField>
+          <Button
+            type="button"
+            size="small"
+            onClick={() => {
+              setEmailModal(true);
+              setOpenProfileModal(true);
+              setPasswordModal(false);
+              setUsernameModal(false);
+              setBirthdayModal(false);
+              setProfilePicModal(false);
+              setDescriptionModal(false);
             }}
           >
             <EditIcon />
@@ -123,6 +151,29 @@ const EditProfile = () => {
               setOpenProfileModal(true);
               setBirthdayModal(false);
               setProfilePicModal(false);
+              setDescriptionModal(false);
+            }}
+          >
+            <EditIcon />
+          </Button>
+        </InsideDiv>
+      </InputDiv>
+
+      <InputDiv>
+        <InputLabel htmlFor="birth_date">Description</InputLabel>
+        <InsideDiv>
+          <InputField>{currentUser.description}</InputField>
+          <Button
+            type="button"
+            size="small"
+            onClick={() => {
+              setBirthdayModal(false);
+              setOpenProfileModal(true);
+              setUsernameModal(false);
+              setPasswordModal(false);
+              setEmailModal(false);
+              setProfilePicModal(false);
+              setDescriptionModal(true);
             }}
           >
             <EditIcon />
@@ -142,6 +193,7 @@ const EditProfile = () => {
               setOpenProfileModal(true);
               setUsernameModal(false);
               setProfilePicModal(false);
+              setDescriptionModal(false);
             }}
           >
             <EditIcon />
@@ -149,7 +201,7 @@ const EditProfile = () => {
         </InsideDiv>
       </InputDiv>
 
-      {/* <InputDiv>
+      <InputDiv>
         <InputLabel htmlFor="username">Description</InputLabel>
         <InsideDiv>
           <InputField>{currentUser?.description}</InputField>
@@ -162,12 +214,13 @@ const EditProfile = () => {
               setUsernameModal(false);
               setBirthdayModal(false);
               setProfilePicModal(false);
+              setDescriptionModal(false);
             }}
           >
             <EditIcon />
           </Button>
         </InsideDiv>
-      </InputDiv> */}
+      </InputDiv>
 
       <Button variant="outlined" onClick={handleClickOpen}>
         Delete Profile
@@ -181,6 +234,9 @@ const EditProfile = () => {
 
       <UpdateProfileModal
         openProfileModal={openProfileModal}
+        email={email}
+        description={description}
+        password={password}
         username={username}
         birthDay={birthDate}
         profilePic={profilePic}

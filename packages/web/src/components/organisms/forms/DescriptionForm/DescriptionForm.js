@@ -10,6 +10,7 @@ import SmallText from "../../../atoms/body/SmallText";
 import PrimaryButton from "../../../atoms/buttons/PrimaryButton";
 
 import { authSelector, signUpWithEmailRequest } from "../../../../store/auth";
+import ButtonLoginModal from "../../../atoms/buttons/ButtonLoginModal/ButtonLoginModal";
 
 const DescriptionArea = styled.textarea`
   width: 22rem;
@@ -59,7 +60,9 @@ export default function DescriptionForm() {
         maxlength="250"
         onChange={(e) => setValue(e.target.value)}
       />
-      <PrimaryButton onClick={() => handleDescription()}>Finish</PrimaryButton>
+      <ButtonLoginModal variant="login" btnColor="#B04AFF" onClick={() => handleDescription()}>
+        Finish
+      </ButtonLoginModal>
       <ToastContainer />
     </FlexColumn>
   );
