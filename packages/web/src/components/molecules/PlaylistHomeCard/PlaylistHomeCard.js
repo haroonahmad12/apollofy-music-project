@@ -34,21 +34,31 @@ const HoverIcon = styled(PlayCircleIcon)`
   }
 `;
 
+const StyledPlaylistTitle = styled.p`
+  font: Readex Pro;
+  color: white;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  mix-blend-mode: difference;
+  letter-spacing:5px;
+`;
+
 export default function PlaylistHomeCard(props) {
   const { playlist } = props;
-  
+
   const Card = styled.div`
+    font-weight: 600;
     margin: 0.5rem;
     padding: 1rem;
     border-radius: 1.25rem;
     height: 15rem;
     max-width: 15rem;
-    background-size: cover;
     transition: 1s;
+    background-size: cover;
+    background-position: center;
     background-image: url(${playlist.thumbnails.url_default});
   `;
 
- 
   console.log(playlist);
 
   return (
@@ -56,7 +66,7 @@ export default function PlaylistHomeCard(props) {
       <Card playlist={playlist}>
         <HomeSmallText>{playlist.num_tracks} Tracks</HomeSmallText>
         <CardLayout>
-          <SmallText>{playlist.title}</SmallText>
+          <StyledPlaylistTitle>{playlist.title}</StyledPlaylistTitle>
           <HoverIcon />
           <HomeSmallText>{playlist.num_followers} listeners</HomeSmallText>
         </CardLayout>

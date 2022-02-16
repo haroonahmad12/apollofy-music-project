@@ -21,10 +21,12 @@ const StyledNotListenedTracks = styled.p`
 `;
 
 const ProfileUserTracks = ({ tracks }) => {
+
+  console.log(tracks.length);
   return (
     <StyledUserTracks>
-      {tracks?.data?.data?.length > 0 ? (
-        tracks?.data?.data?.map((track, index) => (
+      {tracks?.length > 0 ? (
+        tracks?.map((track, index) => (
           <ProfileUserTrack key={track.id} data={track} index={index} />
         ))
       ) : (

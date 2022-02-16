@@ -17,6 +17,7 @@ const GenreTitle = styled(SmallText)`
   @media only screen and (max-width: ${({ theme }) => theme.media.mobile}) {
     font-size: 2rem;
   }
+ 
 `;
 
 const GenreLink = styled(Link)`
@@ -38,9 +39,9 @@ const GenreDetail = ({ genre }) => {
     background-size: cover;
     background-image: url(${genre.thumbnails.url_default});
 
-    &:hover {
-      opacity: 0.8;
-    }
+     &:hover{
+    opacity:0.8;
+  }
 
     @media only screen and (max-width: ${({ theme }) => theme.media.mobile}) {
       height: 3.5rem;

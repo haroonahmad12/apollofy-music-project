@@ -20,7 +20,7 @@ import {
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { uploadResource } from "../../../../api/api-cloudinary";
-import { useFetchUserTracks } from "../../../../hooks/useTracks";
+import { useFetchTracks } from "../../../../hooks/useTracks";
 import { useCreatePlaylist } from "../../../../hooks/usePlaylists";
 
 function CreatePlaylistForm() {
@@ -51,7 +51,7 @@ function CreatePlaylistForm() {
     isSuccess: fetchMyTracksIsSuccess,
     error: fetchMyTracksError,
     data: fetchMyTracksResponse,
-  } = useFetchUserTracks({ page: trackListPage });
+  } = useFetchTracks({ limit: 50 });
 
   const formik = useFormik({
     initialValues,

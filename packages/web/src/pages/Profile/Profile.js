@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import AddBoxIcon from "@mui/icons-material/AddBox";
@@ -64,7 +64,7 @@ const Profile = () => {
       />
       <ButtonPlaySuffle />
       <StyledTitle>Most Listened</StyledTitle>
-      <ProfileUserTracks data={tracks?.data?.data} />
+      <ProfileUserTracks tracks={tracks?.data?.data} />
       <StyledTitle>
         Albums
         <AddBoxIcon

@@ -8,10 +8,6 @@ const MainDiv = styled.div`
   padding-right: 1rem;
   padding-top: 1rem;
   position: relative;
-  @media only screen and (max-width: ${({ theme }) => theme.media.tablet}) {
-    height: 10rem;
-    width: 30rem;
-  }
 `;
 
 const ImageProfile = styled.img`
@@ -22,20 +18,20 @@ const ImageProfile = styled.img`
   &:hover {
     opacity: 0.7;
   }
-  @media only screen and (max-width: ${({ theme }) => theme.media.phablet}) {
+   @media only screen and (max-width: ${({ theme }) => theme.media.phablet}) {
     height: 10rem;
-    width: 10rem;
+    
   }
   @media only screen and (max-width: ${({ theme }) => theme.media.tablet}) {
     height: 10rem;
-    width: 20rem;
-  }
+    
+  } 
 `;
 
 const ProfileImage = ({ image }) => {
   return (
     <MainDiv>
-      <ImageProfile alt="profile image" src={image} />
+      <ImageProfile alt="profile image" src={image || "https://avalos.sv/wp-content/uploads/default-featured-image.png"} />
     </MainDiv>
   );
 };

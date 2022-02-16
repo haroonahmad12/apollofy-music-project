@@ -45,6 +45,7 @@ const settings = {
 };
 
 const ProfileUserCards = ({ data }) => {
+  console.log(data);
   return (
     <Layout>
       <Slider {...settings}>

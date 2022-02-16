@@ -26,7 +26,7 @@ const allowedImageExt = ["jpg", "jpeg", "png"];
 
 const initialValues = {
   title: "",
-  released_date: "",
+  released_date: new Date().toISOString().substring(0, 10),
   genres: [],
   tracks: [],
   url_image: "",
