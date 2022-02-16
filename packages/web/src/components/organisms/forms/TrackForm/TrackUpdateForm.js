@@ -1,10 +1,7 @@
 import React from "react";
 import { FileUploader } from "react-drag-drop-files";
 import { useFormik } from "formik";
-import { useNavigate, useParams } from "react-router-dom";
-import { useFetchTrack, useUpdateTrack } from "../../../../hooks/useTracks";
-import { useFetchGenres } from "../../../../hooks/useGenres";
-import validationSchema from "../../../../schemas/TrackSchema";
+import { useParams } from "react-router-dom";
 import {
   Box,
   Alert,
@@ -20,6 +17,10 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
+
+import { useFetchTrack, useUpdateTrack } from "../../../../hooks/useTracks";
+import { useFetchGenres } from "../../../../hooks/useGenres";
+import validationSchema from "../../../../schemas/TrackSchema";
 import { uploadResource } from "../../../../api/api-cloudinary";
 import withLayout from "../../../hoc/withLayout";
 
@@ -65,8 +66,6 @@ function TrackUpdateForm() {
     error: fetchGenresError,
     data: fetchGenresResponse,
   } = useFetchGenres();
-
-  // const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: initialValues(fetchTrackResponse?.data?.data),

@@ -7,7 +7,6 @@ import FriendsColumn from "../organisms/information/FriendsColumn";
 import AudioPlayer from "../organisms/input-controls/AudioPlayer";
 import MenuBar from "../organisms/navigation/MenuBar";
 import ControlBar from "../molecules/ControlBar";
-import SearchBar from "../molecules/SearchBar/SearchBar";
 import FlexColumn from "../atoms/layout/FlexColumn";
 
 const MainLayout = styled.main`
@@ -49,7 +48,6 @@ function withLayout(WrappedComponent) {
             <MainLayout>
               <ControlBar />
               <PageContent>
-                <SearchBar />
                 <WrappedComponent {...props} />
               </PageContent>
               <RightFlex>

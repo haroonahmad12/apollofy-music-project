@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
-import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Grow from "@mui/material/Grow";
@@ -10,12 +10,12 @@ import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import defaultAvatar from "../../../../images/defaultAvatar.png";
 
 import * as ROUTES from "../../../../routes";
+import { authSelector, signOut } from "../../../../store/auth";
 import SmallText from "../../../atoms/body/SmallText";
 import RightSideBar from "../../../atoms/layout/RightSideBar";
-import { authSelector, signOut } from "../../../../store/auth";
+import defaultAvatar from "../../../../images/defaultAvatar.png";
 
 const MenuLayout = styled(RightSideBar)`
   height: 3rem;

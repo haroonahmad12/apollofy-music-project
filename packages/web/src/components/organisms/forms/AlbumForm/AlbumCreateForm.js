@@ -93,7 +93,7 @@ function AlbumCreateForm() {
   } = formik;
 
   return (
-    <Container as="main">
+    <Container as="div">
       <Typography sx={{ fontSize: "2rem", fontWeight: "light", mb: 2 }}>Add album</Typography>
       {setAlbumIsSuccess && (
         <Alert sx={{ mb: 2 }} severity={setAlbumResponse.data.success ? "success" : "error"}>

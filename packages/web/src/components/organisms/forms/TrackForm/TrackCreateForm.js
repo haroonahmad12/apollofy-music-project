@@ -1,10 +1,6 @@
 import React from "react";
 import { FileUploader } from "react-drag-drop-files";
 import { useFormik } from "formik";
-import { useNavigate } from "react-router-dom";
-import { useCreateTrack } from "../../../../hooks/useTracks";
-import { useFetchGenres } from "../../../../hooks/useGenres";
-import validationSchema from "../../../../schemas/TrackSchema";
 import {
   Box,
   Alert,
@@ -20,6 +16,10 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
+
+import { useCreateTrack } from "../../../../hooks/useTracks";
+import { useFetchGenres } from "../../../../hooks/useGenres";
+import validationSchema from "../../../../schemas/TrackSchema";
 import { uploadResource } from "../../../../api/api-cloudinary";
 
 const initialValues = {
@@ -51,8 +51,6 @@ function TrackCreateForm() {
     error: fetchGenresError,
     data: fetchGenresResponse,
   } = useFetchGenres();
-
-  // const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues,
@@ -88,7 +86,7 @@ function TrackCreateForm() {
   } = formik;
 
   return (
-    <Container as="main">
+    <Container as="div">
       <Typography sx={{ fontSize: "2rem", fontWeight: "light", mb: 2 }}>Add track</Typography>
       {setTrackIsSuccess && (
         <Alert sx={{ mb: 2 }} severity={setTrackResponse.data.success ? "success" : "error"}>

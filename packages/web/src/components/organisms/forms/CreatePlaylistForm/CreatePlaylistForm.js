@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import { useFormik } from "formik";
-
-import validationSchema from "../../../../schemas/PlaylistSchema";
 import {
   Box,
   Alert,
-  AlertTitle,
   Input,
   InputLabel,
   Select,
@@ -15,10 +12,10 @@ import {
   MenuItem,
   Typography,
   FormHelperText,
-  CircularProgress,
-  Pagination,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
+
+import validationSchema from "../../../../schemas/PlaylistSchema";
 import { uploadResource } from "../../../../api/api-cloudinary";
 import { useFetchUserTracks } from "../../../../hooks/useTracks";
 import { useCreatePlaylist } from "../../../../hooks/usePlaylists";
@@ -87,9 +84,9 @@ function CreatePlaylistForm() {
   } = formik;
 
   return (
-    <Container as="main">
+    <Container as="div">
       <Typography sx={{ fontSize: "2rem", fontWeight: "light", mb: 2 }}>
-        Create New Playlist
+        Add playlist
       </Typography>
       {setPlaylistIsSuccess && (
         <Alert sx={{ mb: 2 }} severity={setPlaylistResponse.data.success ? "success" : "error"}>
@@ -130,7 +127,7 @@ function CreatePlaylistForm() {
             </Box>
             <Box sx={{ flexGrow: 1, mb: 3 }}>
               <InputLabel sx={{ mb: 1 }} htmlFor="color">
-                Playlist Color
+                Playlist color
               </InputLabel>
               <TextField
                 fullWidth
@@ -146,7 +143,7 @@ function CreatePlaylistForm() {
               />
             </Box>
           </Box>
-          <Box sx={{ flexGrow: 3, mb: 1 }}>
+          <Box sx={{ flexGrow: 3, mb: 3 }}>
             <InputLabel sx={{ mb: 1 }} htmlFor="input_description">
               Description
             </InputLabel>

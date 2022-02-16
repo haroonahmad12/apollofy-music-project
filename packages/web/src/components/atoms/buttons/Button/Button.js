@@ -19,9 +19,12 @@ const StyledButton = styled.button`
   border: none;
   cursor: pointer;
   outline: 0;
-
   &:hover {
     background-color: darken(0.2, ${({ theme }) => theme.colors.label});
+  }
+
+  svg{
+    margin-right: 0.25rem;
   }
 `;
 
@@ -54,7 +57,6 @@ const Button = ({
   const outlineHoverStyle = {
     border: `1px solid ${labelColor || "white"}`,
     color: labelColor || "white",
-    // backgroundColor: `darken(0.2, ${btnColor})`,
   };
 
   const roundedStyle = {
@@ -112,7 +114,7 @@ const Button = ({
       onMouseLeave={toggleHover}
       {...props}
       type="button"
-      onClick={!disabled ? onClick : () => {}}
+      onClick={!disabled ? onClick : () => { }}
     >
       {children || "button"}
     </StyledButton>
