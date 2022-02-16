@@ -45,44 +45,34 @@ const RightFlex = styled(FlexColumn)`
 
 function withLayout(WrappedComponent) {
   function WrapperComponent({ ...props }) {
-    const [theme, themeToggler] = useDarkMode();
-
-    const themeMode = theme === "light" ? lightTheme : darkTheme;
-
     return (
       <>
         {isBrowser && (
           <>
-            <ThemeProvider theme={themeMode}>
-              <GlobalStyles />
-              <MainLayout>
-                <ControlBar theme={theme} themeToggler={themeToggler} />
-                <PageContent>
-                  <SearchBar />
-                  <WrappedComponent {...props} />
-                </PageContent>
-                <RightFlex>
-                  <MenuBar />
-                  <FriendsColumn />
-                  <Footer />
-                </RightFlex>
-              </MainLayout>
-              <AudioPlayer />
-            </ThemeProvider>
+            <MainLayout>
+              <ControlBar />
+              <PageContent>
+                <SearchBar />
+                <WrappedComponent {...props} />
+              </PageContent>
+              <RightFlex>
+                <MenuBar />
+                <FriendsColumn />
+                <Footer />
+              </RightFlex>
+            </MainLayout>
+            <AudioPlayer />
           </>
         )}
         {isMobile && (
           <>
-            <ThemeProvider theme={themeMode}>
-              <GlobalStyles />
-              <MainLayout>
-                <PageContent>
-                  <WrappedComponent {...props} />
-                </PageContent>
-              </MainLayout>
-              <AudioPlayer />
-              <ControlBar theme={theme} themeToggler={themeToggler} />
-            </ThemeProvider>
+            <MainLayout>
+              <PageContent>
+                <WrappedComponent {...props} />
+              </PageContent>
+            </MainLayout>
+            <AudioPlayer />
+            <ControlBar />
           </>
         )}
       </>

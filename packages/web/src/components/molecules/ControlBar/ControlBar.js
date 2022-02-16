@@ -1,4 +1,4 @@
-import React   from "react";
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import styled from "styled-components";
@@ -9,6 +9,7 @@ import HomeSVG from "../../../assets/home.svg";
 import SearchSVG from "../../../assets/search.svg";
 import StatsSVG from "../../../assets/bar_chart.svg";
 import Toggle from "../../atoms/toggles/Switch/Switch";
+import { useDarkMode } from "../../../hooks/useDarkMode";
 
 const Bar = styled.nav`
   display: flex;
@@ -45,8 +46,7 @@ const SelectedNavSVG = styled(SVG)`
   }
 `;
 
-// eslint-disable-next-line react/prop-types
-export default function ControlBar({ theme, themeToggler }) {
+export default function ControlBar() {
   const { pathname } = useLocation();
 
   return (
@@ -63,7 +63,7 @@ export default function ControlBar({ theme, themeToggler }) {
       <Link to="/stats">
         {pathname === "/stats" ? <SelectedNavSVG src={StatsSVG} /> : <NavSVG src={StatsSVG} />}
       </Link>
-      <Toggle theme={theme} toggleTheme={themeToggler} />
+      <Toggle />
     </Bar>
   );
 }
