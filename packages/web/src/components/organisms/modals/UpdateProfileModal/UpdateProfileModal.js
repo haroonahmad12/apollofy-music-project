@@ -92,7 +92,7 @@ export default function UpdateProfileModal({
     );
 
     if (res) {
-      setUpdate({ thumbnails: { url_default: res.data.secure_url } });
+      setUpdate({ thumbnails: { url_default: res?.data?.secure_url } });
       setFileLoading(false);
     }
   }
