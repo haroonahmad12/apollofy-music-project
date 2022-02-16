@@ -181,9 +181,26 @@ export function signUpWithGoogleRequest() {
     dispatch(signUpRequest());
 
     try {
-      await authService.signInWithGoogle();
+      const auth = await authService.signInWithGoogle();
+
+      const updatedUser = {
+        username: auth.user._delegate.displayName,
+        email: auth.user._delegate.email,
+        thumbnails: {
+          url_default: auth.user._delegate.photoURL,
+        },
+      };
+
+      await authApi.signUp(auth.user._delegate.accessToken);
+      await usersApi.updateUser(auth.user._delegate.accessToken, updatedUser);
+
+      const response = await authApi.signIn(auth.user._delegate.accessToken);
+
+      dispatch(currentUserAdded(response.data.data));
+
+      return dispatch(signUpSuccess());
     } catch (error) {
-      dispatch(signUpError(error.message));
+      return dispatch(signUpError(error.message));
     }
   };
 }
