@@ -113,11 +113,11 @@ function App() {
                 </Route>
               )
             }
-          </Routes >
+          </Routes>
         </>
         <ReactQueryDevtools />
-      </QueryClientProvider >
-    </ThemeProvider >
+      </QueryClientProvider>
+    </ThemeProvider>
   );
 }
 
