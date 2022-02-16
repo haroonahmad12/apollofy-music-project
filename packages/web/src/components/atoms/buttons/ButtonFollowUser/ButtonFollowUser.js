@@ -8,27 +8,15 @@ import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import { useFollowedUsers, useFollowUser } from "../../../../hooks/useUsers";
 
 const ColorButton = styled(Button)`
-  color: white;
+  color: ${({ theme }) => theme.colors.textButton};
   background: ${({ theme }) => theme.colors.label};
   &:hover {
-    background: purple;
+    background: ${({ theme }) => theme.colors.label};
   }
   @media only screen and (max-width: ${({ theme }) => theme.media.mobile}) {
-    width: 20px;
-  }
-`;
-
-const StyledSpan = styled.span`
-  @media only screen and (max-width: ${({ theme }) => theme.media.mobile}) {
-    margin: 0 !important;
-    display: none;
-  }
-`;
-
-const StyledIcon = styled(StarOutlineIcon)`
-  @media only screen and (max-width: ${({ theme }) => theme.media.mobile}) {
-    margin-left: 11px;
-    border-radius: 100%;
+    svg{
+      display: none;
+    }
   }
 `;
 
@@ -49,7 +37,7 @@ const ButtonFollowUser = ({ id }) => {
           startIcon={<StarOutlineIcon />}
         >
           {" "}
-          <StyledSpan>Follow</StyledSpan>
+          <span>Follow</span>
         </ColorButton>
       ) : (
         <ColorButton
@@ -58,7 +46,7 @@ const ButtonFollowUser = ({ id }) => {
           startIcon={<StarIcon />}
         >
           {" "}
-          <StyledSpan>Unfollow</StyledSpan>
+          <span>Unfollow</span>
         </ColorButton>
       )}
     </Stack>

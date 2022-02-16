@@ -28,32 +28,25 @@ const StyledTypography = styled(Typography)`
   font-weight: bold;
   visibility: hidden;
   opacity: 1;
-  /* ${MainDiv}:hover & {
-    top: 40%;
-    letter-spacing: 5px;
-    transition: all 600ms ease-in-out;
-    visibility: visible;
-  } */
 `;
 
-const PlaylistImage = ({ picture, title }) => {
+const PlaylistImage = ({ imageUrl, alt }) => {
   return (
     <MainDiv md={{ borderRadius: 0, width: "10px" }}>
-      <PlaylistPic alt="profile image" src={picture} />
-      {/* <StyledTypography variant="h3">{title}</StyledTypography> */}
+      <PlaylistPic alt={alt} src={imageUrl} />
     </MainDiv>
   );
 };
 
 PlaylistImage.propTypes = {
-  picture: PropTypes.string,
-  title: PropTypes.string,
+  imageUrl: PropTypes.string,
+  alt: PropTypes.string,
 };
 
 PlaylistImage.defaultProps = {
-  picture:
+  imageUrl:
     "https://i.picsum.photos/id/1011/5472/3648.jpg?hmac=Koo9845x2akkVzVFX3xxAc9BCkeGYA9VRVfLE4f0Zzk",
-  title: "Untitled",
+  alt: "Untitled",
 };
 
 export default PlaylistImage;

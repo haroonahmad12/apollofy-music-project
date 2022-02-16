@@ -14,23 +14,33 @@ import {
   PictureDiv,
 } from "../Playlists/Playlists";
 import ProfileUserTitle from "../../components/atoms/body/ProfileUserTitle";
+import { useInfiniteTracks } from "../../hooks/useTracks";
 
 function GenresPage() {
   const { genreId } = useParams();
   const { data: genre } = useFetchGenre(genreId);
+  const genreData = genre?.data?.data;
+
+  const params = { genreId: genreId }
+  const { data: tracks } = useInfiniteTracks(params);
+  const tracksData = tracks?.data?.data;
+
   return (
     <>
       <SearchBar />
       <PageLayout>
         <PictureDiv>
-          <PlaylistImage src={genre?.thumbnails?.url_default} />
+          <PlaylistImage
+            imageUrl={genreData?.thumbnails?.url_default}
+            alt={genreData?.name}
+          />
         </PictureDiv>
         <DescriptionDiv>
-          <ProfileUserTitle title={genre?.name} id={genre?.id} />
+          <ProfileUserTitle title={genreData?.name} id={genreData?.id} />
         </DescriptionDiv>
       </PageLayout>
       <MainText>Tracks</MainText>
-      {/* <Tracks /> */}
+      <Tracks tracks={tracksData} />
     </>
   );
 }

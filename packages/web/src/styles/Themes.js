@@ -9,6 +9,7 @@ const media = {
 
 export const lightTheme = {
   colors: {
+    textButton: "#FFFFFF",
     label: "#B04AFF",
     body: "#FFF",
     text: "#363537",
@@ -30,6 +31,7 @@ export const lightTheme = {
 
 export const darkTheme = {
   colors: {
+    textButton: "#FFFFFF",
     label: "#B04AFF",
     body: "black",
     text: "#FAFAFA",
