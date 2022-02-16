@@ -1,6 +1,7 @@
 import React from "react";
 import { isBrowser, isMobile } from "react-device-detect";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
+import { useDarkMode } from "../../hooks/useDarkMode";
 
 import Footer from "../organisms/information/Footer";
 import FriendsColumn from "../organisms/information/FriendsColumn";
@@ -8,6 +9,8 @@ import AudioPlayer from "../organisms/input-controls/AudioPlayer";
 import MenuBar from "../organisms/navigation/MenuBar";
 import ControlBar from "../molecules/ControlBar";
 import FlexColumn from "../atoms/layout/FlexColumn";
+import { lightTheme, darkTheme } from "../../styles/Themes";
+import { GlobalStyles } from "../../styles/GlobalStyles";
 
 const MainLayout = styled.main`
   display: flex;
@@ -41,36 +44,43 @@ const RightFlex = styled(FlexColumn)`
 
 function withLayout(WrappedComponent) {
   function WrapperComponent({ ...props }) {
+    const [theme, themeToggler] = useDarkMode();
+
+    const themeMode = theme === "light" ? lightTheme : darkTheme;
+
     return (
-      <>
-        {isBrowser && (
-          <>
-            <MainLayout>
-              <ControlBar />
-              <PageContent>
-                <WrappedComponent {...props} />
-              </PageContent>
-              <RightFlex>
-                <MenuBar />
-                <FriendsColumn />
-                <Footer />
-              </RightFlex>
-            </MainLayout>
-            <AudioPlayer />
-          </>
-        )}
-        {isMobile && (
-          <>
-            <MainLayout>
-              <PageContent>
-                <WrappedComponent {...props} />
-              </PageContent>
-            </MainLayout>
-            <AudioPlayer />
-            <ControlBar />
-          </>
-        )}
-      </>
+      <ThemeProvider theme={themeMode}>
+        <GlobalStyles />
+        <>
+          {isBrowser && (
+            <>
+              <MainLayout>
+                <ControlBar theme={theme} themeToggler={themeToggler} />
+                <PageContent>
+                  <WrappedComponent {...props} />
+                </PageContent>
+                <RightFlex>
+                  <MenuBar />
+                  <FriendsColumn />
+                  <Footer />
+                </RightFlex>
+              </MainLayout>
+              <AudioPlayer />
+            </>
+          )}
+          {isMobile && (
+            <>
+              <MainLayout>
+                <PageContent>
+                  <WrappedComponent {...props} />
+                </PageContent>
+              </MainLayout>
+              <AudioPlayer />
+              <ControlBar theme={theme} themeToggler={themeToggler} />
+            </>
+          )}
+        </>
+      </ThemeProvider>
     );
   }
   return WrapperComponent;

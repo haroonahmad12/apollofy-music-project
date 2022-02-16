@@ -1,18 +1,26 @@
-import React from 'react'
-import { func, string } from 'prop-types';
-import { styled as styledMaterial } from '@mui/system';
-import SwitchUnstyled, { switchUnstyledClasses } from '@mui/base/SwitchUnstyled';
+import React from "react";
+import { func, string } from "prop-types";
+import { styled as styledMaterial } from "@mui/system";
+import SwitchUnstyled, { switchUnstyledClasses } from "@mui/base/SwitchUnstyled";
+
+import IconButton from "@mui/material/IconButton";
+import Box from "@mui/material/Box";
+
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
+import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
+import DarkModeTwoToneIcon from "@mui/icons-material/DarkModeTwoTone";
 
 const blue = {
-  500: '#007FFF',
+  500: "#007FFF",
 };
 
 const grey = {
-  400: '#BFC7CF',
-  500: '#AAB4BE',
+  400: "#BFC7CF",
+  500: "#AAB4BE",
 };
 
-const Root = styledMaterial('span')`
+const Root = styledMaterial("span")`
   font-size: 0;
   position: relative;
   display: inline-block;
@@ -78,16 +86,36 @@ const Root = styledMaterial('span')`
 `;
 
 const Toggle = ({ theme, toggleTheme }) => {
-  const label = { componentsProps: { input: { 'aria-label': 'Demo switch' } } };
+  const label = { componentsProps: { input: { "aria-label": "Demo switch" } } };
 
   return (
-    <SwitchUnstyled component={Root} {...label} defaultChecked onClick={toggleTheme} />
+    // <Brightness4Icon
+    //   // sx={{ display: "block" }}
+    //   color="disabled"
+    //   component={Root}
+    //   {...label}
+    //   defaultChecked
+    //   onClick={toggleTheme}
+    // />
+
+    <Box
+      sx={{
+        display: "flex",
+        borderRadius: 1,
+        justifyContent: "center",
+        padding: 0,
+      }}
+    >
+      <IconButton sx={{ margin: 0, padding: 0 }} onClick={toggleTheme} color="inherit">
+        {theme === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
+      </IconButton>
+    </Box>
   );
 };
 
 Toggle.propTypes = {
   theme: string.isRequired,
   toggleTheme: func.isRequired,
-}
+};
 
 export default Toggle;

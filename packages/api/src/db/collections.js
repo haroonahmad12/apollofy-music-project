@@ -1,5 +1,5 @@
 const models = require("../models");
-const { getRandomItems } = require("../utils");
+const { getRandomItems } = require("../controllers/utils");
 const {
   createSampleUser,
   createSampleGenre,

@@ -1,11 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+
 import { Typography } from "@mui/material";
 
-import { authSelector } from "../../../../store/auth";
 import ButtonFollowPlaylist from "../../buttons/ButtonFollowPlaylist";
 
 const StyledTitlePlaylist = styled.div`

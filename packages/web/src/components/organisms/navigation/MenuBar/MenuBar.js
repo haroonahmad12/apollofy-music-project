@@ -63,19 +63,6 @@ const MenuLogo = styled(KeyboardArrowDownIcon)`
   color: ${({ theme }) => theme.colors.text};
 `;
 
-const BackArrow = styled(ArrowBackIosIcon)`
-  display: none;
-  cursor: pointer;
-  @media only screen and (max-width: ${({ theme }) => theme.media.tablet}) {
-    margin-top: 1rem;
-    display: block;
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
-    border-radius: 100%;
-  }
-`;
-
 const CustomMenu = styled(MenuList)`
   display: flex;
   flex-direction: column;
@@ -121,10 +108,6 @@ function MenuBar() {
     navigate(`${ROUTES.USER_PROFILE}/${currentUser.id}`);
   };
 
-  const goHome = async () => {
-    navigate("/");
-  };
-
   function handleListKeyDown(event) {
     if (event.key === "Tab") {
       event.preventDefault();
@@ -146,11 +129,6 @@ function MenuBar() {
 
   return (
     <>
-      <BackArrow
-        onClick={() => {
-          goHome();
-        }}
-      />
       <MenuLayout>
         <ProfilePicture
           alt="Profile Picture"
