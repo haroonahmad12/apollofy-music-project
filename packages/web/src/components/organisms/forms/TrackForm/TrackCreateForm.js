@@ -145,7 +145,7 @@ function TrackCreateForm() {
                 id="input_released_date"
                 name="released_date"
                 type="date"
-                value={values.released_date}
+                value={values.released_date || new Date().toISOString().substring(0, 10)}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 error={Boolean(touched.released_date && errors.released_date)}
