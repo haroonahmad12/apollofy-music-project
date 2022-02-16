@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { FileUploader } from "react-drag-drop-files";
 import { useFormik } from "formik";
 import {
@@ -8,9 +8,9 @@ import {
   InputLabel,
   Select,
   TextField,
-  Container,
   MenuItem,
   Typography,
+  Container,
   FormHelperText,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
@@ -19,14 +19,12 @@ import validationSchema from "../../../../schemas/PlaylistSchema";
 import { uploadResource } from "../../../../api/api-cloudinary";
 import { useFetchTracks } from "../../../../hooks/useTracks";
 import { useCreatePlaylist } from "../../../../hooks/usePlaylists";
+import FormHeading from "../../../atoms/headings/FormHeading";
 
 function CreatePlaylistForm() {
-  const [trackListPage, setTrackListPage] = useState(1);
-
   const initialValues = {
     title: "",
     description: "",
-    color: "",
     url_image: "",
     tracks: [],
   };
@@ -42,13 +40,9 @@ function CreatePlaylistForm() {
     mutate,
   } = useCreatePlaylist();
 
-  const {
-    isLoading: fetchMyTracksIsLoading,
-    isError: fetchMyTracksIsError,
-    isSuccess: fetchMyTracksIsSuccess,
-    error: fetchMyTracksError,
-    data: fetchMyTracksResponse,
-  } = useFetchTracks({ limit: 50 });
+  const { isSuccess: fetchMyTracksIsSuccess, data: fetchMyTracksResponse } = useFetchTracks({
+    limit: 50,
+  });
 
   const formik = useFormik({
     initialValues,
@@ -59,7 +53,6 @@ function CreatePlaylistForm() {
         title: values.title,
         description: values.description,
         url: values.url_playlist,
-        color: values.color,
         tracks: values.tracks,
         thumbnails: {
           url_default: values.url_image,
@@ -85,9 +78,7 @@ function CreatePlaylistForm() {
 
   return (
     <Container as="div">
-      <Typography sx={{ fontSize: "2rem", fontWeight: "light", mb: 2 }}>
-        Add playlist
-      </Typography>
+      <FormHeading>Add playlist</FormHeading>
       {setPlaylistIsSuccess && (
         <Alert sx={{ mb: 2 }} severity={setPlaylistResponse.data.success ? "success" : "error"}>
           {setPlaylistResponse.data.message}
@@ -123,23 +114,6 @@ function CreatePlaylistForm() {
                 onBlur={handleBlur}
                 error={Boolean(touched.title && errors.title)}
                 helperText={errors.title}
-              />
-            </Box>
-            <Box sx={{ flexGrow: 1, mb: 3 }}>
-              <InputLabel sx={{ mb: 1 }} htmlFor="color">
-                Playlist color
-              </InputLabel>
-              <TextField
-                fullWidth
-                size="small"
-                id="color"
-                name="color"
-                type="text"
-                value={values.color}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                error={Boolean(touched.color && errors.color)}
-                helperText={errors.color}
               />
             </Box>
           </Box>
@@ -227,38 +201,6 @@ function CreatePlaylistForm() {
               <Typography sx={{ fontSize: "0.9rem", mb: 3 }}>{values.url_image}</Typography>
             </Box>
           )}
-          {/* {fetchMyTracksResponse?.data && (
-          <DataGrid
-            pageSize={fetchMyTracksResponse.data.pages}
-            columns={[
-              { field: "id", headerName: "ID", width: 70 },
-              { field: "firstName", headerName: "First name", width: 130 },
-              { field: "lastName", headerName: "Last name", width: 130 },
-              {
-                field: "age",
-                headerName: "Age",
-                type: "number",
-                width: 90,
-              },
-              {
-                field: "fullName",
-                headerName: "Full name",
-                description: "This column has a value getter and is not sortable.",
-                sortable: false,
-                width: 160,
-                valueGetter: (params) =>
-                  `${params.row.firstName || ""} ${params.row.lastName || ""}`,
-              },
-            ]}
-            rows={fetchMyTracksResponse.data.data.map((track) => ({
-              id: track.id,
-              title: track.title,
-              genres: track.genres.join(", "),
-              duration: track.duration,
-              released_date: track.released_date,
-            }))}
-          />
-        )} */}
           <LoadingButton
             type="submit"
             disabled={!isValid}

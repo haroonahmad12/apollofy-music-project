@@ -21,6 +21,7 @@ import { useCreateTrack } from "../../../../hooks/useTracks";
 import { useFetchGenres } from "../../../../hooks/useGenres";
 import validationSchema from "../../../../schemas/TrackSchema";
 import { uploadResource } from "../../../../api/api-cloudinary";
+import FormHeading from "../../../atoms/headings/FormHeading";
 
 const initialValues = {
   title: "",
@@ -87,7 +88,7 @@ function TrackCreateForm() {
 
   return (
     <Container as="div">
-      <Typography sx={{ fontSize: "2rem", fontWeight: "light", mb: 2 }}>Add track</Typography>
+      <FormHeading>Add track</FormHeading>
       {setTrackIsSuccess && (
         <Alert sx={{ mb: 2 }} severity={setTrackResponse.data.success ? "success" : "error"}>
           {setTrackResponse.data.message}

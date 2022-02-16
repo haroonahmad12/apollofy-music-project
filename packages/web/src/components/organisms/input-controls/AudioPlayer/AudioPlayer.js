@@ -4,7 +4,7 @@ import Player from "react-material-music-player";
 
 import ThemeProvider from "@mui/material/styles/ThemeProvider";
 import { themeSelector } from "../../../../store/theme";
-import makeTheme from "./theme";
+import makeTheme from "../../../../styles/audioPlayerTheme";
 
 const AudioPlayer = () => {
   const { theme } = useSelector(themeSelector);
