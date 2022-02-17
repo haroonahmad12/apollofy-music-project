@@ -1,9 +1,8 @@
 import React from "react";
 import { FileUploader } from "react-drag-drop-files";
 import { useFormik } from "formik";
-import { useNavigate } from "react-router-dom";
-import { useSetAlbum } from "../../../../hooks/useAlbums";
-import { useGenres } from "../../../../hooks/useGenres";
+import { useCreateAlbum } from "../../../../hooks/useAlbums";
+import { useFetchGenres } from "../../../../hooks/useGenres";
 import validationSchema from "../../../../schemas/AlbumSchema";
 import {
   Box,
@@ -21,18 +20,18 @@ import {
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { uploadResource } from "../../../../api/api-cloudinary";
-import withLayout from "../../../hoc/withLayout";
-import { useMyTracks } from "../../../../hooks/useTracks";
+import { useFetchUserTracks } from "../../../../hooks/useTracks";
+import FormHeading from "../../../atoms/headings/FormHeading";
+
+const allowedImageExt = ["jpg", "jpeg", "png"];
 
 const initialValues = {
   title: "",
-  released_date: "",
+  released_date: new Date().toISOString().substring(0, 10),
   genres: [],
   tracks: [],
   url_image: "",
 };
-
-const allowedImageExt = ["jpg", "jpeg", "png"];
 
 function AlbumCreateForm() {
   const {
@@ -42,7 +41,7 @@ function AlbumCreateForm() {
     error: setAlbumError,
     data: setAlbumResponse,
     mutate,
-  } = useSetAlbum();
+  } = useCreateAlbum();
 
   const {
     isLoading: fetchMyTracksIsLoading,
@@ -50,7 +49,7 @@ function AlbumCreateForm() {
     isSuccess: fetchMyTracksIsSuccess,
     error: fetchMyTracksError,
     data: fetchMyTracksResponse,
-  } = useMyTracks();
+  } = useFetchUserTracks({ limit: 100 });
 
   const {
     isLoading: fetchGenresIsLoading,
@@ -58,19 +57,18 @@ function AlbumCreateForm() {
     isSuccess: fetchGenresIsSuccess,
     error: fetchGenresError,
     data: fetchGenresResponse,
-  } = useGenres();
-
-  // const navigate = useNavigate();
+  } = useFetchGenres();
 
   const formik = useFormik({
     initialValues,
     validationSchema,
     enableReinitialize: true,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       const data = {
         title: values.title,
         released_date: values.released_date,
         genres: values.genres,
+        tracks: values.tracks,
         url: values.url_album,
         duration: values.duration,
         thumbnails: {
@@ -96,8 +94,8 @@ function AlbumCreateForm() {
   } = formik;
 
   return (
-    <Container as="main">
-      <Typography sx={{ fontSize: "2rem", fontWeight: "light", mb: 2 }}>Add album</Typography>
+    <Container as="div">
+      <FormHeading>Add album</FormHeading>
       {setAlbumIsSuccess && (
         <Alert sx={{ mb: 2 }} severity={setAlbumResponse.data.success ? "success" : "error"}>
           {setAlbumResponse.data.message}
@@ -180,7 +178,7 @@ function AlbumCreateForm() {
               input={<Input />}
             >
               {fetchGenresResponse.data.data.map((genre) => (
-                <MenuItem key={genre.name} value={genre.name}>
+                <MenuItem key={genre.id} value={genre.id}>
                   {genre.name}
                 </MenuItem>
               ))}
@@ -202,7 +200,7 @@ function AlbumCreateForm() {
               input={<Input />}
             >
               {fetchMyTracksResponse.data.data.map((track) => (
-                <MenuItem key={track.title} value={track.title}>
+                <MenuItem key={track.title} value={track.id}>
                   {track.title}
                 </MenuItem>
               ))}
@@ -265,4 +263,4 @@ function AlbumCreateForm() {
   );
 }
 
-export default withLayout(AlbumCreateForm);
+export default AlbumCreateForm;

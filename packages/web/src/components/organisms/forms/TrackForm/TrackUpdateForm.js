@@ -1,7 +1,7 @@
 import React from "react";
 import { FileUploader } from "react-drag-drop-files";
 import { useFormik } from "formik";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   Box,
   Alert,
@@ -19,7 +19,7 @@ import {
 import { LoadingButton } from "@mui/lab";
 
 import { useFetchTrack, useUpdateTrack } from "../../../../hooks/useTracks";
-import { useGenres } from "../../../../hooks/useGenres";
+import { useFetchGenres } from "../../../../hooks/useGenres";
 import validationSchema from "../../../../schemas/TrackSchema";
 import { uploadResource } from "../../../../api/api-cloudinary";
 import withLayout from "../../../hoc/withLayout";
@@ -65,9 +65,7 @@ function TrackUpdateForm() {
     isSuccess: fetchGenresIsSuccess,
     error: fetchGenresError,
     data: fetchGenresResponse,
-  } = useGenres();
-
-  // const navigate = useNavigate();
+  } = useFetchGenres();
 
   const formik = useFormik({
     initialValues: initialValues(fetchTrackResponse?.data?.data),
@@ -188,7 +186,7 @@ function TrackUpdateForm() {
               input={<Input />}
             >
               {fetchGenresResponse?.data?.data.map((genre) => (
-                <MenuItem key={genre.name} value={genre.name}>
+                <MenuItem key={genre.id} value={genre.id}>
                   {genre.name}
                 </MenuItem>
               ))}

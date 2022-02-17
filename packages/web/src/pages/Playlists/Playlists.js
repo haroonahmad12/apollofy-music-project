@@ -1,28 +1,29 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 
-import ProfileUserDescription from "../../components/atoms/ProfileUserDescription/ProfileUserDescription";
-import ProfileOneStadistics from "../../components/atoms/ProfileOneStadistics/ProfileOneStadistics";
-import ProfileUserTitle from "../../components/atoms/ProfileUserTitle/ProfileUserTitle";
-import PlaylistImage from "../../components/atoms/PlaylistImage/PlaylistImage";
-import TrackDetail from "../../components/molecules/TrackDetail/TrackDetail";
+import { useFetchPlaylist } from "../../hooks/usePlaylists";
 import withLayout from "../../components/hoc/withLayout";
-import { TracksList } from "../../components/organisms/PopularTracks/PopularTracks";
-import { SmallText } from "../../components/atoms/SmallText/SmallText";
+import TracksList from "../../components/organisms/information/PopularTracks";
+import TrackDetail from "../../components/molecules/details/TrackDetail";
+import SearchBar from "../../components/molecules/input-controls/SearchBar";
+import ProfileUserDescription from "../../components/atoms/body/ProfileUserDescription";
+import PlaylistImage from "../../components/atoms/images/PlaylistImage";
+import SmallText from "../../components/atoms/body/SmallText";
+import ProfileOneStadistics from "../../components/atoms/body/ProfileOneStadistics/ProfileOneStadistics";
+import ProfilePlaylistTitle from "../../components/atoms/body/ProfilePlaylistTitle/ProfilePlaylistTitle";
 
-const PlaylistContent = styled.div`
+export const PageLayout = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
   gap: 0.3rem;
   margin: 1rem auto 2rem;
-  border-radius: 1.3rem;
+  border-radius: 1.25rem;
   background: ${({ theme }) => theme.colors.background.secondary};
 `;
 
-const PictureDiv = styled.div`
+export const PictureDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,50 +31,47 @@ const PictureDiv = styled.div`
   width: 100%;
 `;
 
-const DescriptionDiv = styled.div`
+export const DescriptionDiv = styled.div`
   padding: 1rem;
 `;
 
-const StadisticsDiv = styled.div`
+export const StadisticsDiv = styled.div`
   margin-bottom: 1rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-wrap: wrap;
 `;
 
-const TracksText = styled(SmallText)`
-  @media only screen and (max-width: 600px) {
+export const MainText = styled(SmallText)`
+  @media only screen and (max-width: ${({ theme }) => theme.media.mobile}) {
     margin: auto;
   }
 `;
 
 function PlaylistsPage() {
   const { playlistId } = useParams();
-  const [playlist, setPlaylist] = useState(null);
 
-  useEffect(() => {
-    (async function fetchPlaylist() {
-      const { data } = await axios(`http://localhost:4000/playlists/${playlistId}`);
-      setPlaylist(data.data);
-    })();
-  }, []);
+  const { data } = useFetchPlaylist(playlistId);
+
+  const playlist = data?.data?.data;
 
   return (
     <>
-      <PlaylistContent>
+      <SearchBar />
+      <PageLayout>
         <PictureDiv>
           <PlaylistImage picture={playlist?.thumbnails?.url_default} title={playlist?.title} />
         </PictureDiv>
         <DescriptionDiv>
-          <ProfileUserTitle title={playlist?.title} />
+          <ProfilePlaylistTitle title={playlist?.title} id={playlist?.id} />
           <StadisticsDiv>
             <ProfileOneStadistics count={playlist?.num_tracks} text="Songs" />
             <ProfileOneStadistics count={playlist?.num_followers} text="Followers" />
           </StadisticsDiv>
           <ProfileUserDescription description={playlist?.description} />
         </DescriptionDiv>
-      </PlaylistContent>
-      <TracksText>Tracks</TracksText>
+      </PageLayout>
+      <MainText>Tracks</MainText>
       <TracksList>
         {playlist?.tracks === [] ? (
           <SmallText>There are no songs in this playlist yet</SmallText>

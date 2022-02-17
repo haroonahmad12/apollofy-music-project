@@ -1,14 +1,10 @@
 import React from "react";
-import Tracks from "../../components/organisms/Tracks";
+
+import withLayout from "../../components/hoc/withLayout";
+import Tracks from "../../components/organisms/information/Tracks";
 
 function TracksPage() {
-  return (
-    <main>
-      <section>
-        <Tracks />
-      </section>
-    </main>
-  );
+  return <Tracks />;
 }
 
-export default TracksPage;
+export default withLayout(TracksPage);

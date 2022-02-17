@@ -29,10 +29,6 @@ const PlaylistSchema = new Schema(
       type: [Types.ObjectId],
       ref: "track",
     },
-    followed_by: {
-      type: [String],
-      ref: "user",
-    },
     thumbnails: {
       url_default: {
         type: String,
@@ -58,6 +54,10 @@ const PlaylistSchema = new Schema(
           message: () => `URL for large thumbnail is invalid`,
         },
       },
+    },
+    followed_by: {
+      type: [String],
+      ref: "user",
     },
     deleted_at: {
       type: Date,
@@ -145,7 +145,7 @@ PlaylistSchema.statics.getPlaylist = function (id, options = {}) {
 };
 
 PlaylistSchema.statics.getPlaylists = function (options = {}) {
-  const { page = 1, sort = "created_at", order = "asc", limit = 10, filter } = options;
+  const { page = 1, sort = "created_at", order = "asc", limit = 10, filter = {} } = options;
 
   const start = (page - 1) * limit;
 

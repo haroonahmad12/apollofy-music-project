@@ -1,94 +1,84 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import styled from "styled-components";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
+import { FileUploader } from "react-drag-drop-files";
 import Stack from "@mui/material/Stack";
+import { FormHelperText, Typography } from "@mui/material";
+import { Box } from "@mui/system";
 
-import PhotoCamera from "@mui/icons-material/PhotoCamera";
-import { FlexColumn } from "../../../atoms/FlexColumn/FlexColumn";
-import { MiddleTitle } from "../../../atoms/MiddleTitle/MiddleTitle";
-import { SmallText } from "../../../atoms/SmallText/SmallText";
-import { PrimaryButton } from "../../../atoms/buttons/PrimaryButton";
+import { pictureLinkAdded } from "../../../../store/auth";
+import { modalSelector, nextModal } from "../../../../store/modal";
+import { uploadResource } from "../../../../api/api-cloudinary";
+import FlexColumn from "../../../atoms/layout/FlexColumn";
+import MiddleTitle from "../../../atoms/headings/MiddleTitle";
+import SmallText from "../../../atoms/body/SmallText";
+import ButtonLoginModal from "../../../atoms/buttons/ButtonLoginModal";
 
-import { authSelector } from "../../../../redux/auth";
-import { modalSelector, nextModal } from "../../../../redux/modal";
+const allowedImageExt = ["jpg", "jpeg", "png"];
 
-const Input = styled("input")({
-  display: "none",
-});
-
-const ModalButton = styled(PrimaryButton)`
-  width: 35%;
-`;
-
-export default function ProfilePictureForm() {
-  const [value, setValue] = useState(null);
+function ProfilePictureForm() {
+  const [imageUrl, setimageUrl] = useState();
+  const [error, setError] = useState();
   const dispatch = useDispatch();
   const { currentModal } = useSelector(modalSelector);
-  const { currentUser } = useSelector(authSelector);
-  const [pictureLink, setLink] = useState("");
 
   function handlePicture() {
-    // if (value) dispatch(setProfilePicture(value));
-
     dispatch(nextModal(currentModal + 1));
-    // dispatch(setPictureLink(pictureLink));
-  }
-
-  function uploadImage(files) {
-    const formData = new FormData();
-
-    formData.append("file", files[0]);
-    formData.append("upload_preset", "crm5jzoc");
-
-    axios
-      .post("https://api.cloudinary.com/v1_1/stringifiers/image/upload", formData)
-      .then((res) => {
-        setLink(res.data.secure_url);
-      });
+    dispatch(pictureLinkAdded(imageUrl));
   }
 
   return (
     <FlexColumn>
       <MiddleTitle>Pick a Profile Picture</MiddleTitle>
-      <SmallText>Do you have a favourite selfie? Otherwise, you can take it right now!</SmallText>
-      <Stack direction="row" alignItems="center" spacing={2}>
-        <label htmlFor="contained-button-file">
-          <Input
-            accept="image/*"
-            id="contained-button-file"
-            multiple
-            type="file"
-            defaultValue={currentUser.profilePicture || null}
-            onChange={(e) => {
-              uploadImage(e.target.files);
-              setValue(e.target.files);
+      <SmallText>Do you have a favourite selfie? Otherwise, take one right now!</SmallText>
+      <Stack direction="column" alignItems="center" spacing={2}>
+        <FileUploader
+          handleChange={(file) => {
+            uploadResource(file, "image")
+              .then((res) => {
+                setimageUrl(res.data.url);
+              })
+              .catch((err) => {
+                setError(err.message);
+              });
+          }}
+          name="input_album_cover"
+          types={allowedImageExt}
+        />
+        {error && <FormHelperText style={{ color: "#d32f2f" }}>{error}</FormHelperText>}
+        {imageUrl && (
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 1,
+              alignItems: "center",
+              justifyContent: "center",
             }}
-          />
-          <Button variant="contained" component="span">
-            Upload
-          </Button>
-        </label>
-        <label htmlFor="icon-button-file">
-          <Input
-            accept="image/*"
-            id="icon-button-file"
-            type="file"
-            onChange={(e) => {
-              uploadImage(e.target.files);
-              setValue(e.target.files);
-            }}
-          />
-          <IconButton color="primary" aria-label="upload picture" component="span">
-            {" "}
-            <PhotoCamera />
-          </IconButton>
-        </label>
-        {/* {value ? <p>{value}</p> : null} */}
+          >
+            <Typography sx={{ color: "rgba(0, 0, 0, 0.6)", mb: 1 }}>
+              Profile image preview
+            </Typography>
+            <img
+              style={{
+                width: "10rem",
+                marginBottom: "1rem",
+                aspectRatio: "4/3",
+                objectFit: "contain",
+                objectPosition: "center",
+                borderRadius: "0.25rem",
+                boxShadow: "0 0 0.25rem rgba(0, 0, 0, 0.5)",
+              }}
+              src={imageUrl}
+              alt="preview"
+            />
+          </Box>
+        )}
       </Stack>
-      <ModalButton onClick={() => handlePicture()}>{value ? "Submit" : "Skip for now"}</ModalButton>
+      <ButtonLoginModal variant="login" btnColor="#B04AFF" onClick={() => handlePicture()}>
+        {imageUrl ? "Submit" : "Skip for now"}
+      </ButtonLoginModal>
     </FlexColumn>
   );
 }
+
+export default ProfilePictureForm;

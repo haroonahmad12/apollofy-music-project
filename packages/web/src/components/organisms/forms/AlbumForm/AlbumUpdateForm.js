@@ -3,7 +3,7 @@ import { FileUploader } from "react-drag-drop-files";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { useFetchAlbum, useUpdateAlbum, useUpdateAlbum } from "../../../../hooks/useAlbums";
-import { useGenres } from "../../../../hooks/useGenres";
+import { useFetchGenres } from "../../../../hooks/useGenres";
 import validationSchema from "../../../../schemas/AlbumSchema";
 import {
   Box,
@@ -22,7 +22,7 @@ import {
 import { LoadingButton } from "@mui/lab";
 import { uploadResource } from "../../../../api/api-cloudinary";
 import withLayout from "../../../hoc/withLayout";
-import { useMyTracks } from "../../../../hooks/useTracks";
+import { useFetchUserTracks } from "../../../../hooks/useTracks";
 
 function initialValues(responseData = {}) {
   return {
@@ -60,7 +60,7 @@ function AlbumCreateForm() {
     isSuccess: fetchMyTracksIsSuccess,
     error: fetchMyTracksError,
     data: fetchMyTracksResponse,
-  } = useMyTracks();
+  } = useFetchUserTracks();
 
   const {
     isLoading: fetchGenresIsLoading,
@@ -68,12 +68,12 @@ function AlbumCreateForm() {
     isSuccess: fetchGenresIsSuccess,
     error: fetchGenresError,
     data: fetchGenresResponse,
-  } = useGenres();
+  } = useFetchGenres();
 
   // const navigate = useNavigate();
 
   const formik = useFormik({
-    initialValues = initialValues(response),
+    initialValues = initialValues(fetchAlbumResponse),
     validationSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
@@ -126,7 +126,7 @@ function AlbumCreateForm() {
           {fetchMyTracksIsError && <Box>Tracks request: {fetchMyTracksError?.message}</Box>}
         </Alert>
       )}
-      {(fetchAlbumIsLoading || fetchGenresIsLoading || fetchMyTracksIsLoading ) && (
+      {(fetchAlbumIsLoading || fetchGenresIsLoading || fetchMyTracksIsLoading) && (
         <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", py: "4rem" }}>
           <CircularProgress size={128} />
         </Box>
@@ -191,7 +191,7 @@ function AlbumCreateForm() {
               input={<Input />}
             >
               {fetchGenresResponse.data.data.map((genre) => (
-                <MenuItem key={genre.name} value={genre.name}>
+                <MenuItem key={genre.id} value={genre.id}>
                   {genre.name}
                 </MenuItem>
               ))}

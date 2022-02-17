@@ -2,36 +2,35 @@ import React from "react";
 import { isBrowser, isMobile } from "react-device-detect";
 import styled from "styled-components";
 
-import { FlexColumn } from "../atoms/FlexColumn/FlexColumn";
-import ControlBar from "../molecules/ControlBar/ControlBar";
-import { ExampleAudioPlayer } from "../organisms/AudioPlayer/AudioPlayer";
-import Footer from "../organisms/Footer/Footer";
-import FriendsColumn from "../organisms/FriendsColumn/FriendsColumn";
-import MenuBar from "../organisms/MenuBar/MenuBar";
+import Footer from "../organisms/information/Footer";
+import FriendsColumn from "../organisms/information/FriendsColumn";
+import AudioPlayer from "../organisms/input-controls/AudioPlayer";
+import MenuBar from "../organisms/navigation/MenuBar";
+import ControlBar from "../molecules/navigation/ControlBar";
+import FlexColumn from "../atoms/layout/FlexColumn";
 
 const MainLayout = styled.main`
   display: flex;
-  gap: 2rem;
-  padding: 1rem 1rem 0 1rem;
+  padding: 1.25rem;
   justify-content: space-between;
-  margin-bottom: 6rem;
-
-  @media only screen and (max-width: 992px) {
+  max-width: 1200px;
+  margin: 0 auto 6rem;
+  @media only screen and (max-width: ${({ theme }) => theme.media.tablet}) {
     padding: 1rem 0;
     gap: 0.5rem;
     flex-direction: column;
     justify-content: center;
   }
-
-  @media only screen and (max-width: 600px) {
-    padding: 1rem;
+  @media only screen and (max-width: ${({ theme }) => theme.media.mobile}) {
+    padding: 1rem 0;
   }
 `;
 
 const PageContent = styled.div`
-  width: 60%;
-  @media only screen and (max-width: 1000px) {
-    width:95%
+  width: calc(100% - 18rem);
+  padding: 0 1.25rem;
+  @media only screen and (max-width: ${({ theme }) => theme.media.tablet}) {
+    width: 100%;
   }
 `;
 
@@ -49,6 +48,7 @@ function withLayout(WrappedComponent) {
             <MainLayout>
               <ControlBar />
               <PageContent>
+                {/* <SearchBar /> */}
                 <WrappedComponent {...props} />
               </PageContent>
               <RightFlex>
@@ -57,7 +57,7 @@ function withLayout(WrappedComponent) {
                 <Footer />
               </RightFlex>
             </MainLayout>
-            <ExampleAudioPlayer />
+            <AudioPlayer />
           </>
         )}
         {isMobile && (
@@ -67,7 +67,7 @@ function withLayout(WrappedComponent) {
                 <WrappedComponent {...props} />
               </PageContent>
             </MainLayout>
-            <ExampleAudioPlayer />
+            <AudioPlayer />
             <ControlBar />
           </>
         )}

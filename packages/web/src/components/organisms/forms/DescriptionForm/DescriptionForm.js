@@ -4,23 +4,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { FlexColumn } from "../../../atoms/FlexColumn/FlexColumn";
-import { MiddleTitle } from "../../../atoms/MiddleTitle/MiddleTitle";
-import { SmallText } from "../../../atoms/SmallText/SmallText";
-import { PrimaryButton } from "../../../atoms/buttons/PrimaryButton";
-
-import {
-  authSelector,
-  signUpRequest,
-  signUpWithEmailRequest,
-  setCurrentUser,
-} from "../../../../redux/auth";
+import { authSelector, signUpWithEmailRequest } from "../../../../store/auth";
+import FlexColumn from "../../../atoms/layout/FlexColumn";
+import MiddleTitle from "../../../atoms/headings/MiddleTitle";
+import SmallText from "../../../atoms/body/SmallText";
+import ButtonLoginModal from "../../../atoms/buttons/ButtonLoginModal";
 
 const DescriptionArea = styled.textarea`
   width: 22rem;
   height: 8rem;
-  border: 1px solid #b04aff;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  padding: 0.5rem;
   border-radius: 0.3rem;
+  margin-bottom: 0.5rem;
+  background-color: ${({ theme }) => theme.colors.background.secondary};
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export default function DescriptionForm() {
@@ -30,30 +28,17 @@ export default function DescriptionForm() {
 
   function handleDescription() {
     if (value.length <= 250) {
-      dispatch(signUpRequest());
       const updatedCurrentUser = {
-        username: currentUser.name,
+        username: currentUser.username,
         email: currentUser.email,
         thumbnails: {
           url_default: currentUser.pictureLink,
         },
-        birth_date: currentUser.birth_date?.toISOString().substring(0, 10),
+        birth_date: currentUser.birth_date,
         description: value,
       };
 
-      dispatch(setCurrentUser(updatedCurrentUser));
-
-      try {
-        dispatch(
-          signUpWithEmailRequest(
-            updatedCurrentUser.email,
-            currentUser.password,
-            updatedCurrentUser,
-          ),
-        );
-      } catch (err) {
-        alert(err.message);
-      }
+      dispatch(signUpWithEmailRequest(currentUser.email, currentUser.password, updatedCurrentUser));
     } else {
       toast.error("Your description is too long", {
         position: toast.POSITION.BOTTOM_CENTER,
@@ -69,11 +54,13 @@ export default function DescriptionForm() {
       </SmallText>
       <DescriptionArea
         placeholder="Type a few lines about you..."
-        defaultValue={currentUser.description || ""}
+        defaultValue={currentUser?.description || ""}
         maxlength="250"
         onChange={(e) => setValue(e.target.value)}
       />
-      <PrimaryButton onClick={() => handleDescription()}>Finish</PrimaryButton>
+      <ButtonLoginModal variant="login" btnColor="#B04AFF" onClick={() => handleDescription()}>
+        Finish
+      </ButtonLoginModal>
       <ToastContainer />
     </FlexColumn>
   );

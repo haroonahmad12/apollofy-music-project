@@ -1,5 +1,5 @@
-const { model } = require("mongoose");
 const models = require("../models");
+const { getRandomItems } = require("../controllers/utils");
 const {
   createSampleUser,
   createSampleGenre,
@@ -17,7 +17,15 @@ async function seedUserCollection(length = 1) {
 async function seedGenreCollection(length = 1) {
   const genres = Array.from({ length }, () => createSampleGenre());
 
-  return await models.Genre.insertMany(genres).then((docs) => docs.map(({ name }) => name));
+  return await models.Genre.insertMany(genres).then((docs) => docs.map(({ id }) => id));
+}
+
+async function seedTrackCollection(length = 1, users = [], genres = []) {
+  if (users.length === 0) throw new Error("User list must not be empty");
+
+  const tracks = Array.from({ length }, () => createSampleTrack(users, genres));
+
+  return await models.Track.insertMany(tracks).then((docs) => docs.map(({ id }) => id));
 }
 
 async function seedAlbumCollection(length = 1, users = [], genres = []) {
@@ -34,14 +42,6 @@ async function seedPlaylistCollection(length = 1, users = []) {
   const playlists = Array.from({ length }, () => createSamplePlaylist(users));
 
   return await models.Playlist.insertMany(playlists).then((docs) => docs.map(({ id }) => id));
-}
-
-async function seedTrackCollection(length = 1, users = [], genres = []) {
-  if (users.length === 0) throw new Error("User list must not be empty");
-
-  const tracks = Array.from({ length }, () => createSampleTrack(users, genres));
-
-  return await models.Track.insertMany(tracks).then((docs) => docs.map(({ id }) => id));
 }
 
 async function seedAlbumsWithTracks() {
@@ -86,9 +86,10 @@ async function seedCollections() {
   const users = await seedUserCollection(numUsers);
   const genres = await seedGenreCollection(numGenres);
 
-  await seedAlbumCollection(numAlbums, users, genres);
   await seedTrackCollection(numTracks, users, genres);
+  await seedAlbumCollection(numAlbums, users, genres);
   await seedPlaylistCollection(numPlaylists, users);
+
   await seedAlbumsWithTracks();
   await seedPlaylistsWithTracks();
 }

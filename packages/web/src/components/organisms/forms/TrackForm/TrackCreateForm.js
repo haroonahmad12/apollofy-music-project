@@ -1,10 +1,6 @@
 import React from "react";
 import { FileUploader } from "react-drag-drop-files";
 import { useFormik } from "formik";
-import { useNavigate } from "react-router-dom";
-import { useSetTrack } from "../../../../hooks/useTracks";
-import { useGenres } from "../../../../hooks/useGenres";
-import validationSchema from "../../../../schemas/TrackSchema";
 import {
   Box,
   Alert,
@@ -20,12 +16,16 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
+
+import { useCreateTrack } from "../../../../hooks/useTracks";
+import { useFetchGenres } from "../../../../hooks/useGenres";
+import validationSchema from "../../../../schemas/TrackSchema";
 import { uploadResource } from "../../../../api/api-cloudinary";
-import withLayout from "../../../hoc/withLayout";
+import FormHeading from "../../../atoms/headings/FormHeading";
 
 const initialValues = {
   title: "",
-  released_date: "",
+  released_date: new Date().toISOString().substring(0, 10),
   genres: [],
   url_track: "",
   url_image: "",
@@ -43,7 +43,7 @@ function TrackCreateForm() {
     error: setTrackError,
     data: setTrackResponse,
     mutate,
-  } = useSetTrack();
+  } = useCreateTrack();
 
   const {
     isLoading: fetchGenresIsLoading,
@@ -51,9 +51,7 @@ function TrackCreateForm() {
     isSuccess: fetchGenresIsSuccess,
     error: fetchGenresError,
     data: fetchGenresResponse,
-  } = useGenres();
-
-  // const navigate = useNavigate();
+  } = useFetchGenres();
 
   const formik = useFormik({
     initialValues,
@@ -89,8 +87,8 @@ function TrackCreateForm() {
   } = formik;
 
   return (
-    <Container as="main">
-      <Typography sx={{ fontSize: "2rem", fontWeight: "light", mb: 2 }}>Add track</Typography>
+    <Container as="div">
+      <FormHeading>Add track</FormHeading>
       {setTrackIsSuccess && (
         <Alert sx={{ mb: 2 }} severity={setTrackResponse.data.success ? "success" : "error"}>
           {setTrackResponse.data.message}
@@ -172,7 +170,7 @@ function TrackCreateForm() {
               input={<Input />}
             >
               {fetchGenresResponse.data.data.map((genre) => (
-                <MenuItem key={genre.name} value={genre.name}>
+                <MenuItem key={genre.id} value={genre.id}>
                   {genre.name}
                 </MenuItem>
               ))}
@@ -263,4 +261,4 @@ function TrackCreateForm() {
   );
 }
 
-export default withLayout(TrackCreateForm);
+export default TrackCreateForm;

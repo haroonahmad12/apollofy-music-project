@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate, Outlet, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { ThemeProvider } from "styled-components";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
+import { ThemeProvider } from "styled-components";
 import PropTypes from "prop-types";
 
 import * as ROUTES from "./routes";
@@ -14,23 +14,24 @@ import ResetPassword from "./pages/ResetPassword";
 import EditProfile from "./pages/EditProfile";
 import NotFound from "./pages/NotFound";
 import Playlists from "./pages/Playlists";
-import Tracks from "./pages/Tracks";
 import Genres from "./pages/Genres";
 import Albums from "./pages/Albums";
 import TracksByGenre from "./pages/TracksByGenre";
 import Users from "./pages/Users";
-import ProfilePage from "./pages/ProfilePage";
+import Profile from "./pages/Profile";
 import Statistics from "./pages/Statistics";
+import Create from "./pages/Create";
 
 import { onAuthStateChanged } from "./services/auth";
-import { authSelector, syncSignIn, signOut } from "./redux/auth";
+import { authSelector, syncSignIn, signOut } from "./store/auth";
 
-import { useDarkMode } from "./hooks/useDarkMode";
-import { GlobalStyles } from "./styles/GlobalStyles";
-import { lightTheme, darkTheme } from "./styles/Themes";
 import TrackCreateForm from "./components/organisms/forms/TrackForm/TrackCreateForm";
 import TrackUpdateForm from "./components/organisms/forms/TrackForm/TrackUpdateForm";
-import Toggle from "./components/atoms/Switch";
+
+import { GlobalStyles } from "./styles/GlobalStyles";
+import { darkTheme, lightTheme } from "./styles/Themes";
+import { useDarkMode } from "./hooks/useDarkMode";
+import { themeSelector } from "./store/theme";
 
 const PrivateWrapper = ({ auth: { isAuthenticated } }) => {
   return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
@@ -40,8 +41,10 @@ const queryClient = new QueryClient();
 
 function App() {
   const dispatch = useDispatch();
-  const [theme, themeToggler, mountedComponent] = useDarkMode();
+  const [hasMounted, setHasMounted] = useState(false);
   const { isAuthenticated } = useSelector(authSelector);
+  const [mountedComponent] = useDarkMode();
+  const { theme } = useSelector(themeSelector);
 
   const themeMode = theme === "light" ? lightTheme : darkTheme;
 
@@ -49,44 +52,46 @@ function App() {
     let unsubscribeFromAuth = null;
 
     unsubscribeFromAuth = onAuthStateChanged((user) => {
-      if (user) {
-        dispatch(syncSignIn());
-      } else {
-        dispatch(signOut());
+      if (!hasMounted) {
+        if (user) {
+          dispatch(syncSignIn());
+        } else {
+          dispatch(signOut());
+        }
       }
     });
+
+    setHasMounted(true);
 
     return () => {
       if (unsubscribeFromAuth) {
         unsubscribeFromAuth();
       }
     };
-  }, [dispatch]);
+  }, [dispatch, hasMounted]);
 
   if (!mountedComponent) return <div />;
 
   return (
-    <ThemeProvider theme={themeMode}>
-      <QueryClientProvider client={queryClient}>
-        <>
-          <Toggle theme={theme} toggleTheme={themeToggler} />
+    <QueryClientProvider client={queryClient}>
+      <>
+        <ThemeProvider theme={themeMode}>
           <GlobalStyles />
           <Routes>
-            <Route path="albums" element={<Albums />} />
-            <Route path="playlists/:playlistId" element={<Playlists />} />
-            <Route path="profile/:profileId" element={<ProfilePage />} />
-            <Route path="playlists" element={<Playlists />} />
-            <Route path="tracks" element={<Tracks />} />
-            <Route path="genres" element={<Genres />} />
-            <Route path="users" element={<Users />} />
-            <Route path="stats" element={<Statistics />} />
-            <Route path="tracks/:genre" element={<TracksByGenre />} />
+            <Route path={ROUTES.ALBUMS} element={<Albums />} />
+            <Route path={`${ROUTES.PLAYLISTS}/:playlistId`} element={<Playlists />} />
+            <Route path={`${ROUTES.USERS}/:profileId`} element={<Profile />} />
+            <Route path={`${ROUTES.GENRES}/:genreId`} element={<Genres />} />
+            <Route path={ROUTES.PLAYLISTS} element={<Playlists />} />
+            <Route path={ROUTES.CREATE_PLAYLIST} element={<Create />} />
+            <Route path={ROUTES.USERS} element={<Users />} />
+            <Route path={ROUTES.STATS} element={<Statistics />} />
+            <Route path={`${ROUTES.TRACKS}/:genre`} element={<TracksByGenre />} />
             <Route path={ROUTES.SIGN_UP} element={<SignUp />} />
             <Route path={ROUTES.LOGIN} element={<Login />} />
             <Route path={ROUTES.RESET_PASSWORD} element={<ResetPassword />} />
-            <Route path={ROUTES.USER_PROFILE} element={<ProfilePage />} />
-            <Route path="track/add" element={<TrackCreateForm />} />
-            <Route path="track/update/:id" element={<TrackUpdateForm />} />
+            <Route path={`${ROUTES.TRACK}/add`} element={<TrackCreateForm />} />
+            <Route path={`${ROUTES.TRACK}/update/:id`} element={<TrackUpdateForm />} />
             {isAuthenticated && (
               <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>
                 <Route path={ROUTES.HOME} exact element={<Home />} />
@@ -103,10 +108,10 @@ function App() {
               </Route>
             )}
           </Routes>
-        </>
-        <ReactQueryDevtools />
-      </QueryClientProvider>
-    </ThemeProvider>
+        </ThemeProvider>
+      </>
+      <ReactQueryDevtools />
+    </QueryClientProvider>
   );
 }
 

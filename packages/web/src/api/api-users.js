@@ -2,57 +2,42 @@ import http from "../services/httpService";
 
 const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
-function getCurrentUser(authToken) {
+function getCurrentUser(authToken, params) {
   return http.get(`${baseUrl}/users/me`, {
-    headers: {
-      Authorization: `Bearer ${authToken}`,
-    },
+    headers: { Authorization: `Bearer ${authToken}` },
+    params,
   });
 }
 
-const getUser = async (userId) => {
-  return http.get(`${baseUrl}/users`, {
-    params: {
-      id: userId,
-    },
-  });
-};
-
-const setCurrentUser = async (user) => {
-  return http.get(`${baseUrl}/users`, {
-    data: user,
-  });
+function getUser(userId, params) {
+  return http.get(`${baseUrl}/users/${userId}`, { params });
 }
 
-const getUsers = async (page, limit, sort, order) => {
-  return http.get(`${baseUrl}/users`, {
-    params: {
-      limit: limit,
-      page: page,
-      sort: sort,
-      order: order,
-    },
+function getUsers(params) {
+  return http.get(`${baseUrl}/users`, { params });
+}
+
+function getFollowedUsers(authToken, params) {
+  return http.get(`${baseUrl}/users/me/followed-users`, {
+    headers: { Authorization: `Bearer ${authToken}` },
+    params,
   });
-};
+}
 
 function deleteUser(authToken) {
   return http.delete(`${baseUrl}/users/me`, {
-    headers: {
-      Authorization: `Bearer ${authToken}`,
-    },
+    headers: { Authorization: `Bearer ${authToken}` },
   });
 }
 
-export function updateUser(authToken, update) {
-  return http.patch(`${baseUrl}/users/me`, update, {
-    headers: {
-      Authorization: `Bearer ${authToken}`,
-    },
+function updateUser(authToken, user) {
+  return http.patch(`${baseUrl}/users/me`, user, {
+    headers: { Authorization: `Bearer ${authToken}` },
   });
 }
 
-export function updateNewUser(authToken, updatedUser) {
-  return http.patch(`${baseUrl}/users/me`, updatedUser, {
+function followUser(authToken, user) {
+  return http.patch(`${baseUrl}/users/${user}/follow`, user, {
     headers: {
       Authorization: `Bearer ${authToken}`,
     },
@@ -61,12 +46,12 @@ export function updateNewUser(authToken, updatedUser) {
 
 const usersApi = {
   getCurrentUser,
+  getFollowedUsers,
   getUser,
-  setCurrentUser,
   getUsers,
   updateUser,
-  updateNewUser,
   deleteUser,
+  followUser,
 };
 
 export default usersApi;

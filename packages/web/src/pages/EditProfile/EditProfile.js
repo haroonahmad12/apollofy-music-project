@@ -1,18 +1,18 @@
-/* eslint-disable react/jsx-no-bind */
 import { Button } from "@mui/material";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-
 import styled from "styled-components";
-import withLayout from "../../components/hoc/withLayout";
-import usersApi from "../../api/api-users";
+import EditIcon from "@mui/icons-material/Edit";
 
-import ConfirmationDialogue from "../../components/organisms/ConfirmationDialogue";
-import UpdateProfileModal from "../../components/organisms/modal/UpdateProfileModal";
+import usersApi from "../../api/api-users";
+import withLayout from "../../components/hoc/withLayout";
+import ConfirmationModal from "../../components/organisms/modals/ConfirmationModal";
+import UpdateProfileModal from "../../components/organisms/modals/UpdateProfileModal";
 import { getCurrentUserToken } from "../../services/auth/auth";
+import MiddleTitle from "../../components/atoms/headings/MiddleTitle";
 
 const MainDiv = styled.div`
-  width: 50%;
+  width: 75%;
   display: flex;
   flex-direction: column;
   margin: auto;
@@ -30,9 +30,10 @@ const InputDiv = styled.div`
 `;
 
 const InputLabel = styled.span`
-  background-color: #e5e5e5;
+  color: ${({ theme }) => theme.colors.text};
+  // background-color: ${({ theme }) => theme.colors.background.secondary};
   padding: 0.5rem;
-  border-radius: 9999px;
+  border-radius: 1.25rem;
 `;
 
 const InputField = styled.span`
@@ -40,16 +41,16 @@ const InputField = styled.span`
   padding: 0.375rem 0.75rem;
   font-size: 1rem;
   line-height: 1.5;
-  color: #495057;
-  background-color: #fff;
+  color: ${({ theme }) => theme.colors.text};
+  background-color: ${({ theme }) => theme.colors.background.primary};
   background-clip: paddIng-box;
   transition: border-color 0.15s ease-In-out, box-shadow 0.15s ease-In-out;
 `;
 
 const InsideDiv = styled.div`
   display: flex;
-
   align-items: center;
+  gap: 2rem;
 `;
 
 const ImageThumb = styled.img`
@@ -59,9 +60,9 @@ const ImageThumb = styled.img`
 `;
 
 const EditProfile = () => {
-  const { currentUser } = useSelector((state) => state.entities.auth);
+  const { currentUser } = useSelector((state) => state?.entities.auth);
+  const profilePicture = currentUser?.thumbnails?.url_default;
 
-  const profilePicture = currentUser.thumbnails?.url_default;
   async function deleteMyProfile() {
     const userToken = await getCurrentUserToken();
 
@@ -78,11 +79,13 @@ const EditProfile = () => {
   const [password, setPasswordModal] = useState(false);
   const [username, setUsernameModal] = useState(false);
   const [birthDate, setBirthdayModal] = useState(false);
+  const [description, setDescriptionModal] = useState(false);
   const [profilePic, setProfilePicModal] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
+
   const handleClose = () => {
     setOpen(false);
     setOpenProfileModal(false);
@@ -90,7 +93,7 @@ const EditProfile = () => {
 
   return (
     <MainDiv>
-      <h2>Update Your Profile</h2>
+      <MiddleTitle>Update Your Profile</MiddleTitle>
       <InputDiv>
         <InsideDiv>
           <ImageThumb src={profilePicture} />{" "}
@@ -100,15 +103,14 @@ const EditProfile = () => {
             type="button"
             size="small"
             onClick={() => {
-              setEmailModal(false);
               setOpenProfileModal(true);
-              setPasswordModal(false);
+              setProfilePicModal(true);
               setUsernameModal(false);
               setBirthdayModal(false);
-              setProfilePicModal(true);
+              setDescriptionModal(false);
             }}
           >
-            Change Profile Picture
+            <EditIcon />
           </Button>
         </InsideDiv>
       </InputDiv>
@@ -129,9 +131,10 @@ const EditProfile = () => {
               setUsernameModal(false);
               setBirthdayModal(false);
               setProfilePicModal(false);
+              setDescriptionModal(false);
             }}
           >
-            Update Your Email
+            <EditIcon />
           </Button>
         </InsideDiv>
       </InputDiv>
@@ -139,20 +142,41 @@ const EditProfile = () => {
       <InputDiv>
         <InputLabel htmlFor="username">Username</InputLabel>
         <InsideDiv>
-          <InputField>{currentUser.username}</InputField>
+          <InputField>{currentUser?.username}</InputField>
           <Button
             type="button"
             size="small"
             onClick={() => {
               setUsernameModal(true);
               setOpenProfileModal(true);
-              setPasswordModal(false);
-              setEmailModal(false);
               setBirthdayModal(false);
               setProfilePicModal(false);
+              setDescriptionModal(false);
             }}
           >
-            Update Your Username
+            <EditIcon />
+          </Button>
+        </InsideDiv>
+      </InputDiv>
+
+      <InputDiv>
+        <InputLabel htmlFor="birth_date">Description</InputLabel>
+        <InsideDiv>
+          <InputField>{currentUser.description}</InputField>
+          <Button
+            type="button"
+            size="small"
+            onClick={() => {
+              setBirthdayModal(false);
+              setOpenProfileModal(true);
+              setUsernameModal(false);
+              setPasswordModal(false);
+              setEmailModal(false);
+              setProfilePicModal(false);
+              setDescriptionModal(true);
+            }}
+          >
+            <EditIcon />
           </Button>
         </InsideDiv>
       </InputDiv>
@@ -160,7 +184,7 @@ const EditProfile = () => {
       <InputDiv>
         <InputLabel htmlFor="birth_date">Birthday</InputLabel>
         <InsideDiv>
-          <InputField>{currentUser.birth_date}</InputField>
+          <InputField>{currentUser?.birth_date}</InputField>
           <Button
             type="button"
             size="small"
@@ -168,50 +192,50 @@ const EditProfile = () => {
               setBirthdayModal(true);
               setOpenProfileModal(true);
               setUsernameModal(false);
-              setPasswordModal(false);
-              setEmailModal(false);
               setProfilePicModal(false);
+              setDescriptionModal(false);
             }}
           >
-            Change Your Birthday
+            <EditIcon />
           </Button>
         </InsideDiv>
       </InputDiv>
 
       <InputDiv>
-        <InputLabel htmlFor="password">Password</InputLabel>
+        <InputLabel htmlFor="username">Description</InputLabel>
         <InsideDiv>
-          <InputField> *********</InputField>
+          <InputField>{currentUser?.description}</InputField>
           <Button
             type="button"
             size="small"
             onClick={() => {
-              setPasswordModal(true);
+              setUsernameModal(true);
               setOpenProfileModal(true);
               setUsernameModal(false);
-              setEmailModal(false);
               setBirthdayModal(false);
               setProfilePicModal(false);
+              setDescriptionModal(false);
             }}
           >
-            Update Your Password
+            <EditIcon />
           </Button>
         </InsideDiv>
       </InputDiv>
 
-      <Button variant="outlined" color="error" onClick={handleClickOpen}>
+      <Button variant="outlined" onClick={handleClickOpen}>
         Delete Profile
       </Button>
 
-      <ConfirmationDialogue
+      <ConfirmationModal
         open={open}
-        handleClose={handleClose}
-        deleteMyProfile={deleteMyProfile}
+        handleClose={() => handleClose}
+        deleteMyProfile={() => deleteMyProfile}
       />
 
       <UpdateProfileModal
         openProfileModal={openProfileModal}
         email={email}
+        description={description}
         password={password}
         username={username}
         birthDay={birthDate}

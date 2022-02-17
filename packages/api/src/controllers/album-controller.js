@@ -10,6 +10,7 @@ async function getAlbums(req, res, next) {
       sort = "created_at",
       order = "asc",
       limit = 10,
+      no_data = false,
       genre,
       track,
       user,
@@ -22,42 +23,72 @@ async function getAlbums(req, res, next) {
     };
 
     const pages = await Album.getNumPages(limit, filter);
+    const count = await Album.countDocuments(filter);
 
-    if (isNaN(page) || page <= 0) {
-      return res.status(400).send({
-        data: null,
-        success: false,
-        message: "Wrong value for page",
+    if (!no_data) {
+      if (!Number.isInteger(page) || page <= 0) {
+        return res.status(400).send({
+          data: null,
+          success: false,
+          message: "Wrong value for page",
+        });
+      }
+
+      if (!Number.isInteger(limit) || limit <= 0) {
+        return res.status(400).send({
+          data: null,
+          success: false,
+          message: "Wrong value for limit",
+        });
+      }
+
+      if (!["asc", "desc"].includes(order)) {
+        return res.status(400).send({
+          data: null,
+          success: false,
+          message: "Wrong value for order",
+        });
+      }
+
+      if (count === 0) {
+        return res.status(200).send({
+          data: [],
+          success: true,
+          message: "No albums were found",
+          count,
+          pages,
+          page: Number(page),
+        });
+      }
+
+      if (page > pages) {
+        return res.status(404).send({
+          data: null,
+          success: false,
+          message: "Page not found",
+        });
+      }
+
+      const dbRes = await Album.getAlbums({ page, sort, order, limit, filter });
+
+      return res.status(200).send({
+        data: dbRes,
+        success: true,
+        message: "Albums fetched successfully",
+        count,
         pages,
+        page: Number(page),
+      });
+    } else {
+      return res.status(200).send({
+        data: null,
+        success: true,
+        message: "Request successful",
+        count,
+        pages,
+        page: null,
       });
     }
-
-    if (!["asc", "desc"].includes(order)) {
-      return res.status(400).send({
-        data: null,
-        success: false,
-        message: "Wrong value for order",
-        pages,
-      });
-    }
-
-    if (page > pages) {
-      return res.status(404).send({
-        data: null,
-        success: false,
-        message: "Page not found",
-        pages,
-      });
-    }
-
-    const dbRes = await Album.getAlbums({ page, sort, order, limit, filter });
-
-    return res.status(200).send({
-      data: dbRes,
-      success: true,
-      message: "Albums fetched successfully",
-      pages,
-    });
   } catch (error) {
     next(error);
   }
@@ -118,8 +149,8 @@ async function createAlbum(req, res, next) {
 async function updateAlbum(req, res, next) {
   try {
     const { tracks = [], ...details } = req.body;
-    const { uid } = req.user;
     const { idAlbum } = req.params;
+    const { uid } = req.user;
 
     if (!Types.ObjectId.isValid(idAlbum)) {
       return res.status(400).send({
@@ -165,8 +196,8 @@ async function updateAlbum(req, res, next) {
 
 async function deleteAlbum(req, res, next) {
   try {
-    const { uid } = req.user;
     const { idAlbum } = req.params;
+    const { uid } = req.user;
 
     if (!Types.ObjectId.isValid(idAlbum)) {
       return res.status(400).send({
@@ -252,37 +283,75 @@ async function likeAlbum(req, res, next) {
 
 async function getUserAlbums(req, res, next) {
   try {
-    const { page = 1, sort = "created_at", order = "asc", limit = 10, extend = false } = req.query;
     const { uid } = req.user;
+    const {
+      page = 1,
+      sort = "created_at",
+      order = "asc",
+      limit = 10,
+      extend = false,
+      no_data = false,
+    } = req.query;
 
     const pages = await Album.getNumPages(limit, { user: uid });
+    const count = await Album.countDocuments({ user: uid });
 
-    if (isNaN(page) || page <= 0) {
-      return res.status(400).send({
-        data: null,
-        success: false,
-        message: "Wrong page",
+    if (!no_data) {
+      if (!Number.isInteger(page) || page <= 0) {
+        return res.status(400).send({
+          data: null,
+          success: false,
+          message: "Wrong value for page",
+        });
+      }
+
+      if (!["asc", "desc"].includes(order)) {
+        return res.status(400).send({
+          data: null,
+          success: false,
+          message: "Wrong value for order",
+        });
+      }
+
+      if (count === 0) {
+        return res.status(200).send({
+          data: [],
+          success: true,
+          message: "No albums were found",
+          count,
+          pages,
+          page: Number(page),
+        });
+      }
+
+      if (page > pages) {
+        return res.status(404).send({
+          data: null,
+          success: false,
+          message: "Page not found",
+        });
+      }
+
+      const dbRes = await Album.getUserAlbums(uid, { page, sort, order, limit, extend });
+
+      return res.status(200).send({
+        data: dbRes,
+        success: true,
+        message: "Albums fetched successfully",
+        count,
         pages,
+        page: Number(page),
+      });
+    } else {
+      return res.status(200).send({
+        data: null,
+        success: true,
+        message: "Request successful",
+        count,
+        pages,
+        page: null,
       });
     }
-
-    if (page > pages) {
-      return res.status(404).send({
-        data: null,
-        success: false,
-        message: "Page not found",
-        pages,
-      });
-    }
-
-    const dbRes = await Album.getUserAlbums(uid, { page, sort, order, limit, extend });
-
-    return res.status(200).send({
-      data: dbRes,
-      success: true,
-      message: "Albums fetched successfully",
-      pages,
-    });
   } catch (error) {
     next(error);
   }

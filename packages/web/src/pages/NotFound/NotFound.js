@@ -1,7 +1,7 @@
 import React from "react";
-import { MiddleTitle } from "../../components/atoms/MiddleTitle/MiddleTitle";
 
 import withLayout from "../../components/hoc/withLayout";
+import MiddleTitle from "../../components/atoms/headings/MiddleTitle";
 
 function NotFound() {
   return (

@@ -1,19 +1,17 @@
 import React from "react";
-import styled from "styled-components";
 import { Formik, Form, ErrorMessage, Field } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 
-import { authSelector, setNameEmailAndPassword } from "../../../../redux/auth";
-import { modalSelector, nextModal } from "../../../../redux/modal";
+import { authSelector, updateCurrentUser } from "../../../../store/auth";
+import { modalSelector, nextModal } from "../../../../store/modal";
 
 import AccountSchema from "../../../../schemas/AccountSchema";
-import { FlexColumn } from "../../../atoms/FlexColumn/FlexColumn";
-import { MiddleTitle } from "../../../atoms/MiddleTitle/MiddleTitle";
-import { PrimaryButton } from "../../../atoms/buttons/PrimaryButton";
-import { RegisterInput } from "../../../atoms/RegisterInput/RegisterInput";
-import Button from "../../../atoms/buttons/Button";
+import FlexColumn from "../../../atoms/layout/FlexColumn";
+import MiddleTitle from "../../../atoms/headings/MiddleTitle";
+import RegisterInput from "../../../atoms/input-controls/RegisterInput";
+import PrimaryButton from "../../../atoms/buttons/PrimaryButton";
 
-export default function AccountForm() {
+function AccountForm() {
   const dispatch = useDispatch();
   const { currentModal } = useSelector(modalSelector);
   const { currentUser } = useSelector(authSelector);
@@ -21,16 +19,24 @@ export default function AccountForm() {
   return (
     <Formik
       initialValues={{
-        name: currentUser.name || "",
+        username: currentUser.username || "",
         email: currentUser.email || "",
         password: currentUser.password || "",
-        confirm_password: currentUser.confirm_password || "",
+        passwordConfirmation: currentUser.passwordConfirmation || "",
       }}
       validationSchema={AccountSchema}
       onSubmit={(values, { setSubmitting }) => {
+        const updatedUser = {
+          username: values.username || "",
+          email: values.email || "",
+          password: values.password || "",
+          passwordConfirmation: values.passwordConfirmation || "",
+        };
+
         setTimeout(async () => {
           setSubmitting(true);
-          dispatch(setNameEmailAndPassword(values));
+          // dispatch(signUpWithEmailRequest(values.email, values.password, values.name));
+          dispatch(updateCurrentUser(updatedUser));
           dispatch(nextModal(currentModal + 1));
           setSubmitting(false);
         }, 400);
@@ -40,8 +46,8 @@ export default function AccountForm() {
         <Form className="formik">
           <FlexColumn>
             <MiddleTitle>Create your account</MiddleTitle>
-            <Field as={RegisterInput} type="text" name="name" placeholder="Username" />
-            <ErrorMessage className="errorMessage" name="name" component="div" />
+            <Field as={RegisterInput} type="text" name="username" placeholder="Username" />
+            <ErrorMessage className="errorMessage" name="username" component="div" />
             <Field as={RegisterInput} type="text" name="email" placeholder="Email" />
             <ErrorMessage className="errorMessage" name="email" component="div" />
             <Field as={RegisterInput} type="password" name="password" placeholder="Password" />
@@ -53,12 +59,14 @@ export default function AccountForm() {
               placeholder="Confirm password"
             />
             <ErrorMessage className="errorMessage" name="passwordConfirmation" component="div" />
-            <Button btnColor="#B04AFF" type="submit" disabled={isSubmitting}>
+            <PrimaryButton btnColor="#B04AFF" type="submit" disabled={isSubmitting}>
               Submit
-            </Button>
+            </PrimaryButton>
           </FlexColumn>
         </Form>
       )}
     </Formik>
   );
 }
+
+export default AccountForm;
