@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import SVG from "react-inlinesvg";
+import GroupsIcon from "@mui/icons-material/Groups";
 
 import ScoreSVG from "../../../../assets/score.svg";
 import HomeSVG from "../../../../assets/home.svg";
@@ -42,6 +43,24 @@ const SelectedNavSVG = styled(SVG)`
     fill: ${({ theme }) => theme.colors.label};
   }
 `;
+const ToggleContainer = styled.div`
+  @media only screen and (max-width: ${({ theme }) => theme.media.tablet}) {
+display: none;  
+`;
+const FriendsIcon = styled(Link)`
+display:none;
+color: ${({ theme }) => theme.colors.label};
+@media only screen and (max-width: ${({ theme }) => theme.media.tablet}) {
+  display: block;  
+   
+  `;
+const FriendsIconSelected = styled(Link)`
+  display:none;
+  color: ${({ theme }) => theme.colors.text};
+  @media only screen and (max-width: ${({ theme }) => theme.media.tablet}) {
+    display: block;  
+   
+`;
 
 export default function ControlBar() {
   const { pathname } = useLocation();
@@ -57,8 +76,18 @@ export default function ControlBar() {
       <Link to="/stats">
         {pathname === "/stats" ? <SelectedNavSVG src={StatsSVG} /> : <NavSVG src={StatsSVG} />}
       </Link>
-      <Toggle />
+      <ToggleContainer>
+        <Toggle />
+      </ToggleContainer>
+      {pathname === "/friends" ? (
+        <FriendsIcon to="/friends">
+          <GroupsIcon fontSize="large" />
+        </FriendsIcon>
+      ) : (
+        <FriendsIconSelected to="/friends">
+          <GroupsIcon fontSize="large" />
+        </FriendsIconSelected>
+      )}
     </Bar>
   );
 }
-

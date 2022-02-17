@@ -9,13 +9,15 @@ import Paper from "@mui/material/Paper";
 import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import Toggle from "../../../atoms/toggles/Switch";
 
 import * as ROUTES from "../../../../routes";
 import { authSelector, signOut } from "../../../../store/auth";
 import SmallText from "../../../atoms/body/SmallText";
 import RightSideBar from "../../../atoms/layout/RightSideBar";
 import defaultAvatar from "../../../../images/defaultAvatar.png";
+import { themeSelector } from "../../../../store/theme";
+import { isBrowser, isMobile } from "react-device-detect";
 
 const MenuLayout = styled(RightSideBar)`
   height: 3rem;
@@ -63,6 +65,20 @@ const MenuLogo = styled(KeyboardArrowDownIcon)`
   color: ${({ theme }) => theme.colors.text};
 `;
 
+const ToggleItem = styled.li`
+display: none;
+color: inherit;
+font-family: "Roboto","Helvetica","Arial",sans-serif;
+font-weight: 400;
+font-size: 1rem;
+line-height: 1.5;
+padding: 6px 16px;
+width: 100%;
+@media only screen and (max-width: ${({ theme }) => theme.media.tablet}) {
+display: flex;  
+justify-content: space-between;
+`;
+
 const CustomMenu = styled(MenuList)`
   display: flex;
   flex-direction: column;
@@ -77,6 +93,7 @@ const CustomMenu = styled(MenuList)`
 
 function MenuBar() {
   const { currentUser } = useSelector(authSelector);
+  const { theme } = useSelector(themeSelector);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
@@ -173,6 +190,10 @@ function MenuBar() {
                     <MenuItem onClick={() => showProfile()}>Profile</MenuItem>
                     <MenuItem onClick={() => editProfile()}>My account</MenuItem>
                     <MenuItem onClick={() => logout()}>Logout</MenuItem>
+                    <ToggleItem>
+                      {theme === "light" ? "Dark Mode" : "Light Mode"}
+                      <Toggle />
+                    </ToggleItem>
                   </CustomMenu>
                 </ClickAwayListener>
               </Paper>

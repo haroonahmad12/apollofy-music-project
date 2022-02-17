@@ -4,6 +4,7 @@ export const LOGIN = "/login";
 export const RESET_PASSWORD = "/reset-password";
 export const EDIT_PROFILE = "/edit-profile";
 export const USER_PROFILE = "/users";
+export const USER_FRIENDS = "/friends";
 export const ALBUMS = "/albums";
 export const PLAYLISTS = "/playlists";
 export const CREATE_PLAYLIST = "/create";

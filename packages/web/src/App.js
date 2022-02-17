@@ -21,6 +21,7 @@ import Users from "./pages/Users";
 import Profile from "./pages/Profile";
 import Statistics from "./pages/Statistics";
 import Create from "./pages/Create";
+import FriendsPage from "./pages/Friends";
 
 import { onAuthStateChanged } from "./services/auth";
 import { authSelector, syncSignIn, signOut } from "./store/auth";
@@ -85,6 +86,7 @@ function App() {
             <Route path={ROUTES.PLAYLISTS} element={<Playlists />} />
             <Route path={ROUTES.CREATE_PLAYLIST} element={<Create />} />
             <Route path={ROUTES.USERS} element={<Users />} />
+            <Route path={ROUTES.USER_FRIENDS} element={<FriendsPage />} />
             <Route path={ROUTES.STATS} element={<Statistics />} />
             <Route path={`${ROUTES.TRACKS}/:genre`} element={<TracksByGenre />} />
             <Route path={ROUTES.SIGN_UP} element={<SignUp />} />

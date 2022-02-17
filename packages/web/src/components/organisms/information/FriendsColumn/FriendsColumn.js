@@ -5,10 +5,10 @@ import { LinearProgress } from "@mui/material";
 import { useFollowedUsers } from "../../../../hooks/useUsers";
 import FriendDetail from "../../../molecules/details/FriendDetail";
 import Button from "../../../atoms/buttons/Button";
+import AddFriendsModal from "../../modals/AddFriendsModal";
 import FlexColumn from "../../../atoms/layout/FlexColumn";
 import HomeSmallText from "../../../atoms/body/HomeSmallText";
 import RightSideBar from "../../../atoms/layout/RightSideBar";
-import AddFriendsModal from "../../modals/AddFriendsModal";
 
 const FriendsColumnLayout = styled(RightSideBar)`
   flex-direction: column;
