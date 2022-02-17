@@ -4,7 +4,7 @@ import GroupsIcon from "@mui/icons-material/Groups";
 import AlbumIcon from "@mui/icons-material/Album";
 import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
 import MusicNoteIcon from "@mui/icons-material/MusicNote";
-import { Button } from "@mui/material";
+import { Container } from "@mui/material";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -21,48 +21,45 @@ import { useFetchUsers } from "../../hooks/useUsers";
 import { useFetchPlaylists } from "../../hooks/usePlaylists";
 import { useFetchTracks } from "../../hooks/useTracks";
 import withLayout from "../../components/hoc/withLayout";
-import FlexColumn from "../../components/atoms/layout/FlexColumn";
+
+import { useSelector } from "react-redux";
+import { themeSelector } from "../../store/theme";
+import Button from "../../components/atoms/buttons/Button";
 
 const NavBar = styled.nav`
-  width: 100%;
   display: flex;
   justify-content: space-evenly;
-  background-color: ${({ theme }) => theme.colors.background.secondary};
-  border-radius: 9999px;
-`;
-
-const NameSpan = styled.span`
-  @media only screen and (max-width: ${({ theme }) => theme.media.tablet}) {
-    font-size: smaller;
-  }
-  @media only screen and (max-width: ${({ theme }) => theme.media.smallMobile}) {
-    display: none;
-  }
+  background-color: ${({ theme }) => theme.colors.background.primary};
+  border: 1px solid ${({ theme }) => theme.colors.background.secondary};
+  padding: 0.5rem;
+  border-radius: 1.25rem;
 `;
 
 const ChartBody = styled.div`
   margin-top: 1.45rem;
   width: 100%;
   border-radius: 50px;
-  background-color: ${({ theme }) => theme.colors.background.secondary};
+  background-color: ${({ theme }) => theme.colors.background.primary};
+  border: 1px solid ${({ theme }) => theme.colors.background.secondary};
   color: ${({ theme }) => theme.colors.text};
   padding: 1rem;
 `;
 
-const FlexCol = styled(FlexColumn)`
-  @media only screen and (max-width: ${({ theme }) => theme.media.tablet}) {
-    display: flex;
-  }
+const MainContainer = styled(Container)`
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  gap: 1.45rem;
 `;
 
 const Statistics = () => {
-  const [chartType, setChartType] = useState("");
   const [chartTitle, setChartTitle] = useState("Most Popular Users");
   const [chartUnit, setChartUnit] = useState("Followers");
   const [chartColor, setChartColor] = useState("#0770f7b0");
 
   const [statsArray, setArray] = useState([]);
   const [likes, setLikes] = useState([]);
+  const { theme } = useSelector(themeSelector);
 
   const { data: albums } = useFetchAlbums({ sort: "num_likes" });
   const albumsList = albums?.data?.data;
@@ -93,7 +90,7 @@ const Statistics = () => {
 
   useEffect(() => {
     createArray(usersList);
-  }, [usersList]);
+  }, []);
 
   ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -122,75 +119,85 @@ const Statistics = () => {
     ],
   };
   return (
-    <>
+    <MainContainer as="main">
       <NavBar>
-        <FlexCol>
-          <Button
-            type="button"
-            onClick={() => {
-              setChartType("Users");
-              setChartTitle("Most Popular Users");
-              setChartUnit("Followers");
-              setChartColor("#0770f7b0");
-              createArray(usersList);
-            }}
-          >
-            <GroupsIcon fontSize="large" />
-            <NameSpan>Users</NameSpan>
-          </Button>
-        </FlexCol>
-        <FlexCol>
-          <Button
-            type="button"
-            onClick={() => {
-              setChartType("Songs");
-              setChartTitle("Most Popular Songs");
-              setChartUnit("Times Played");
-              setChartColor("#6900ffc7");
-              createArray(tracksList);
-            }}
-          >
-            <MusicNoteIcon fontSize="large" />
-            <NameSpan>Songs</NameSpan>
-          </Button>
-        </FlexCol>
-        <FlexCol>
-          <Button
-            type="button"
-            onClick={() => {
-              setChartType("Albums");
-              setChartTitle("Most Liked Albums");
-              setChartUnit("Likes");
-              setChartColor("#fffb00b5");
-              createArray(albumsList);
-            }}
-          >
-            <AlbumIcon fontSize="large" />
-            <NameSpan>Albums</NameSpan>
-          </Button>
-        </FlexCol>
-        <FlexCol>
-          <Button
-            type="button"
-            onClick={() => {
-              setChartType("Playlists");
-              setChartTitle("Most Popular Playlists");
-              setChartUnit("Followers");
-              setChartColor("#00e106b3");
-              createArray(playlistsList);
-            }}
-          >
-            <LibraryMusicIcon fontSize="large" />
-            <NameSpan>Playlists</NameSpan>
-          </Button>
-        </FlexCol>
+        <Button
+          style={{
+            backgroundColor: "transparent",
+            padding: 0,
+            color: theme === "light" ? "black" : "white",
+          }}
+          onClick={() => {
+            setChartTitle("Most Popular Users");
+            setChartUnit("Followers");
+            setChartColor("#0770f7b0");
+            createArray(usersList);
+          }}
+        >
+          <GroupsIcon />
+          Users
+        </Button>
+
+        <Button
+          type="button"
+          style={{
+            backgroundColor: "transparent",
+            padding: 0,
+            color: theme === "light" ? "black" : "white",
+          }}
+          onClick={() => {
+            setChartTitle("Most Popular Songs");
+            setChartUnit("Times Played");
+            setChartColor("#6900ffc7");
+            createArray(tracksList);
+          }}
+        >
+          <MusicNoteIcon />
+          Songs
+        </Button>
+
+        <Button
+          type="button"
+          style={{
+            backgroundColor: "transparent",
+            padding: 0,
+            color: theme === "light" ? "black" : "white",
+          }}
+          onClick={() => {
+            setChartTitle("Most Liked Albums");
+            setChartUnit("Likes");
+            setChartColor("#fffb00b5");
+            createArray(albumsList);
+          }}
+        >
+          <AlbumIcon />
+          Albums
+        </Button>
+
+        <Button
+          type="button"
+          style={{
+            backgroundColor: "transparent",
+            padding: 0,
+            color: theme === "light" ? "black" : "white",
+          }}
+          onClick={() => {
+            setChartTitle("Most Popular Playlists");
+            setChartUnit("Followers");
+            setChartColor("#00e106b3");
+            createArray(playlistsList);
+          }}
+        >
+          <LibraryMusicIcon />
+          Playlists
+        </Button>
       </NavBar>
       {statsArray && (
         <ChartBody>
-          <Bar options={options} data={data} />
+          <Bar options={options} data={data} style={{ minHeight: "15rem" }} />
         </ChartBody>
       )}
-    </>
+    </MainContainer>
   );
 };
 

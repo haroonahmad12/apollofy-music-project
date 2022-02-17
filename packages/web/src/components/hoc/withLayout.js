@@ -1,7 +1,7 @@
 import React from "react";
 import { isBrowser, isMobile } from "react-device-detect";
 import styled from "styled-components";
-
+import SearchBar from "../molecules/input-controls/SearchBar";
 import Footer from "../organisms/information/Footer";
 import FriendsColumn from "../organisms/information/FriendsColumn";
 import AudioPlayer from "../organisms/input-controls/AudioPlayer";
@@ -48,7 +48,7 @@ function withLayout(WrappedComponent) {
             <MainLayout>
               <ControlBar />
               <PageContent>
-                {/* <SearchBar /> */}
+                <SearchBar />
                 <WrappedComponent {...props} />
               </PageContent>
               <RightFlex>
@@ -64,6 +64,7 @@ function withLayout(WrappedComponent) {
           <>
             <MainLayout>
               <PageContent>
+                <SearchBar />
                 <WrappedComponent {...props} />
               </PageContent>
             </MainLayout>
