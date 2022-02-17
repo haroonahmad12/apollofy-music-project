@@ -9,10 +9,12 @@ export const SectionLayout = styled.div`
   margin-top: 1.45rem;
   display: flex;
   flex-direction: column;
+  margin-right:2rem;
 `;
 
 export const TracksList = styled(SectionLayout)`
   margin-top: 0;
+  
   background-color: ${({ theme }) => theme.colors.background.secondary};
   border-radius: 1.25rem;
   padding: 1rem;

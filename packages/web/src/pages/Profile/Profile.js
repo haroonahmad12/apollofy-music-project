@@ -77,7 +77,7 @@ const Profile = () => {
           }}
         />
       </StyledTitle>
-      <ProfileUserCards data={albums?.data?.data} />
+      <ProfileUserCards data={albums?.data?.data} type="albums" />
       <StyledTitle>
         Playlists
         <AddBoxIcon
@@ -89,7 +89,7 @@ const Profile = () => {
           }}
         />
       </StyledTitle>
-      <ProfileUserCards data={playlists?.data?.data} />
+      <ProfileUserCards data={playlists?.data?.data} type="playlists"/>
       {isOpen && modal === "albums" && <AlbumModal isOpen={isOpen} handleModal={handleModal} />}
       {isOpen && modal === "playlists" && (
         <PlaylistModal isOpen={isOpen} handleModal={handleModal} />

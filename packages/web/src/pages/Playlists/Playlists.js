@@ -51,7 +51,7 @@ export const MainText = styled(SmallText)`
 function PlaylistsPage() {
   const { playlistId } = useParams();
 
-  const { data } = useFetchPlaylist(playlistId);
+  const { data } = useFetchPlaylist(playlistId, { extend: true });
 
   const playlist = data?.data?.data;
 
@@ -72,13 +72,11 @@ function PlaylistsPage() {
         </DescriptionDiv>
       </PageLayout>
       <MainText>Tracks</MainText>
-      <TracksList>
-        {playlist?.tracks === [] ? (
-          <SmallText>There are no songs in this playlist yet</SmallText>
-        ) : (
-          playlist?.tracks.map((track) => <TrackDetail key={track.id} track={track} />)
-        )}
-      </TracksList>
+      {playlist?.tracks === [] ? (
+        <SmallText>There are no songs in this playlist yet</SmallText>
+      ) : (
+        playlist?.tracks.map((track) => <TrackDetail key={track.id} track={track} />)
+      )}
     </>
   );
 }

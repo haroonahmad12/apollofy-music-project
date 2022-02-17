@@ -19,7 +19,6 @@ export function useFetchAlbum(albumId, params = {}) {
     () => albumsApi.getAlbum(albumId, { extend }),
     queryOptions,
   );
-
   return { ...query, data };
 }
 
@@ -120,7 +119,7 @@ export function useUpdateAlbum() {
   const mutation = useMutation(
     async (album) => {
       const authToken = await authService.getCurrentUserToken();
-
+      console.log(album);
       if (authToken) return albumsApi.updateAlbum(authToken, album);
 
       return Promise.reject(new Error("User authentication required"));

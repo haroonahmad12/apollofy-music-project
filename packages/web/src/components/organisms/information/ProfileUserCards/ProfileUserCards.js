@@ -44,16 +44,19 @@ const settings = {
   ]
 };
 
-const ProfileUserCards = ({ data }) => {
+const ProfileUserCards = ({ data, type }) => {
   return (
     <Layout>
       <Slider {...settings}>
         {data?.map((item) => (
           <ProfileCard
             key={item?.id}
+            id={item?.id}
+            user={item?.user}
             title={item?.title}
             data={item?.created_at}
             thumbnails={item?.thumbnails.url_default}
+            type={type}
           />
         ))}
       </Slider>
@@ -63,10 +66,12 @@ const ProfileUserCards = ({ data }) => {
 
 ProfileUserCards.propTypes = {
   data: PropTypes.array,
+  type: PropTypes.string
 };
 
 ProfileUserCards.defaultProps = {
   data: [],
+  type: ""
 };
 
 export default ProfileUserCards;
