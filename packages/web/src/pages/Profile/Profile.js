@@ -57,7 +57,7 @@ const Profile = () => {
   return (
     <StyledProfile>
       {/* <ProfileGroupButtons /> */}
-      <SearchBar />
+      {/* <SearchBar /> */}
       <ProfileMain
         user={user?.data?.data}
         albums={albums?.data?.count}

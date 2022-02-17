@@ -1,5 +1,4 @@
-import { createTheme, alpha } from "@mui/material/styles";
-import { deepmerge } from "@mui/utils";
+import { createTheme } from "@mui/material/styles";
 
 export default function getTheme(mode) {
   // define light palette for light mode
@@ -52,11 +51,6 @@ export default function getTheme(mode) {
       ...(mode === "light" ? lightPalette : darkPalette),
     },
   });
-
-  // create component overrieds for dark mode
-  // create common components overrides for both modes
-
-  // deepmerge common styles overrides with light or dark components overrides depending on mode
 
   // create
   return createTheme(theme);

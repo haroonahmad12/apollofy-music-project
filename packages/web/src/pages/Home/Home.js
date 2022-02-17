@@ -17,7 +17,7 @@ const TracksLayout = styled.div`
 const Home = () => {
   return (
     <>
-      <SearchBar />
+      {/* <SearchBar /> */}
       <PlaylistCarousel />
       <TracksLayout>
         <PopularTracks />
