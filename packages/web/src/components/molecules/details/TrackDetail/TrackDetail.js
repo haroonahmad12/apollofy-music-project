@@ -13,7 +13,6 @@ import { formatNumReprod } from "../../../../utils/utils";
 const TrackLayout = styled.div`
   display: flex;
   justify-content: space-between;
-  gap: 1rem;
   padding: 0.3rem;
   border-radius: 0.5rem;
   &:hover {
