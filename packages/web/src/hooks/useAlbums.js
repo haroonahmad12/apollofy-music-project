@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useInfiniteQuery, useQueryClient } from "react-query";
 
+import queryKeys from "../queries/constants";
 import albumsApi from "../api/api-albums";
 import * as authService from "../services/auth";
 
@@ -15,7 +16,7 @@ const queryOptions = {
 export function useFetchAlbum(albumId, params = {}) {
   const { extend } = params;
   const { data = {}, query } = useQuery(
-    ["album", albumId, extend],
+    [queryKeys.album, albumId, extend],
     () => albumsApi.getAlbum(albumId, { extend }),
     queryOptions,
   );
@@ -26,7 +27,7 @@ export function useFetchAlbum(albumId, params = {}) {
 export function useFetchAlbums(params = {}) {
   const { page, limit, sort, order, genreId, trackId, userId } = params;
   const { data = [], ...query } = useQuery(
-    ["albums", page, limit, order, sort, genreId, userId],
+    [queryKeys.albums, page, limit, order, sort, genreId, userId],
     () =>
       albumsApi.getAlbums({
         page,
@@ -46,7 +47,7 @@ export function useFetchAlbums(params = {}) {
 export function useInfiniteAlbums(params = {}) {
   const { limit, sort, order, genreId, trackId, userId } = params;
   const { data = [], ...query } = useInfiniteQuery(
-    ["albums", limit, order, sort, genreId, userId],
+    [queryKeys.albums, limit, order, sort, genreId, userId],
     ({ pageParam: page = 1 }) =>
       albumsApi.getAlbums({
         page,
@@ -69,7 +70,7 @@ export function useInfiniteAlbums(params = {}) {
 export function useFetchUserAlbums(params = {}) {
   const { page, sort, order, limit, extend } = params;
   const { data = [], ...query } = useQuery(
-    ["user-albums", page, sort, order, limit, extend],
+    [queryKeys.userAlbums, page, sort, order, limit, extend],
     async () => {
       const authToken = await authService.getCurrentUserToken();
 
@@ -88,8 +89,9 @@ export async function usePrefetchAlbums(params = {}) {
   const { page, limit, sort, order, genreId, userId } = params;
   const queryClient = useQueryClient();
 
-  await queryClient.prefetchQuery(["albums", page, limit, sort, order, genreId, userId], () =>
-    albumsApi.getAlbums({ page, limit, order, sort, genre: genreId, user: userId }),
+  await queryClient.prefetchQuery(
+    [queryKeys.albums, page, limit, sort, order, genreId, userId],
+    () => albumsApi.getAlbums({ page, limit, order, sort, genre: genreId, user: userId }),
   );
 }
 
@@ -105,9 +107,9 @@ export function useCreateAlbum() {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("current-user");
-        queryClient.invalidateQueries("user-albums");
-        queryClient.refetchQueries("albums");
+        queryClient.invalidateQueries(queryKeys.currentUser);
+        queryClient.invalidateQueries(queryKeys.userAlbums);
+        queryClient.refetchQueries(queryKeys.albums);
       },
     },
   );
@@ -127,10 +129,10 @@ export function useUpdateAlbum() {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("album");
-        queryClient.invalidateQueries("current-user");
-        queryClient.invalidateQueries("user-albums");
-        queryClient.refetchQueries("albums");
+        queryClient.invalidateQueries(queryKeys.album);
+        queryClient.invalidateQueries(queryKeys.currentUser);
+        queryClient.invalidateQueries(queryKeys.userAlbums);
+        queryClient.refetchQueries(queryKeys.albums);
       },
     },
   );
@@ -150,10 +152,10 @@ export function useDeleteAlbum() {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("album");
-        queryClient.invalidateQueries("current-user");
-        queryClient.invalidateQueries("user-albums");
-        queryClient.refetchQueries("albums");
+        queryClient.invalidateQueries(queryKeys.album);
+        queryClient.invalidateQueries(queryKeys.currentUser);
+        queryClient.invalidateQueries(queryKeys.userAlbums);
+        queryClient.refetchQueries(queryKeys.albums);
       },
     },
   );
@@ -173,10 +175,10 @@ export function useLikeAlbum() {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("album");
-        queryClient.invalidateQueries("current-user");
-        queryClient.invalidateQueries("user-albums");
-        queryClient.refetchQueries("albums");
+        queryClient.invalidateQueries(queryKeys.album);
+        queryClient.invalidateQueries(queryKeys.currentUser);
+        queryClient.invalidateQueries(queryKeys.userAlbums);
+        queryClient.refetchQueries(queryKeys.albums);
       },
     },
   );

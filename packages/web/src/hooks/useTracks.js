@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useInfiniteQuery, useQueryClient } from "react-query";
 
+import queryKeys from "../queries/constants";
 import tracksApi from "../api/api-tracks";
 import * as authService from "../services/auth";
 
@@ -15,7 +16,7 @@ const queryOptions = {
 export function useFetchTrack(trackId, params = {}) {
   const { extend } = params;
   const { data = {}, ...query } = useQuery(
-    ["track", trackId, extend],
+    [queryKeys.track, trackId, extend],
     () => tracksApi.getTrack(trackId, { extend }),
     queryOptions,
   );
@@ -26,7 +27,7 @@ export function useFetchTrack(trackId, params = {}) {
 export function useFetchTracks(params = {}) {
   const { page, limit, sort, order, genreId, userId } = params;
   const { data = [], ...query } = useQuery(
-    ["tracks", page, limit, order, sort, genreId, userId],
+    [queryKeys.tracks, page, limit, order, sort, genreId, userId],
     () => tracksApi.getTracks({ page, limit, sort, order, genre: genreId, user: userId }),
     queryOptions,
   );
@@ -37,7 +38,7 @@ export function useFetchTracks(params = {}) {
 export function useInfiniteTracks(params = {}) {
   const { limit, sort, order, genreId, userId } = params;
   const { data = [], ...query } = useInfiniteQuery(
-    ["tracks", limit, order, sort, genreId, userId],
+    [queryKeys.tracks, limit, order, sort, genreId, userId],
     ({ pageParam: page = 1 }) =>
       tracksApi.getTracks({ page, limit, order, sort, genre: genreId, user: userId }),
     {
@@ -52,7 +53,7 @@ export function useInfiniteTracks(params = {}) {
 export function useFetchUserTracks(params = {}) {
   const { page, sort, order, limit, extend } = params;
   const { data = [], ...query } = useQuery(
-    ["user-tracks", page, sort, order, limit, extend],
+    [queryKeys.userTracks, page, sort, order, limit, extend],
     async () => {
       const authToken = await authService.getCurrentUserToken();
 
@@ -71,8 +72,9 @@ export async function usePrefetchTracks(params = {}) {
   const { page, limit, sort, order, genreId, userId } = params;
   const queryClient = useQueryClient();
 
-  await queryClient.prefetchQuery(["tracks", page, limit, sort, order, genreId, userId], () =>
-    tracksApi.getTracks({ page, limit, order, sort, genre: genreId, user: userId }),
+  await queryClient.prefetchQuery(
+    [queryKeys.tracks, page, limit, sort, order, genreId, userId],
+    () => tracksApi.getTracks({ page, limit, order, sort, genre: genreId, user: userId }),
   );
 }
 
@@ -88,9 +90,9 @@ export function useCreateTrack() {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("current-user");
-        queryClient.invalidateQueries("user-tracks");
-        queryClient.refetchQueries("tracks");
+        queryClient.invalidateQueries(queryKeys.currentUser);
+        queryClient.invalidateQueries(queryKeys.userTracks);
+        queryClient.refetchQueries(queryKeys.tracks);
       },
     },
   );
@@ -110,10 +112,10 @@ export function useUpdateTrack() {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("track");
-        queryClient.invalidateQueries("current-user");
-        queryClient.invalidateQueries("user-tracks");
-        queryClient.refetchQueries("tracks");
+        queryClient.invalidateQueries(queryKeys.track);
+        queryClient.invalidateQueries(queryKeys.currentUser);
+        queryClient.invalidateQueries(queryKeys.userTracks);
+        queryClient.refetchQueries(queryKeys.tracks);
       },
     },
   );
@@ -133,10 +135,10 @@ export function useDeleteTrack() {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("track");
-        queryClient.invalidateQueries("current-user");
-        queryClient.invalidateQueries("user-tracks");
-        queryClient.refetchQueries("tracks");
+        queryClient.invalidateQueries(queryKeys.track);
+        queryClient.invalidateQueries(queryKeys.currentUser);
+        queryClient.invalidateQueries(queryKeys.userTracks);
+        queryClient.refetchQueries(queryKeys.tracks);
       },
     },
   );
@@ -156,10 +158,10 @@ export function useLikeTrack() {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("track");
-        queryClient.invalidateQueries("current-user");
-        queryClient.invalidateQueries("user-tracks");
-        queryClient.refetchQueries("tracks");
+        queryClient.invalidateQueries(queryKeys.track);
+        queryClient.invalidateQueries(queryKeys.currentUser);
+        queryClient.invalidateQueries(queryKeys.userTracks);
+        queryClient.refetchQueries(queryKeys.tracks);
       },
     },
   );
@@ -179,10 +181,10 @@ export function usePlayTrack() {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("track");
-        queryClient.invalidateQueries("current-user");
-        queryClient.invalidateQueries("user-tracks");
-        queryClient.refetchQueries("tracks");
+        queryClient.invalidateQueries(queryKeys.track);
+        queryClient.invalidateQueries(queryKeys.currentUser);
+        queryClient.invalidateQueries(queryKeys.userTracks);
+        queryClient.refetchQueries(queryKeys.tracks);
       },
     },
   );
