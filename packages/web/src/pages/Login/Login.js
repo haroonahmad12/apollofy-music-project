@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import styled from "styled-components";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import CookieConsent from "react-cookie-consent";
 
 import {
@@ -105,7 +105,7 @@ export default function Login() {
     setResetPassModalOpen(!resetPassModalIsOpen);
   };
 
-  const handleError = (err) => toast(err);
+  // const handleError = (err) => toast(err);
 
   if (isAuthenticated) {
     return <Navigate to={ROUTES.HOME} />;

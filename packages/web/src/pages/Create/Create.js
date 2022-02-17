@@ -18,7 +18,8 @@ import ThemeProvider from "@mui/material/styles/ThemeProvider";
 const NavBar = styled.nav`
   display: flex;
   justify-content: space-evenly;
-  background-color: ${({ theme }) => theme.colors.background.secondary};
+  background-color: ${({ theme }) => theme.colors.background.primary};
+  border: 1px solid ${({ theme }) => theme.colors.background.secondary};
   padding: 0.5rem;
   border-radius: 1.25rem;
 `;
