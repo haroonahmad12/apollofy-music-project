@@ -19,7 +19,7 @@ const FooterLayout = styled.footer`
 `;
 
 export default function Footer() {
-  //   const navigate = useNavigate();
+
   return (
     <FooterLayout>
       <FooterText>

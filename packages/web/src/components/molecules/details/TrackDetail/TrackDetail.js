@@ -13,7 +13,6 @@ import { formatNumReprod } from "../../../../utils/utils";
 const TrackLayout = styled.div`
   display: flex;
   justify-content: space-between;
-  gap: 1rem;
   padding: 0.3rem;
   border-radius: 0.5rem;
   &:hover {
@@ -62,15 +61,16 @@ const StyledNumber = styled.div`
   color: ${({ theme }) => theme.colors.text};
 `;
 
-const TrackDetail = ({ track, handlePlayButton }) => {
+const TrackDetail = ({ track }) => {
+  console.log(track);
   return (
     <TrackLayout>
       <Box sx={{ display: 'flex' }}>
         <TrackPicture alt="Track's Thumbnail" src={track?.thumbnails?.url_default} />
         <TrackFlex>
-          <TrackLink to={`/albums/${track?.genres}`}>
+         
             <HomeSmallText>{track?.title}</HomeSmallText>
-          </TrackLink>
+
           <TrackLink to={`/users/${track?.user?.id}`}>
             <DetailText>{track?.user?.username}</DetailText>
           </TrackLink>
@@ -81,14 +81,13 @@ const TrackDetail = ({ track, handlePlayButton }) => {
           <HeadphonesIcon sx={{ color: "purple" }} />
           <StyledNumber>{formatNumReprod(track?.num_plays)}</StyledNumber>
         </StyledNumTrack>
-        <ProfilePlayTrack track={track} handlePlayButton={handlePlayButton} />
+        <ProfilePlayTrack track={track} />
       </Box>
     </TrackLayout>
   );
 };
 
 TrackDetail.propTypes = {
-  handlePlayButton: PropTypes.func,
   track: PropTypes.exact({
     id: PropTypes.string.isRequired,
     user: PropTypes.object.isRequired,
@@ -112,7 +111,6 @@ TrackDetail.propTypes = {
 };
 
 TrackDetail.defaultProps = {
-  handlePlayButton: null,
   track: {
     id: null,
     user: {},

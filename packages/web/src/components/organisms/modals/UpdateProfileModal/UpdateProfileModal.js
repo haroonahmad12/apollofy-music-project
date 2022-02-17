@@ -26,15 +26,7 @@ const TextField = styled.input`
   transition: border-color 0.15s ease-In-out, box-shadow 0.15s ease-In-out;
 `;
 
-export default function UpdateProfileModal({
-  openProfileModal,
-  handleClose,
-  email,
-  password,
-  username,
-  birthDay,
-  profilePic,
-}) {
+export default function UpdateProfileModal({ modalType, openProfileModal, handleClose }) {
   const dispatch = useDispatch();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -43,19 +35,22 @@ export default function UpdateProfileModal({
   const [fileLoading, setFileLoading] = React.useState(false);
 
   const setTargetValue = (target) => {
-    if (email) {
+    if (modalType === "email") {
       setUpdate({ email: target.value });
     }
-    if (username) {
+    if (modalType === "username") {
       setUpdate({ username: target.value });
     }
-    if (birthDay) {
+    if (modalType === "birthday") {
       setUpdate({ birth_date: target.value });
+    }
+    if (modalType === "description") {
+      setUpdate({ description: target.value });
     }
   };
 
   const sendUpdate = async () => {
-    if (password) {
+    if (modalType === "password") {
       await auth.sendPasswordResetEmail(auth.currentUser.email);
       return;
     }
@@ -85,8 +80,8 @@ export default function UpdateProfileModal({
     );
 
     if (res) {
-      setUpdate({ thumbnails: { url_default: res?.data?.secure_url } });
       setFileLoading(false);
+      setUpdate({ thumbnails: { url_default: res?.data?.secure_url } });
     }
   }
 
@@ -99,28 +94,33 @@ export default function UpdateProfileModal({
         aria-labelledby="responsive-dialog-title"
       >
         <DialogTitle id="responsive-dialog-title">
-          {(email && "Please Enter Your new Email Address") ||
-            (password && "Please Enter Your new Password") ||
-            (username && "Please Enter Your new Username") ||
-            (birthDay && "Please Enter Your new Birthday") ||
-            (profilePic && "Select your new profile picture")}
+          {(modalType === "email" && "Please Enter Your new Email Address") ||
+            (modalType === "password" && "Please Enter Your new Password") ||
+            (modalType === "username" && "Please Enter Your new Username") ||
+            (modalType === "birthday" && "Please Enter Your new Birthday") ||
+            (modalType === "profilePic" && "Select your new profile picture") ||
+            (modalType === "description" && "Please Update your description")}
         </DialogTitle>
         <TextField
           type={
-            (email && "email") ||
-            (password && "password") ||
-            (username && "text") ||
-            (birthDay && "date") ||
-            (profilePic && "file")
+            (modalType === "email" && "email") ||
+            (modalType === "password" && "password") ||
+            (modalType === "username" && "text") ||
+            (modalType === "birthday" && "date") ||
+            (modalType === "profilePic" && "file") ||
+            (modalType === "description" && "text")
           }
           placeholder={
-            (email && "email@mail.com") ||
-            (password && "Click on Agree to send a password reset link") ||
-            (username && "new username") ||
-            (birthDay && "change your birthday")
+            (modalType === "email" && "email@mail.com") ||
+            (modalType === "password" && "Click on Agree to send a password reset link") ||
+            (modalType === "username" && "new username") ||
+            (modalType === "birthday" && "change your birthday") ||
+            (modalType === "description" && "change your description")
           }
-          onChange={(e) => (profilePic ? uploadImage(e.target.files) : setTargetValue(e.target))}
-          disabled={password && true}
+          onChange={(e) =>
+            modalType === "profilePic" ? uploadImage(e.target.files) : setTargetValue(e.target)
+          }
+          disabled={modalType === "password" && true}
         />
         <DialogActions>
           <Button autoFocus onClick={handleClose}>
@@ -143,20 +143,12 @@ export default function UpdateProfileModal({
 
 UpdateProfileModal.propTypes = {
   openProfileModal: PropTypes.bool,
+  modalType: PropTypes.string,
   handleClose: PropTypes.func,
-  email: PropTypes.string,
-  password: PropTypes.string,
-  username: PropTypes.string,
-  birthDay: PropTypes.string,
-  profilePic: PropTypes.string,
 };
 
 UpdateProfileModal.defaultProps = {
   openProfileModal: false,
   handleClose: null,
-  email: null,
-  password: null,
-  username: null,
-  birthDay: null,
-  profilePic: null,
+  modalType: null,
 };

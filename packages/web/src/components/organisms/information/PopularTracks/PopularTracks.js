@@ -7,12 +7,17 @@ import SmallText from "../../../atoms/body/SmallText";
 
 export const SectionLayout = styled.div`
   margin-top: 1.45rem;
+  padding-right: 0.75rem;
   display: flex;
   flex-direction: column;
+  @media only screen and (max-width: ${({ theme }) => theme.media.desktop}) {
+   padding-right: 0;
+  }
 `;
 
 export const TracksList = styled(SectionLayout)`
   margin-top: 0;
+  
   background-color: ${({ theme }) => theme.colors.background.secondary};
   border-radius: 1.25rem;
   padding: 1rem;

@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useInfiniteQuery, useQueryClient } from "react-query";
 
+import queryKeys from "../queries/constants";
 import playlistsApi from "../api/api-playlists";
 import * as authService from "../services/auth";
 
@@ -15,7 +16,7 @@ const queryOptions = {
 export function useFetchPlaylist(playlistId, params = {}) {
   const { extend } = params;
   const { data = {}, query } = useQuery(
-    ["playlist", playlistId, extend],
+    [queryKeys.playlist, playlistId, extend],
     () => playlistsApi.getPlaylist(playlistId, { extend }),
     queryOptions,
   );
@@ -26,7 +27,7 @@ export function useFetchPlaylist(playlistId, params = {}) {
 export function useFetchPlaylists(params = {}) {
   const { page, limit, sort, order, userId } = params;
   const { data = [], ...query } = useQuery(
-    ["playlists", page, limit, order, sort, userId],
+    [queryKeys.playlists, page, limit, order, sort, userId],
     () => playlistsApi.getPlaylists({ page, limit, sort, order, user: userId }),
     queryOptions,
   );
@@ -37,7 +38,7 @@ export function useFetchPlaylists(params = {}) {
 export function useInfinitePlaylists(params = {}) {
   const { limit, sort, order, userId } = params;
   const { data = [], ...query } = useInfiniteQuery(
-    ["playlists", limit, order, sort, userId],
+    [queryKeys.playlists, limit, order, sort, userId],
     ({ pageParam: page = 1 }) =>
       playlistsApi.getPlaylists({ page, limit, order, sort, user: userId }),
     {
@@ -52,7 +53,7 @@ export function useInfinitePlaylists(params = {}) {
 export function useFetchUserPlaylists(params = {}) {
   const { page, sort, order, limit, extend } = params;
   const { data = [], ...query } = useQuery(
-    ["user-playlists", page, sort, order, limit, extend],
+    [queryKeys.userPlaylists, page, sort, order, limit, extend],
     async () => {
       const authToken = await authService.getCurrentUserToken();
 
@@ -71,7 +72,7 @@ export async function usePrefetchPlaylists(params = {}) {
   const { page, limit, sort, order, userId } = params;
   const queryClient = useQueryClient();
 
-  await queryClient.prefetchQuery(["playlists", page, limit, sort, order, userId], () =>
+  await queryClient.prefetchQuery([queryKeys.playlists, page, limit, sort, order, userId], () =>
     playlistsApi.getPlaylists({ page, limit, order, sort, user: userId }),
   );
 }
@@ -88,9 +89,9 @@ export function useCreatePlaylist() {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("current-user");
-        queryClient.invalidateQueries("user-playlists");
-        queryClient.refetchQueries("playlists");
+        queryClient.invalidateQueries(queryKeys.currentUser);
+        queryClient.invalidateQueries(queryKeys.userPlaylists);
+        queryClient.refetchQueries(queryKeys.playlists);
       },
     },
   );
@@ -110,10 +111,10 @@ export function useUpdatePlaylist() {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("playlist");
-        queryClient.invalidateQueries("current-user");
-        queryClient.invalidateQueries("user-playlists");
-        queryClient.refetchQueries("playlists");
+        queryClient.invalidateQueries(queryKeys.playlist);
+        queryClient.invalidateQueries(queryKeys.currentUser);
+        queryClient.invalidateQueries(queryKeys.userPlaylists);
+        queryClient.refetchQueries(queryKeys.playlists);
       },
     },
   );
@@ -133,10 +134,10 @@ export function useDeletePlaylist() {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("playlist");
-        queryClient.invalidateQueries("current-user");
-        queryClient.invalidateQueries("user-playlists");
-        queryClient.refetchQueries("playlists");
+        queryClient.invalidateQueries(queryKeys.playlist);
+        queryClient.invalidateQueries(queryKeys.currentUser);
+        queryClient.invalidateQueries(queryKeys.userPlaylists);
+        queryClient.refetchQueries(queryKeys.playlists);
       },
     },
   );
@@ -156,10 +157,10 @@ export function useFollowPlaylist() {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("playlist");
-        queryClient.invalidateQueries("current-user");
-        queryClient.invalidateQueries("user-playlists");
-        queryClient.refetchQueries("playlists");
+        queryClient.invalidateQueries(queryKeys.playlist);
+        queryClient.invalidateQueries(queryKeys.currentUser);
+        queryClient.invalidateQueries(queryKeys.userPlaylists);
+        queryClient.refetchQueries(queryKeys.playlists);
       },
     },
   );

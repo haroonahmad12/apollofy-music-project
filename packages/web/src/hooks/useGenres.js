@@ -1,5 +1,6 @@
 import { useQuery, useQueryClient } from "react-query";
 
+import queryKeys from "../queries/constants";
 import genresApi from "../api/api-genres";
 
 const queryOptions = {
@@ -13,7 +14,7 @@ const queryOptions = {
 
 export function useFetchGenre(genreId) {
   const { data = {}, ...query } = useQuery(
-    ["genre", genreId],
+    [queryKeys.genre, genreId],
     () => genresApi.getGenre(genreId),
     queryOptions,
   );
@@ -22,7 +23,11 @@ export function useFetchGenre(genreId) {
 }
 
 export function useFetchGenres() {
-  const { data = [], ...query } = useQuery(["genres"], () => genresApi.getGenres(), queryOptions);
+  const { data = [], ...query } = useQuery(
+    [queryKeys.genres],
+    () => genresApi.getGenres(),
+    queryOptions,
+  );
 
   return { ...query, data };
 }
@@ -30,5 +35,5 @@ export function useFetchGenres() {
 export async function usePrefetchGenres() {
   const queryClient = useQueryClient();
 
-  await queryClient.prefetchQuery(["genres"], () => genresApi.getGenres());
+  await queryClient.prefetchQuery([queryKeys.genres], () => genresApi.getGenres());
 }

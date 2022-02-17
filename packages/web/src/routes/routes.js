@@ -13,3 +13,4 @@ export const STATS = "/stats";
 export const GENRES = "/genres";
 export const TRACKS = "/tracks";
 export const TRACK = "/track";
+export const ALBUM = "/album";

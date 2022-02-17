@@ -26,8 +26,8 @@ import FriendsPage from "./pages/Friends";
 import { onAuthStateChanged } from "./services/auth";
 import { authSelector, syncSignIn, signOut } from "./store/auth";
 
-import TrackCreateForm from "./components/organisms/forms/TrackForm/TrackCreateForm";
 import TrackUpdateForm from "./components/organisms/forms/TrackForm/TrackUpdateForm";
+import AlbumUpdateForm from "./components/organisms/forms/AlbumForm/AlbumUpdateForm";
 
 import { GlobalStyles } from "./styles/GlobalStyles";
 import { darkTheme, lightTheme } from "./styles/Themes";
@@ -79,36 +79,56 @@ function App() {
         <ThemeProvider theme={themeMode}>
           <GlobalStyles />
           <Routes>
-            <Route path={ROUTES.ALBUMS} element={<Albums />} />
-            <Route path={`${ROUTES.PLAYLISTS}/:playlistId`} element={<Playlists />} />
-            <Route path={`${ROUTES.USERS}/:profileId`} element={<Profile />} />
-            <Route path={`${ROUTES.GENRES}/:genreId`} element={<Genres />} />
-            <Route path={ROUTES.PLAYLISTS} element={<Playlists />} />
-            <Route path={ROUTES.CREATE_PLAYLIST} element={<Create />} />
-            <Route path={ROUTES.USERS} element={<Users />} />
             <Route path={ROUTES.USER_FRIENDS} element={<FriendsPage />} />
-            <Route path={ROUTES.STATS} element={<Statistics />} />
-            <Route path={`${ROUTES.TRACKS}/:genre`} element={<TracksByGenre />} />
             <Route path={ROUTES.SIGN_UP} element={<SignUp />} />
             <Route path={ROUTES.LOGIN} element={<Login />} />
             <Route path={ROUTES.RESET_PASSWORD} element={<ResetPassword />} />
-            <Route path={`${ROUTES.TRACK}/add`} element={<TrackCreateForm />} />
-            <Route path={`${ROUTES.TRACK}/update/:id`} element={<TrackUpdateForm />} />
             {isAuthenticated && (
-              <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>
-                <Route path={ROUTES.HOME} exact element={<Home />} />
-              </Route>
+              <>
+                <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>
+                  <Route path={ROUTES.ALBUMS} element={<Albums />} />
+                </Route>
+                <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>
+                  <Route path={ROUTES.USER_FRIENDS} element={<FriendsPage />} />
+                </Route>
+                <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>
+                  <Route path={`${ROUTES.PLAYLISTS}/:playlistId`} element={<Playlists />} />
+                </Route>
+                <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>
+                  <Route path={`${ROUTES.USERS}/:profileId`} element={<Profile />} />
+                </Route>
+                <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>
+                  <Route path={`${ROUTES.GENRES}/:genreId`} element={<Genres />} />
+                </Route>
+                <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>
+                  <Route path={ROUTES.CREATE_PLAYLIST} element={<Create />} />
+                </Route>
+                <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>
+                  <Route path={ROUTES.USERS} element={<Users />} />
+                </Route>
+                <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>
+                  <Route path={ROUTES.STATS} element={<Statistics />} />
+                </Route>
+                <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>
+                  <Route path={`${ROUTES.TRACKS}/:genre`} element={<TracksByGenre />} />
+                </Route>
+                <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>
+                  <Route path={`${ROUTES.ALBUM}/update/:id`} element={<AlbumUpdateForm />} />
+                </Route>
+                <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>
+                  <Route path={`${ROUTES.TRACK}/update/:id`} element={<TrackUpdateForm />} />
+                </Route>
+                <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>
+                  <Route path={ROUTES.HOME} exact element={<Home />} />
+                </Route>
+                <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>
+                  <Route path={ROUTES.EDIT_PROFILE} element={<EditProfile />} />
+                </Route>
+              </>
             )}
-            {isAuthenticated && (
-              <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>
-                <Route path={ROUTES.EDIT_PROFILE} element={<EditProfile />} />
-              </Route>
-            )}
-            {isAuthenticated && (
-              <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>
-                <Route path="*" element={<NotFound />} />
-              </Route>
-            )}
+            <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>
+              <Route path="*" element={<NotFound />} />
+            </Route>
           </Routes>
         </ThemeProvider>
       </>

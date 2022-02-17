@@ -6,21 +6,17 @@ import { Link } from "react-router-dom";
 import SmallText from "../../../atoms/body/SmallText";
 
 const GenreTitle = styled(SmallText)`
-  margin-top: auto;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   width: 100%;
-  line-height: 3rem;
+  line-height: 1.5rem;
   color: white;
-  letter-spacing: 5px;
   text-shadow: 2px 2px black;
-
-  @media only screen and (max-width: ${({ theme }) => theme.media.mobile}) {
-    font-size: 2rem;
-  }
+  margin: 0;
 `;
 
 const GenreLink = styled(Link)`
   text-decoration: none;
+  padding: 0 0.5rem 0.5rem;
 `;
 
 const GenreLayout = styled.div`
@@ -28,17 +24,16 @@ const GenreLayout = styled.div`
   cursor: pointer;
   height: 6rem;
   border-radius: 1.25rem;
-  padding: 0.3rem;
-  display: flex;
-  justify-content: center;
-  border: 1px solid ${({ theme }) => theme.colors.border};
+  padding: 0.5rem;
   text-align: center;
   overflow: hidden;
   background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   &:hover{
     opacity:0.8;
   }
-
   @media only screen and (max-width: ${({ theme }) => theme.media.mobile}) {
     height: 3.5rem;
   }

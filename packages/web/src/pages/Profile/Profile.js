@@ -13,7 +13,6 @@ import ProfileUserCards from "../../components/organisms/information/ProfileUser
 import ProfileUserTracks from "../../components/organisms/information/ProfileUserTracks";
 import AlbumModal from "../../components/organisms/modals/AlbumModal/AlbumModal";
 import PlaylistModal from "../../components/organisms/modals/PlaylistModal";
-import SearchBar from "../../components/molecules/input-controls/SearchBar";
 import ButtonPlaySuffle from "../../components/molecules/buttons/ButtonPlayShuffle";
 
 const StyledProfile = styled.div`
@@ -77,7 +76,7 @@ const Profile = () => {
           }}
         />
       </StyledTitle>
-      <ProfileUserCards data={albums?.data?.data} />
+      <ProfileUserCards data={albums?.data?.data} type="albums" />
       <StyledTitle>
         Playlists
         <AddBoxIcon
@@ -89,7 +88,7 @@ const Profile = () => {
           }}
         />
       </StyledTitle>
-      <ProfileUserCards data={playlists?.data?.data} />
+      <ProfileUserCards data={playlists?.data?.data} type="playlists" />
       {isOpen && modal === "albums" && <AlbumModal isOpen={isOpen} handleModal={handleModal} />}
       {isOpen && modal === "playlists" && (
         <PlaylistModal isOpen={isOpen} handleModal={handleModal} />
