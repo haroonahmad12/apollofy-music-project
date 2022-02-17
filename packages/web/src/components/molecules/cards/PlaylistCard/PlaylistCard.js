@@ -24,7 +24,6 @@ const StyledPlaylistTitle = styled.p`
   font-size: 1.2rem;
   margin-bottom: 1rem;
   mix-blend-mode: difference;
-  letter-spacing: 5px;
   @media only screen and (max-width: ${({ theme }) => theme.media.mobile}) {
     font-size: 1rem;
   }

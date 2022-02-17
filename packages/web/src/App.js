@@ -26,6 +26,7 @@ import { onAuthStateChanged } from "./services/auth";
 import { authSelector, syncSignIn, signOut } from "./store/auth";
 
 import TrackUpdateForm from "./components/organisms/forms/TrackForm/TrackUpdateForm";
+import AlbumUpdateForm from "./components/organisms/forms/AlbumForm/AlbumUpdateForm";
 
 import { GlobalStyles } from "./styles/GlobalStyles";
 import { darkTheme, lightTheme } from "./styles/Themes";
@@ -105,6 +106,9 @@ function App() {
                 </Route>
                 <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>
                   <Route path={`${ROUTES.TRACKS}/:genre`} element={<TracksByGenre />} />
+                </Route>
+                <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>
+                  <Route path={`${ROUTES.ALBUM}/update/:id`} element={<AlbumUpdateForm />} />
                 </Route>
                 <Route element={<PrivateWrapper auth={{ isAuthenticated }} />}>
                   <Route path={`${ROUTES.TRACK}/update/:id`} element={<TrackUpdateForm />} />

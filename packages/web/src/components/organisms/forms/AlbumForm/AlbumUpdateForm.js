@@ -1,8 +1,7 @@
 import React from "react";
 import { FileUploader } from "react-drag-drop-files";
 import { useFormik } from "formik";
-import { useNavigate } from "react-router-dom";
-import { useFetchAlbum, useUpdateAlbum, useUpdateAlbum } from "../../../../hooks/useAlbums";
+import { useFetchAlbum, useUpdateAlbum } from "../../../../hooks/useAlbums";
 import { useFetchGenres } from "../../../../hooks/useGenres";
 import validationSchema from "../../../../schemas/AlbumSchema";
 import {
@@ -23,9 +22,11 @@ import { LoadingButton } from "@mui/lab";
 import { uploadResource } from "../../../../api/api-cloudinary";
 import withLayout from "../../../hoc/withLayout";
 import { useFetchUserTracks } from "../../../../hooks/useTracks";
+import { useParams } from "react-router-dom";
 
 function initialValues(responseData = {}) {
   return {
+    id: responseData.id,
     title: responseData.title,
     released_date: responseData.released_date,
     genres: responseData.genres,
@@ -36,7 +37,9 @@ function initialValues(responseData = {}) {
 
 const allowedImageExt = ["jpg", "jpeg", "png"];
 
-function AlbumCreateForm() {
+function AlbumUpdateForm() {
+  const { id } = useParams();
+
   const {
     isLoading: updateAlbumIsLoading,
     isError: updateAlbumIsError,
@@ -72,12 +75,15 @@ function AlbumCreateForm() {
 
   // const navigate = useNavigate();
 
+
   const formik = useFormik({
-    initialValues = initialValues(fetchAlbumResponse),
+  initialValues:initialValues(fetchAlbumResponse?.data?.data),
     validationSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
+      console.log(values);
       const data = {
+        id: values.id,
         title: values.title,
         released_date: values.released_date,
         genres: values.genres,
@@ -105,9 +111,11 @@ function AlbumCreateForm() {
     setFieldError,
   } = formik;
 
+
+  // console.log(fetchAlbumIsSuccess,fetchGenresIsSuccess,fetchMyTracksIsSuccess)
   return (
     <Container as="main">
-      <Typography sx={{ fontSize: "2rem", fontWeight: "light", mb: 2 }}>Add album</Typography>
+      <Typography sx={{ fontSize: "2rem", fontWeight: "light", mb: 2 }}>Update Album</Typography>
       {updateAlbumIsSuccess && (
         <Alert sx={{ mb: 2 }} severity={updateAlbumResponse.data.success ? "success" : "error"}>
           {updateAlbumResponse.data.message}
@@ -131,7 +139,7 @@ function AlbumCreateForm() {
           <CircularProgress size={128} />
         </Box>
       )}
-      {fetchAlbumIsSuccess && fetchGenresIsSuccess && fetchMyTracksIsSuccess && (
+      { fetchGenresIsSuccess && fetchMyTracksIsSuccess && (
         <form onSubmit={handleSubmit}>
           <Box
             sx={{
@@ -144,6 +152,7 @@ function AlbumCreateForm() {
               <InputLabel sx={{ mb: 1 }} htmlFor="input_title">
                 Album title
               </InputLabel>
+              <input type="hidden" name="id_album" id="id_album" values={values.id} />
               <TextField
                 fullWidth
                 size="small"
@@ -268,7 +277,7 @@ function AlbumCreateForm() {
             loading={isValidating || updateAlbumIsLoading}
             variant="contained"
           >
-            Add album
+            Update album
           </LoadingButton>
         </form>
       )}
@@ -276,4 +285,4 @@ function AlbumCreateForm() {
   );
 }
 
-export default withLayout(AlbumCreateForm);
+export default withLayout(AlbumUpdateForm);
