@@ -160,28 +160,6 @@ const EditProfile = () => {
       </InputDiv>
 
       <InputDiv>
-        <InputLabel htmlFor="birth_date">Description</InputLabel>
-        <InsideDiv>
-          <InputField>{currentUser.description}</InputField>
-          <Button
-            type="button"
-            size="small"
-            onClick={() => {
-              setBirthdayModal(false);
-              setOpenProfileModal(true);
-              setUsernameModal(false);
-              setPasswordModal(false);
-              setEmailModal(false);
-              setProfilePicModal(false);
-              setDescriptionModal(true);
-            }}
-          >
-            <EditIcon />
-          </Button>
-        </InsideDiv>
-      </InputDiv>
-
-      <InputDiv>
         <InputLabel htmlFor="birth_date">Birthday</InputLabel>
         <InsideDiv>
           <InputField>{currentUser?.birth_date}</InputField>
