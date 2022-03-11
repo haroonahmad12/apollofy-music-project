@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { useFetchPlaylist } from "../../hooks/usePlaylists";
 import withLayout from "../../components/hoc/withLayout";
 import TrackDetail from "../../components/molecules/details/TrackDetail";
-import SearchBar from "../../components/molecules/input-controls/SearchBar";
+
 import ProfileUserDescription from "../../components/atoms/body/ProfileUserDescription";
 import PlaylistImage from "../../components/atoms/images/PlaylistImage";
 import SmallText from "../../components/atoms/body/SmallText";
