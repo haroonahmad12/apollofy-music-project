@@ -5,8 +5,7 @@
   "private": true,
   "scripts": {
     "start": "react-scripts start",
-    "dev": "yarn run start",
-    "build": "react-scripts build",
+        "build": "react-scripts build",
     "netlify:build": "npm run build",
     "test": "react-scripts test",
     "test:watch": "react-scripts test --watchAll",
