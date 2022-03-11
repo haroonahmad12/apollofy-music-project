@@ -54,10 +54,6 @@ export default function AddFriendsModal({ isOpen, handleModal }) {
 
   const handleClose = () => handleModal();
 
-  function handleSubmit(e) {
-    e.preventDefault();
-  }
-
   return (
     <StyledModal
       aria-labelledby="unstyled-modal-title"

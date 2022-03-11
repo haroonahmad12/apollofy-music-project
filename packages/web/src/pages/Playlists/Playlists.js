@@ -56,7 +56,6 @@ function PlaylistsPage() {
 
   return (
     <>
-      <SearchBar />
       <PageLayout>
         <PictureDiv>
           <PlaylistImage picture={playlist?.thumbnails?.url_default} title={playlist?.title} />
